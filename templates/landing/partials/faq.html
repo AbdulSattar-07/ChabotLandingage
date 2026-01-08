@@ -1,8 +1,8 @@
 <!-- FAQ Section -->
-<section id="faq" class="py-20 lg:py-28 bg-gradient-to-br from-slate-50 to-blue-50/50">
+<section id="faq" class="py-20 lg:py-28 bg-gradient-to-br from-slate-50 to-blue-50/50 morph-bg-3d">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16 reveal">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4 section-title-3d text-3d">
                 {{ settings.faq_title|default:"Frequently Asked Questions ❓" }}
             </h2>
             <p class="text-lg text-gray-600">
@@ -12,7 +12,7 @@
 
         <div class="space-y-4 reveal">
             {% for faq in faqs %}
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden faq-item-3d glass-3d">
                 <button
                     class="faq-toggle w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
                     aria-expanded="false">

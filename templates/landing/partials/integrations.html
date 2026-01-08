@@ -1,8 +1,8 @@
 <!-- Integrations Section - Part of Automation Flow -->
-<section id="integrations" class="py-20 lg:py-28 bg-gradient-to-br from-slate-50 to-indigo-50/30">
+<section id="integrations" class="py-20 lg:py-28 bg-gradient-to-br from-slate-50 to-indigo-50/30 morph-bg-3d particles-3d">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16 reveal">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4 section-title-3d text-3d">
                 {{ settings.integrations_title|default:"Seamless Integrations 🔗" }}
             </h2>
             <p class="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -15,9 +15,9 @@
         <div class="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto mb-16">
             {% for integration in integrations %}
             {% if integration.is_featured and integration.is_active %}
-            <div class="bg-white rounded-2xl shadow-xl p-8 card-hover reveal border border-gray-100" {% if forloop.counter > 1 %}style="transition-delay: 0.1s;"{% endif %}>
+            <div class="bg-white rounded-2xl shadow-xl p-8 card-hover reveal border border-gray-100 integration-card-3d glass-3d shine-3d neon-3d" {% if forloop.counter > 1 %}style="transition-delay: 0.1s;"{% endif %}>
                 <!-- Icon with dynamic color -->
-                <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6
+                <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 icon-3d depth-layer-3
                     {% if integration.icon_color == 'green' %}bg-green-500
                     {% elif integration.icon_color == 'indigo' %}bg-indigo-600
                     {% elif integration.icon_color == 'purple' %}bg-purple-600
@@ -42,7 +42,7 @@
                 <ul class="space-y-3">
                     {% for bullet in integration.get_bullets_list %}
                     <li class="flex items-center text-gray-700">
-                        <svg class="w-5 h-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="w-5 h-5 text-green-500 mr-3 check-3d" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                         </svg>
                         {{ bullet }}

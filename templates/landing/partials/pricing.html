@@ -1,8 +1,8 @@
 <!-- Pricing Section -->
-<section id="pricing" class="py-20 lg:py-28 bg-gradient-to-br from-primary/5 to-secondary/5">
+<section id="pricing" class="py-20 lg:py-28 bg-gradient-to-br from-primary/5 to-secondary/5 morph-bg-3d">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16 reveal">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4 section-title-3d text-3d">
                 {{ settings.pricing_title|default:"Simple, Transparent Pricing 💰" }}
             </h2>
             {% if settings.pricing_subtitle %}
@@ -15,22 +15,20 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto stagger-children">
             {% for plan in plans %}
             <div
-                class="relative bg-white rounded-2xl shadow-lg border {% if plan.is_featured %}border-secondary pricing-featured{% else %}border-gray-100{% endif %} overflow-hidden card-hover">
+                class="relative bg-white rounded-2xl shadow-lg border {% if plan.is_featured %}border-secondary pricing-featured neon-3d{% else %}border-gray-100{% endif %} overflow-hidden card-hover pricing-card-3d shine-3d glass-3d">
                 {% if plan.is_featured %}
-                <div class="absolute top-0 right-0 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
-                    POPULAR
-                </div>
+                <div class="ribbon-3d"></div>
                 {% endif %}
                 <div class="p-6 lg:p-8">
                     <h3 class="text-xl font-bold text-primary mb-2">{{ plan.name }}</h3>
                     <div class="mb-6">
-                        <span class="text-4xl font-extrabold text-primary">{{ plan.price }}</span>
+                        <span class="text-4xl font-extrabold text-primary price-3d">{{ plan.price }}</span>
                         {% if plan.period %}<span class="text-gray-500">{{ plan.period }}</span>{% endif %}
                     </div>
                     <ul class="space-y-3 mb-8">
                         {% for feature in plan.get_bullets_list %}
                         <li class="flex items-start">
-                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none"
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5 check-3d" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M5 13l4 4L19 7" />
@@ -40,7 +38,7 @@
                         {% endfor %}
                     </ul>
                     <a href="{{ plan.cta_url|default:'#' }}"
-                        class="block w-full text-center {% if plan.is_featured %}bg-secondary hover:bg-primary text-white{% else %}bg-gray-100 hover:bg-secondary hover:text-white text-gray-700{% endif %} px-6 py-3 rounded-full font-semibold transition-all btn-hover">
+                        class="block w-full text-center {% if plan.is_featured %}bg-secondary hover:bg-primary text-white{% else %}bg-gray-100 hover:bg-secondary hover:text-white text-gray-700{% endif %} px-6 py-3 rounded-full font-semibold transition-all btn-hover btn-3d glow-3d">
                         {{ plan.cta_label|default:"Get Started" }}
                     </a>
                 </div>

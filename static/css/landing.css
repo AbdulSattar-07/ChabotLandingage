@@ -135,6 +135,229 @@ body {
     transform: translateZ(50px);
 }
 
+/* ==================== ADVANCED 3D EFFECTS ==================== */
+
+/* 3D Section Titles */
+.section-title-3d {
+    position: relative;
+    display: inline-block;
+    transform-style: preserve-3d;
+    animation: titleFloat3D 4s ease-in-out infinite;
+}
+
+@keyframes titleFloat3D {
+    0%, 100% {
+        transform: perspective(1000px) translateZ(0) rotateX(0deg);
+        text-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    50% {
+        transform: perspective(1000px) translateZ(20px) rotateX(2deg);
+        text-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+}
+
+/* 3D Glassmorphism Card */
+.glass-3d {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+/* 3D Neon Glow */
+.neon-3d {
+    position: relative;
+}
+
+.neon-3d::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    background: linear-gradient(45deg, #6366f1, #ec4899, #8b5cf6, #6366f1);
+    background-size: 400% 400%;
+    border-radius: inherit;
+    z-index: -1;
+    filter: blur(20px);
+    opacity: 0;
+    animation: neonPulse 3s ease-in-out infinite;
+    transition: opacity 0.5s ease;
+}
+
+.neon-3d:hover::before {
+    opacity: 0.7;
+}
+
+@keyframes neonPulse {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* 3D Flip Card */
+.flip-card-3d {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+.flip-card-inner {
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+}
+
+.flip-card-3d:hover .flip-card-inner {
+    transform: rotateY(10deg) rotateX(5deg);
+}
+
+/* 3D Depth Layers */
+.depth-layer-1 { transform: translateZ(10px); }
+.depth-layer-2 { transform: translateZ(20px); }
+.depth-layer-3 { transform: translateZ(30px); }
+.depth-layer-4 { transform: translateZ(40px); }
+
+/* 3D Shine Effect */
+.shine-3d {
+    position: relative;
+    overflow: hidden;
+}
+
+.shine-3d::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%
+    );
+    transform: rotate(30deg) translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.shine-3d:hover::after {
+    transform: rotate(30deg) translateX(100%);
+}
+
+/* 3D Morphing Background */
+.morph-bg-3d {
+    position: relative;
+    overflow: hidden;
+}
+
+.morph-bg-3d::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+    animation: morphBg 10s ease-in-out infinite;
+}
+
+@keyframes morphBg {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(10%, 10%) rotate(90deg); }
+    50% { transform: translate(0, 20%) rotate(180deg); }
+    75% { transform: translate(-10%, 10%) rotate(270deg); }
+}
+
+/* 3D Floating Particles */
+.particles-3d {
+    position: relative;
+}
+
+.particles-3d::before,
+.particles-3d::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: linear-gradient(135deg, #6366f1, #ec4899);
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: particleFloat 6s ease-in-out infinite;
+}
+
+.particles-3d::before {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.particles-3d::after {
+    bottom: 20%;
+    right: 10%;
+    animation-delay: 3s;
+}
+
+@keyframes particleFloat {
+    0%, 100% { transform: translateY(0) translateZ(0) scale(1); opacity: 0.5; }
+    50% { transform: translateY(-30px) translateZ(20px) scale(1.5); opacity: 0.8; }
+}
+
+/* 3D Price Tag */
+.price-3d {
+    display: inline-block;
+    transform-style: preserve-3d;
+    animation: pricePopIn 0.6s ease-out;
+}
+
+@keyframes pricePopIn {
+    0% { transform: perspective(500px) rotateX(-90deg) scale(0); opacity: 0; }
+    100% { transform: perspective(500px) rotateX(0) scale(1); opacity: 1; }
+}
+
+/* 3D Checkmark Animation */
+.check-3d {
+    transform-style: preserve-3d;
+    animation: checkBounce 0.5s ease-out;
+}
+
+@keyframes checkBounce {
+    0% { transform: scale(0) rotateZ(-45deg); }
+    50% { transform: scale(1.3) rotateZ(10deg); }
+    100% { transform: scale(1) rotateZ(0deg); }
+}
+
+/* 3D Ribbon */
+.ribbon-3d {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+
+.ribbon-3d::before {
+    content: 'POPULAR';
+    position: absolute;
+    top: 20px;
+    right: -30px;
+    width: 130px;
+    padding: 8px 0;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-align: center;
+    transform: rotate(45deg);
+    box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+    animation: ribbonShine 3s ease-in-out infinite;
+}
+
+@keyframes ribbonShine {
+    0%, 100% { box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4); }
+    50% { box-shadow: 0 5px 25px rgba(99, 102, 241, 0.8); }
+}
+
 /* ==================== HERO SECTION ==================== */
 .hero-section {
     position: relative;
