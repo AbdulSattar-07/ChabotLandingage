@@ -10,29 +10,22 @@
             <div class="relative reveal {% if section.layout_type == 'RIGHT_IMAGE' %}lg:order-2{% endif %}">
                 {% if section.media_type == 'VIDEO' and section.video %}
                 <!-- Video Player -->
-                <div class="section-video-wrapper">
+                <div class="section-video-wrapper floating-3d">
                     <video 
                         class="section-video"
                         {% if section.video_poster %}poster="{{ section.video_poster.url }}"{% endif %}
-                        {% if section.video_autoplay %}autoplay muted{% endif %}
+                        {% if section.video_autoplay %}autoplay{% endif %}
                         {% if section.video_loop %}loop{% endif %}
+                        muted
                         playsinline
-                        preload="metadata"
+                        controls
+                        preload="auto"
                     >
                         <source src="{{ section.video.url }}" type="video/mp4">
+                        <source src="{{ section.video.url }}" type="video/webm">
+                        <source src="{{ section.video.url }}" type="video/ogg">
                         Your browser does not support the video tag.
                     </video>
-                    <!-- Video Controls Overlay -->
-                    <div class="video-overlay">
-                        <button class="video-play-btn" aria-label="Play/Pause video">
-                            <svg class="play-icon" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                            <svg class="pause-icon hidden" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                            </svg>
-                        </button>
-                    </div>
                 </div>
                 {% elif section.image %}
                 <!-- Image -->

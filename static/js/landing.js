@@ -377,43 +377,41 @@
 
         videoWrappers.forEach(wrapper => {
             const video = wrapper.querySelector('.section-video');
-            const playBtn = wrapper.querySelector('.video-play-btn');
-            const overlay = wrapper.querySelector('.video-overlay');
 
-            if (!video || !playBtn) return;
+            if (!video) return;
 
-            // Toggle play/pause on button click
-            playBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                toggleVideo(video, playBtn);
-            });
+            // Ensure video loads and plays
+            video.load();
 
-            // Toggle play/pause on overlay click
-            if (overlay) {
-                overlay.addEventListener('click', () => {
-                    toggleVideo(video, playBtn);
+            // Try to play video (will work if muted and autoplay is set)
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    // Auto-play was prevented, user needs to interact
+                    console.log('Autoplay prevented, waiting for user interaction');
                 });
             }
 
-            // Update button state when video plays/pauses
+            // Pause floating animation when video is being interacted with
             video.addEventListener('play', () => {
-                playBtn.classList.add('playing');
+                wrapper.style.animationPlayState = 'paused';
             });
 
             video.addEventListener('pause', () => {
-                playBtn.classList.remove('playing');
+                wrapper.style.animationPlayState = 'running';
+            });
+
+            // Pause animation on hover for better viewing
+            wrapper.addEventListener('mouseenter', () => {
+                wrapper.style.animationPlayState = 'paused';
+            });
+
+            wrapper.addEventListener('mouseleave', () => {
+                if (video.paused) {
+                    wrapper.style.animationPlayState = 'running';
+                }
             });
         });
-    }
-
-    function toggleVideo(video, playBtn) {
-        if (video.paused) {
-            video.play();
-            playBtn.classList.add('playing');
-        } else {
-            video.pause();
-            playBtn.classList.remove('playing');
-        }
     }
 
     // ==================== INITIALIZE ====================
