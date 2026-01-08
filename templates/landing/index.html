@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/landing.css' %}">
+{% endblock %}
+
+{% block inline_css %}
+/* Dynamic colors from admin */
+:root {
+    --primary-navy: {{ settings.primary_color|default:"#1b1f8a" }};
+    --indigo-accent: {{ settings.secondary_color|default:"#2a2fa3" }};
+    --accent-pink: {{ settings.accent_color|default:"#ec4899" }};
+}
+
+/* ==================== GRADIENT BLOBS ==================== */
+.blob-1 {
+    background: linear-gradient(135deg, {{ settings.secondary_color|default:"#6366f1" }}80, {{ settings.accent_color|default:"#ec4899" }}60);
+    filter: blur(60px);
+}
+.blob-2 {
+    background: linear-gradient(135deg, {{ settings.primary_color|default:"#1e3a5f" }}80, {{ settings.secondary_color|default:"#6366f1" }}60);
+    filter: blur(80px);
+}
+.blob-3 {
+    background: linear-gradient(135deg, {{ settings.accent_color|default:"#ec4899" }}60, {{ settings.secondary_color|default:"#6366f1" }}40);
+    filter: blur(70px);
+}
+{% endblock %}
+
+{% block content %}
+{% include "landing/partials/navbar.html" %}
+{% include "landing/partials/hero.html" %}
+{% include "landing/partials/features.html" %}
+{% include "landing/partials/section_split.html" %}
+{% include "landing/partials/integrations.html" %}
+{% include "landing/partials/pricing.html" %}
+{% include "landing/partials/testimonials.html" %}
+{% include "landing/partials/stats.html" %}
+{% include "landing/partials/faq.html" %}
+{% include "landing/partials/final_cta.html" %}
+{% include "landing/partials/footer.html" %}
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/landing.js' %}"></script>
+{% endblock %}

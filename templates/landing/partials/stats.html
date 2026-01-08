@@ -1,0 +1,39 @@
+<!-- Stats Section -->
+<section id="stats" class="py-16 bg-gradient-to-r from-primary to-secondary">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 stagger-children">
+            {% for stat in stats %}
+            <div class="text-center stat-item">
+                {% if stat.icon %}
+                <div class="w-12 h-12 mx-auto mb-3 text-white/80">
+                    {{ stat.icon|safe }}
+                </div>
+                {% endif %}
+                <div class="stat-value text-4xl lg:text-5xl font-extrabold text-white mb-2"
+                    data-value="{{ stat.value }}">
+                    {{ stat.value }}
+                </div>
+                <div class="text-white/80 font-medium">{{ stat.label }}</div>
+            </div>
+            {% empty %}
+            <!-- Default stats -->
+            <div class="text-center stat-item">
+                <div class="stat-value text-4xl lg:text-5xl font-extrabold text-white mb-2" data-value="10K+">10K+</div>
+                <div class="text-white/80 font-medium">Active Users</div>
+            </div>
+            <div class="text-center stat-item">
+                <div class="stat-value text-4xl lg:text-5xl font-extrabold text-white mb-2" data-value="1M+">1M+</div>
+                <div class="text-white/80 font-medium">Messages Sent</div>
+            </div>
+            <div class="text-center stat-item">
+                <div class="stat-value text-4xl lg:text-5xl font-extrabold text-white mb-2" data-value="50K+">50K+</div>
+                <div class="text-white/80 font-medium">Hours Saved</div>
+            </div>
+            <div class="text-center stat-item">
+                <div class="stat-value text-4xl lg:text-5xl font-extrabold text-white mb-2" data-value="500+">500+</div>
+                <div class="text-white/80 font-medium">Businesses</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,135 @@
+<!-- WASender Style Hero Section -->
+<section id="hero" class="hero-section">
+    <div class="hero-content">
+        <!-- Hero Title -->
+        <h1 class="hero-title">
+            {{ settings.hero_title|default:"Run your ERP with an Royal Soft ERP Chatbot" }}
+        </h1>
+        
+        <!-- Hero Subtitle -->
+        <p class="hero-subtitle">
+            {{ settings.hero_subtitle|default:"Automate inventory, accounts, sales insights, and reporting with intelligent AI assistance." }}
+        </p>
+        
+        <!-- CTA Buttons -->
+        <div class="hero-cta-group">
+            <a href="{{ settings.primary_cta_url|default:'#pricing' }}" class="btn-primary">
+                {{ settings.primary_cta_label|default:"Get Started" }}
+            </a>
+            <a href="{{ settings.secondary_cta_url|default:'#demo' }}" class="btn-secondary">
+                {{ settings.secondary_cta_label|default:"Book Demo" }}
+            </a>
+        </div>
+        
+        <!-- Dashboard Mockup -->
+        <div class="dashboard-mockup">
+            <div class="dashboard-image-wrapper">
+                {% if settings.hero_image %}
+                <img src="{{ settings.hero_image.url }}" alt="Dashboard Preview">
+                {% else %}
+                <!-- Placeholder Dashboard -->
+                <div class="dashboard-placeholder">
+                    <!-- Window Controls -->
+                    <div class="dashboard-header">
+                        <div class="dashboard-dot red"></div>
+                        <div class="dashboard-dot yellow"></div>
+                        <div class="dashboard-dot green"></div>
+                    </div>
+                    
+                    <!-- Dashboard Body -->
+                    <div class="dashboard-body">
+                        <!-- Sidebar -->
+                        <div class="dashboard-sidebar">
+                            <div class="sidebar-item active">
+                                <div class="sidebar-icon"></div>
+                                <span>Dashboard</span>
+                            </div>
+                            <div class="sidebar-item">
+                                <div class="sidebar-icon"></div>
+                                <span>My Devices</span>
+                            </div>
+                            <div class="sidebar-item">
+                                <div class="sidebar-icon"></div>
+                                <span>Single Send</span>
+                            </div>
+                            <div class="sidebar-item">
+                                <div class="sidebar-icon"></div>
+                                <span>Chatbot</span>
+                            </div>
+                            <div class="sidebar-item">
+                                <div class="sidebar-icon"></div>
+                                <span>My Apps</span>
+                            </div>
+                            <div class="sidebar-item">
+                                <div class="sidebar-icon"></div>
+                                <span>Contacts</span>
+                            </div>
+                            <div class="sidebar-item">
+                                <div class="sidebar-icon"></div>
+                                <span>Templates</span>
+                            </div>
+                            <div class="sidebar-item">
+                                <div class="sidebar-icon"></div>
+                                <span>Bulk Message</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Main Content -->
+                        <div class="dashboard-main">
+                            <div class="main-card">
+                                <div class="main-card-header">
+                                    <div class="card-icon">
+                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <div class="card-title">Scan QR Code</div>
+                                        <div class="card-subtitle">Connect your WhatsApp</div>
+                                    </div>
+                                </div>
+                                <div style="background: #f0f9ff; border-radius: 12px; height: 150px; display: flex; align-items: center; justify-content: center;">
+                                    <div style="width: 100px; height: 100px; background: linear-gradient(135deg, #1b1f8a 0%, #2a2fa3 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                        <svg width="50" height="50" fill="white" viewBox="0 0 24 24">
+                                            <path d="M3 3h6v6H3V3zm2 2v2h2V5H5zm8-2h6v6h-6V3zm2 2v2h2V5h-2zM3 13h6v6H3v-6zm2 2v2h2v-2H5zm13-2h1v1h-1v-1zm-3 0h1v1h-1v-1zm1 1h1v1h-1v-1zm-1 1h1v1h-1v-1zm1 1h1v1h-1v-1zm1-1h1v1h-1v-1zm1 1h1v1h-1v-1zm0-2h1v1h-1v-1zm1 0h1v1h-1v-1z"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <button style="background: white; border: 1px solid #e5e7eb; padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; justify-content: center;">
+                                    <svg width="16" height="16" fill="#1b1f8a" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                                    My Chat list
+                                </button>
+                                <button style="background: white; border: 1px solid #e5e7eb; padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; justify-content: center;">
+                                    <svg width="16" height="16" fill="#1b1f8a" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                                    My Group list
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Right Panel -->
+                        <div class="dashboard-right">
+                            <div class="right-card">
+                                <div style="font-weight: 600; margin-bottom: 0.75rem; font-size: 0.9rem;">How To Scan?</div>
+                                <div style="background: #fef3c7; border-radius: 8px; height: 80px; margin-bottom: 0.75rem;"></div>
+                                <div style="font-size: 0.75rem; color: #666;">
+                                    <div style="margin-bottom: 0.5rem;"><strong>STEP 1</strong></div>
+                                    <div>Tap Menu or Settings</div>
+                                </div>
+                            </div>
+                            <div class="right-card">
+                                <div style="font-size: 0.75rem; color: #666;">
+                                    <div style="margin-bottom: 0.5rem;"><strong>STEP 2</strong></div>
+                                    <div>Tap on Link a Device</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>

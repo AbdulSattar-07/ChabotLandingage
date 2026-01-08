@@ -1,0 +1,204 @@
+<!-- Split Section Template - Automation Section -->
+<!-- NOTE: In Django Admin, Section Block key must be exactly "automation" (lowercase) -->
+{% with section=sections.automation %}
+{% if section %}
+<section id="automation"
+    class="py-20 lg:py-28 {% if section.background_style == 'GRADIENT' %}bg-gradient-to-br from-slate-50 to-blue-50/50{% elif section.background_style == 'LIGHT' %}bg-gray-50{% else %}bg-white{% endif %}">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <!-- Media (Image or Video) -->
+            <div class="relative reveal {% if section.layout_type == 'RIGHT_IMAGE' %}lg:order-2{% endif %}">
+                {% if section.media_type == 'VIDEO' and section.video %}
+                <!-- Video Player -->
+                <div class="section-video-wrapper">
+                    <video 
+                        class="section-video"
+                        {% if section.video_poster %}poster="{{ section.video_poster.url }}"{% endif %}
+                        {% if section.video_autoplay %}autoplay muted{% endif %}
+                        {% if section.video_loop %}loop{% endif %}
+                        playsinline
+                        preload="metadata"
+                    >
+                        <source src="{{ section.video.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <!-- Video Controls Overlay -->
+                    <div class="video-overlay">
+                        <button class="video-play-btn" aria-label="Play/Pause video">
+                            <svg class="play-icon" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                            <svg class="pause-icon hidden" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                {% elif section.image %}
+                <!-- Image -->
+                <img src="{{ section.image.url }}" alt="{{ section.title }}"
+                    class="w-full max-w-md mx-auto rounded-2xl shadow-xl">
+                {% else %}
+                <!-- Phone/Chat Mockup Placeholder -->
+                <div class="w-full max-w-sm mx-auto bg-white rounded-3xl shadow-xl p-4 border border-gray-100">
+                    <div class="bg-secondary rounded-t-2xl p-4 text-white">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-white/20 rounded-full"></div>
+                            <div>
+                                <div class="font-semibold">RoyalERP Bot</div>
+                                <div class="text-xs text-white/70">Online</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 space-y-3 bg-gray-50 min-h-[200px]">
+                        <div class="bg-white rounded-xl p-3 shadow-sm max-w-[80%]">
+                            <p class="text-sm text-gray-700">Show me today's sales report</p>
+                        </div>
+                        <div class="bg-secondary/10 rounded-xl p-3 shadow-sm max-w-[80%] ml-auto">
+                            <p class="text-sm text-gray-700">📊 Today's Sales: $12,450</p>
+                            <p class="text-xs text-gray-500 mt-1">+15% from yesterday</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="absolute -bottom-4 -left-4 w-20 h-20 bg-accent/20 rounded-2xl -z-10"></div>
+            </div>
+
+            <!-- Content -->
+            <div class="{% if section.layout_type == 'RIGHT_IMAGE' %}lg:order-1{% endif %}">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-6 reveal">
+                    {{ section.title|default:"ERP Automation" }}
+                </h2>
+                {% if section.subtitle %}
+                <p class="text-xl text-secondary font-medium mb-4 reveal">{{ section.subtitle }}</p>
+                {% endif %}
+                <p class="text-lg text-gray-600 mb-8 reveal" style="transition-delay: 0.1s;">
+                    {{ section.body|default:"Streamline your business operations with intelligent automation. Our AI chatbot handles routine tasks so you can focus on growth." }}
+                </p>
+
+                {% if section.get_bullets_list %}
+                <ul class="space-y-4 mb-8 reveal" style="transition-delay: 0.2s;">
+                    {% for bullet in section.get_bullets_list %}
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span class="text-gray-700">{{ bullet }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <ul class="space-y-4 mb-8 reveal" style="transition-delay: 0.2s;">
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span class="text-gray-700">Automated inventory alerts and reorder suggestions</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span class="text-gray-700">Natural language queries for instant data access</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span class="text-gray-700">Scheduled reports delivered to your inbox or WhatsApp</span>
+                    </li>
+                </ul>
+                {% endif %}
+
+                <div class="flex flex-col sm:flex-row gap-4 reveal" style="transition-delay: 0.3s;">
+                    <a href="{{ section.cta_url|default:settings.primary_cta_url }}"
+                        class="bg-secondary hover:bg-primary text-white px-6 py-3 rounded-full font-semibold btn-hover inline-flex items-center justify-center">
+                        {{ section.cta_label|default:settings.primary_cta_label }}
+                    </a>
+                    {% if section.secondary_cta_label %}
+                    <a href="{{ section.secondary_cta_url }}"
+                        class="border-2 border-gray-300 text-gray-700 hover:border-secondary hover:text-secondary px-6 py-3 rounded-full font-semibold transition-all inline-flex items-center justify-center">
+                        {{ section.secondary_cta_label }}
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% else %}
+<!-- Default Automation Section (when no data in admin) -->
+<section id="automation" class="py-20 lg:py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <!-- Media -->
+            <div class="relative reveal">
+                <div class="w-full max-w-sm mx-auto bg-white rounded-3xl shadow-xl p-4 border border-gray-100">
+                    <div class="bg-secondary rounded-t-2xl p-4 text-white">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-white/20 rounded-full"></div>
+                            <div>
+                                <div class="font-semibold">RoyalERP Bot</div>
+                                <div class="text-xs text-white/70">Online</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 space-y-3 bg-gray-50 min-h-[200px]">
+                        <div class="bg-white rounded-xl p-3 shadow-sm max-w-[80%]">
+                            <p class="text-sm text-gray-700">Show me today's sales report</p>
+                        </div>
+                        <div class="bg-secondary/10 rounded-xl p-3 shadow-sm max-w-[80%] ml-auto">
+                            <p class="text-sm text-gray-700">📊 Today's Sales: $12,450</p>
+                            <p class="text-xs text-gray-500 mt-1">+15% from yesterday</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute -bottom-4 -left-4 w-20 h-20 bg-accent/20 rounded-2xl -z-10"></div>
+            </div>
+
+            <!-- Content -->
+            <div>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-6 reveal">
+                    ERP Automation 🤖
+                </h2>
+                <p class="text-lg text-gray-600 mb-8 reveal" style="transition-delay: 0.1s;">
+                    Streamline your business operations with intelligent automation. Our AI chatbot handles routine tasks so you can focus on growth.
+                </p>
+
+                <ul class="space-y-4 mb-8 reveal" style="transition-delay: 0.2s;">
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span class="text-gray-700">Automated inventory alerts and reorder suggestions</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span class="text-gray-700">Natural language queries for instant data access</span>
+                    </li>
+                    <li class="flex items-start">
+                        <svg class="w-6 h-6 text-green-500 mr-3 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span class="text-gray-700">Scheduled reports delivered to your inbox or WhatsApp</span>
+                    </li>
+                </ul>
+
+                <div class="flex flex-col sm:flex-row gap-4 reveal" style="transition-delay: 0.3s;">
+                    <a href="{{ settings.primary_cta_url|default:'#pricing' }}"
+                        class="bg-secondary hover:bg-primary text-white px-6 py-3 rounded-full font-semibold btn-hover inline-flex items-center justify-center">
+                        {{ settings.primary_cta_label|default:"Get Started" }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endwith %}

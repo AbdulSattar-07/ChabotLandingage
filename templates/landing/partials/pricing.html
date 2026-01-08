@@ -1,0 +1,189 @@
+<!-- Pricing Section -->
+<section id="pricing" class="py-20 lg:py-28 bg-gradient-to-br from-primary/5 to-secondary/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 reveal">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4">
+                {{ settings.pricing_title|default:"Simple, Transparent Pricing 💰" }}
+            </h2>
+            {% if settings.pricing_subtitle %}
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                {{ settings.pricing_subtitle }}
+            </p>
+            {% endif %}
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto stagger-children">
+            {% for plan in plans %}
+            <div
+                class="relative bg-white rounded-2xl shadow-lg border {% if plan.is_featured %}border-secondary pricing-featured{% else %}border-gray-100{% endif %} overflow-hidden card-hover">
+                {% if plan.is_featured %}
+                <div class="absolute top-0 right-0 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                    POPULAR
+                </div>
+                {% endif %}
+                <div class="p-6 lg:p-8">
+                    <h3 class="text-xl font-bold text-primary mb-2">{{ plan.name }}</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-extrabold text-primary">{{ plan.price }}</span>
+                        {% if plan.period %}<span class="text-gray-500">{{ plan.period }}</span>{% endif %}
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        {% for feature in plan.get_bullets_list %}
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="text-gray-600 text-sm">{{ feature }}</span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{{ plan.cta_url|default:'#' }}"
+                        class="block w-full text-center {% if plan.is_featured %}bg-secondary hover:bg-primary text-white{% else %}bg-gray-100 hover:bg-secondary hover:text-white text-gray-700{% endif %} px-6 py-3 rounded-full font-semibold transition-all btn-hover">
+                        {{ plan.cta_label|default:"Get Started" }}
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <!-- Default pricing plans -->
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden card-hover">
+                <div class="p-6 lg:p-8">
+                    <h3 class="text-xl font-bold text-primary mb-2">Starter</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-extrabold text-primary">$29</span>
+                        <span class="text-gray-500">/month</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="text-gray-600 text-sm">Up to 1,000 queries/month</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="text-gray-600 text-sm">Basic reports</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="text-gray-600 text-sm">Email support</span>
+                        </li>
+                    </ul>
+                    <a href="#"
+                        class="block w-full text-center bg-gray-100 hover:bg-secondary hover:text-white text-gray-700 px-6 py-3 rounded-full font-semibold transition-all btn-hover">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+            <div
+                class="relative bg-white rounded-2xl shadow-lg border border-secondary pricing-featured overflow-hidden card-hover">
+                <div class="absolute top-0 right-0 bg-secondary text-white text-xs font-bold px-3 py-1 rounded-bl-lg">
+                    POPULAR
+                </div>
+                <div class="p-6 lg:p-8">
+                    <h3 class="text-xl font-bold text-primary mb-2">Business</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-extrabold text-primary">$79</span>
+                        <span class="text-gray-500">/month</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="text-gray-600 text-sm">Unlimited queries</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="text-gray-600 text-sm">Advanced analytics</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="text-gray-600 text-sm">WhatsApp integration</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="text-gray-600 text-sm">Priority support</span>
+                        </li>
+                    </ul>
+                    <a href="#"
+                        class="block w-full text-center bg-secondary hover:bg-primary text-white px-6 py-3 rounded-full font-semibold transition-all btn-hover">
+                        Get Started
+                    </a>
+                </div>
+            </div>
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden card-hover">
+                <div class="p-6 lg:p-8">
+                    <h3 class="text-xl font-bold text-primary mb-2">Enterprise</h3>
+                    <div class="mb-6">
+                        <span class="text-4xl font-extrabold text-primary">Custom</span>
+                    </div>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="text-gray-600 text-sm">Everything in Business</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="text-gray-600 text-sm">Custom integrations</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="text-gray-600 text-sm">Dedicated account manager</span>
+                        </li>
+                        <li class="flex items-start">
+                            <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                            <span class="text-gray-600 text-sm">SLA guarantee</span>
+                        </li>
+                    </ul>
+                    <a href="#"
+                        class="block w-full text-center bg-gray-100 hover:bg-secondary hover:text-white text-gray-700 px-6 py-3 rounded-full font-semibold transition-all btn-hover">
+                        Contact Sales
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

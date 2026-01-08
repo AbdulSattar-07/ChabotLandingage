@@ -1,0 +1,230 @@
+<!-- Integrations Section - Part of Automation Flow -->
+<section id="integrations" class="py-20 lg:py-28 bg-gradient-to-br from-slate-50 to-indigo-50/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 reveal">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4">
+                {{ settings.integrations_title|default:"Seamless Integrations 🔗" }}
+            </h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                {{ settings.integrations_subtitle|default:"Connect WhatsApp & Database for automated ERP responses" }}
+            </p>
+        </div>
+
+        <!-- Featured Integration Cards (WhatsApp, Database, etc.) -->
+        {% with featured_integrations=integrations|dictsort:"order" %}
+        <div class="grid md:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto mb-16">
+            {% for integration in integrations %}
+            {% if integration.is_featured and integration.is_active %}
+            <div class="bg-white rounded-2xl shadow-xl p-8 card-hover reveal border border-gray-100" {% if forloop.counter > 1 %}style="transition-delay: 0.1s;"{% endif %}>
+                <!-- Icon with dynamic color -->
+                <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6
+                    {% if integration.icon_color == 'green' %}bg-green-500
+                    {% elif integration.icon_color == 'indigo' %}bg-indigo-600
+                    {% elif integration.icon_color == 'purple' %}bg-purple-600
+                    {% elif integration.icon_color == 'pink' %}bg-pink-500
+                    {% elif integration.icon_color == 'orange' %}bg-orange-500
+                    {% else %}bg-gray-500{% endif %}">
+                    {% if integration.icon_svg %}
+                    <div class="w-8 h-8 text-white">{{ integration.icon_svg|safe }}</div>
+                    {% elif integration.icon %}
+                    <img src="{{ integration.icon.url }}" alt="{{ integration.name }}" class="w-8 h-8 object-contain">
+                    {% else %}
+                    <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                    {% endif %}
+                </div>
+                <h3 class="text-2xl font-bold text-primary mb-3">{{ integration.name }}</h3>
+                {% if integration.description %}
+                <p class="text-gray-600 mb-6">{{ integration.description }}</p>
+                {% endif %}
+                {% if integration.get_bullets_list %}
+                <ul class="space-y-3">
+                    {% for bullet in integration.get_bullets_list %}
+                    <li class="flex items-center text-gray-700">
+                        <svg class="w-5 h-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        {{ bullet }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            {% endif %}
+            {% empty %}
+            <!-- Default WhatsApp Card -->
+            <div class="bg-white rounded-2xl shadow-xl p-8 card-hover reveal border border-gray-100">
+                <div class="w-16 h-16 bg-green-500 rounded-2xl flex items-center justify-center mb-6">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-primary mb-3">WhatsApp Integration</h3>
+                <p class="text-gray-600 mb-6">Send and receive messages directly through WhatsApp. Get instant notifications and respond to queries automatically.</p>
+                <ul class="space-y-3">
+                    <li class="flex items-center text-gray-700">
+                        <svg class="w-5 h-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        Auto-reply to customer queries
+                    </li>
+                    <li class="flex items-center text-gray-700">
+                        <svg class="w-5 h-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        Send reports & alerts
+                    </li>
+                    <li class="flex items-center text-gray-700">
+                        <svg class="w-5 h-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        24/7 availability
+                    </li>
+                </ul>
+            </div>
+            <!-- Default Database Card -->
+            <div class="bg-white rounded-2xl shadow-xl p-8 card-hover reveal border border-gray-100" style="transition-delay: 0.1s;">
+                <div class="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center mb-6">
+                    <svg class="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"/>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-primary mb-3">Database Connection</h3>
+                <p class="text-gray-600 mb-6">Connect directly to your ERP database. Query inventory, sales, accounts and more in real-time.</p>
+                <ul class="space-y-3">
+                    <li class="flex items-center text-gray-700">
+                        <svg class="w-5 h-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        Real-time data access
+                    </li>
+                    <li class="flex items-center text-gray-700">
+                        <svg class="w-5 h-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        Secure SQL queries
+                    </li>
+                    <li class="flex items-center text-gray-700">
+                        <svg class="w-5 h-5 text-green-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        Multi-database support
+                    </li>
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+        {% endwith %}
+
+        <!-- How It Works - Flow Diagram -->
+        <div class="bg-white rounded-2xl shadow-xl p-8 lg:p-12 max-w-4xl mx-auto reveal">
+            <h3 class="text-2xl font-bold text-primary text-center mb-8">How Auto-Response Works</h3>
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <!-- Step 1 -->
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-3">
+                        <svg class="w-8 h-8 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        </svg>
+                    </div>
+                    <span class="text-sm font-semibold text-gray-700">User sends message</span>
+                </div>
+                
+                <!-- Arrow -->
+                <div class="hidden md:block text-gray-300">
+                    <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </div>
+                <div class="md:hidden text-gray-300">
+                    <svg class="w-8 h-8 rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-3">
+                        <svg class="w-8 h-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <span class="text-sm font-semibold text-gray-700">AI processes query</span>
+                </div>
+
+                <!-- Arrow -->
+                <div class="hidden md:block text-gray-300">
+                    <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </div>
+                <div class="md:hidden text-gray-300">
+                    <svg class="w-8 h-8 rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-3">
+                        <svg class="w-8 h-8 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/>
+                        </svg>
+                    </div>
+                    <span class="text-sm font-semibold text-gray-700">Fetches from Database</span>
+                </div>
+
+                <!-- Arrow -->
+                <div class="hidden md:block text-gray-300">
+                    <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </div>
+                <div class="md:hidden text-gray-300">
+                    <svg class="w-8 h-8 rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-3">
+                        <svg class="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                    </div>
+                    <span class="text-sm font-semibold text-gray-700">Auto-reply sent</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Non-Featured Integrations (small logos) -->
+        {% with other_integrations=integrations %}
+        {% for integration in other_integrations %}
+        {% if not integration.is_featured and integration.is_active %}
+        {% if forloop.first %}
+        <div class="mt-16">
+            <p class="text-center text-gray-500 mb-8 text-sm uppercase tracking-wider">Also integrates with</p>
+            <div class="flex flex-wrap justify-center items-center gap-8 lg:gap-12 stagger-children">
+        {% endif %}
+                <a href="{{ integration.url|default:'#' }}" class="group" title="{{ integration.name }}">
+                    {% if integration.icon %}
+                    <img src="{{ integration.icon.url }}" alt="{{ integration.name }}" class="h-10 lg:h-12 w-auto integration-icon">
+                    {% elif integration.icon_svg %}
+                    <div class="h-10 lg:h-12 w-auto integration-icon">{{ integration.icon_svg|safe }}</div>
+                    {% else %}
+                    <div class="w-14 h-14 bg-gray-100 rounded-xl flex items-center justify-center text-gray-400 group-hover:bg-secondary/10 group-hover:text-secondary transition-all">
+                        <span class="text-xs font-semibold">{{ integration.name|slice:":3"|upper }}</span>
+                    </div>
+                    {% endif %}
+                </a>
+        {% if forloop.last %}
+            </div>
+        </div>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        {% endwith %}
+    </div>
+</section>

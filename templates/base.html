@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ settings.seo_title|default:"RoyalERP Chatbot" }}</title>
+    <meta name="description" content="{{ settings.seo_description|default:'AI-Powered ERP Assistant' }}">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="{{ settings.seo_title }}">
+    <meta property="og:description" content="{{ settings.seo_description }}">
+    {% if settings.og_image %}
+    <meta property="og:image" content="{{ settings.og_image.url }}">{% endif %}
+
+    <!-- Favicon -->
+    {% if settings.favicon %}
+    <link rel="icon" href="{{ settings.favicon.url }}">{% endif %}
+
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '{{ settings.primary_color|default:"#1e3a5f" }}',
+                        secondary: '{{ settings.secondary_color|default:"#6366f1" }}',
+                        accent: '{{ settings.accent_color|default:"#ec4899" }}',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    {% block extra_css %}{% endblock %}
+
+    <style>
+        {
+            % block inline_css %
+        }
+
+            {
+            % endblock %
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased text-gray-800 bg-white overflow-x-hidden">
+    {% block content %}{% endblock %}
+    {% block extra_js %}{% endblock %}
+    
+    <!-- Inline JS for immediate interactions -->
+    <script>
+        // Navbar scroll effect (immediate)
+        (function() {
+            const navbar = document.getElementById('navbar');
+            if (navbar) {
+                window.addEventListener('scroll', function() {
+                    if (window.scrollY > 100) {
+                        navbar.classList.add('scrolled', 'navbar-scrolled');
+                    } else {
+                        navbar.classList.remove('scrolled', 'navbar-scrolled');
+                    }
+                }, { passive: true });
+            }
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+<!-- Use Cases Section -->
+<section id="use-cases" class="py-20 lg:py-28 bg-gradient-to-br from-sky-50 to-indigo-50/30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <!-- Content -->
+            <div>
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-6 reveal">
+                    For Businesses of All Sizes 🏢
+                </h2>
+                <p class="text-lg text-gray-600 mb-8 reveal" style="transition-delay: 0.1s;">
+                    Whether you're a small retailer or a large enterprise, RoyalERP Chatbot adapts to your needs.
+                </p>
+
+                <!-- Use Case Accordion -->
+                <div class="space-y-4 reveal" style="transition-delay: 0.2s;">
+                    {% for use_case in use_cases %}
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button
+                            class="faq-toggle w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                            aria-expanded="false">
+                            <span class="font-semibold text-primary">{{ use_case.title }}</span>
+                            <svg class="faq-icon w-5 h-5 text-gray-500 flex-shrink-0" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600">
+                            <div class="pb-4">{{ use_case.body }}</div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <!-- Default use cases -->
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button
+                            class="faq-toggle w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                            aria-expanded="false">
+                            <span class="font-semibold text-primary">Retail & E-commerce</span>
+                            <svg class="faq-icon w-5 h-5 text-gray-500 flex-shrink-0" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600">
+                            <div class="pb-4">Track inventory across multiple locations, automate reorder points, and
+                                get real-time sales analytics.</div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button
+                            class="faq-toggle w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                            aria-expanded="false">
+                            <span class="font-semibold text-primary">Manufacturing</span>
+                            <svg class="faq-icon w-5 h-5 text-gray-500 flex-shrink-0" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600">
+                            <div class="pb-4">Manage production schedules, track raw materials, and optimize supply
+                                chain with AI predictions.</div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                        <button
+                            class="faq-toggle w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                            aria-expanded="false">
+                            <span class="font-semibold text-primary">Service Businesses</span>
+                            <svg class="faq-icon w-5 h-5 text-gray-500 flex-shrink-0" fill="none" viewBox="0 0 24 24"
+                                stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="faq-answer px-6 text-gray-600">
+                            <div class="pb-4">Automate invoicing, track project costs, and manage client accounts
+                                effortlessly.</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Illustration -->
+            <div class="relative reveal" style="transition-delay: 0.3s;">
+                {% with section=sections.use_cases %}
+                {% if section.image %}
+                <img src="{{ section.image.url }}" alt="Use Cases" class="w-full max-w-md mx-auto">
+                {% else %}
+                <!-- Placeholder Illustration -->
+                <div class="w-full max-w-md mx-auto">
+                    <svg viewBox="0 0 400 300" class="w-full" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="50" y="50" width="300" height="200" rx="20" fill="#f0f9ff" stroke="#6366f1"
+                            stroke-width="2" />
+                        <rect x="70" y="80" width="120" height="80" rx="10" fill="#6366f1" fill-opacity="0.1" />
+                        <rect x="210" y="80" width="120" height="80" rx="10" fill="#ec4899" fill-opacity="0.1" />
+                        <rect x="70" y="180" width="260" height="50" rx="10" fill="#1e3a5f" fill-opacity="0.1" />
+                        <circle cx="130" cy="120" r="20" fill="#6366f1" fill-opacity="0.3" />
+                        <circle cx="270" cy="120" r="20" fill="#ec4899" fill-opacity="0.3" />
+                    </svg>
+                </div>
+                {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+</section>
