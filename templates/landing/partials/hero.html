@@ -21,6 +21,30 @@
             </a>
         </div>
         
+        <!-- Hero Section Images/Avatars (from Admin) -->
+        {% if section_images.hero %}
+        <div class="hero-section-images">
+            <div class="section-images-grid avatars-row">
+                {% for img in section_images.hero %}
+                <div class="section-image-item {% if img.image_type == 'avatar' %}avatar-style{% elif img.image_type == 'logo' %}logo-style{% else %}default-style{% endif %}">
+                    {% if img.link_url %}
+                    <a href="{{ img.link_url }}" target="_blank" rel="noopener" class="section-image-link">
+                    {% endif %}
+                        <div class="section-image-wrapper">
+                            <img src="{{ img.image.url }}" alt="{{ img.alt_text|default:img.subtitle }}" class="section-image" loading="lazy">
+                        </div>
+                        {% if img.subtitle %}
+                        <p class="section-image-subtitle">{{ img.subtitle }}</p>
+                        {% endif %}
+                    {% if img.link_url %}
+                    </a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
         <!-- Dashboard Mockup -->
         <div class="dashboard-mockup float-3d">
             <div class="dashboard-image-wrapper neon-3d">

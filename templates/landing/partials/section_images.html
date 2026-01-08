@@ -1,0 +1,34 @@
+<!-- Section Images Component -->
+<!-- Usage: {% include 'landing/partials/section_images.html' with section_key='hero' %} -->
+
+{% if section_images %}
+{% with images=section_images|default_if_none:"" %}
+{% if images %}
+<div class="section-images-container">
+    <div class="section-images-grid">
+        {% for img in images %}
+        <div class="section-image-item {% if img.image_type == 'avatar' %}avatar-style{% elif img.image_type == 'logo' %}logo-style{% elif img.image_type == 'screenshot' %}screenshot-style{% else %}default-style{% endif %}">
+            {% if img.link_url %}
+            <a href="{{ img.link_url }}" target="_blank" rel="noopener" class="section-image-link">
+            {% endif %}
+                <div class="section-image-wrapper">
+                    <img 
+                        src="{{ img.image.url }}" 
+                        alt="{{ img.alt_text|default:img.subtitle }}"
+                        class="section-image"
+                        loading="lazy"
+                    >
+                </div>
+                {% if img.subtitle %}
+                <p class="section-image-subtitle">{{ img.subtitle }}</p>
+                {% endif %}
+            {% if img.link_url %}
+            </a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endwith %}
+{% endif %}

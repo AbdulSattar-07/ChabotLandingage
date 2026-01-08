@@ -357,3 +357,48 @@ class FooterLink(models.Model):
     
     def __str__(self):
         return f"{self.column_name} - {self.label}"
+
+
+class SectionImage(models.Model):
+    """
+    Images/Avatars that can be added to any section
+    User can upload multiple images per section with subtitles
+    """
+    
+    SECTION_CHOICES = [
+        ('hero', 'Hero Section'),
+        ('features', 'Features Section'),
+        ('automation', 'Automation Section'),
+        ('integrations', 'Integrations Section'),
+        ('pricing', 'Pricing Section'),
+        ('reviews', 'Reviews/Testimonials Section'),
+        ('faq', 'FAQ Section'),
+        ('stats', 'Stats Section'),
+        ('footer', 'Footer Section'),
+    ]
+    
+    IMAGE_TYPE_CHOICES = [
+        ('avatar', 'Avatar/Profile'),
+        ('logo', 'Logo/Brand'),
+        ('screenshot', 'Screenshot'),
+        ('icon', 'Icon'),
+        ('banner', 'Banner'),
+        ('gallery', 'Gallery Image'),
+    ]
+    
+    section = models.CharField(max_length=50, choices=SECTION_CHOICES, help_text="Which section to display this image")
+    image_type = models.CharField(max_length=20, choices=IMAGE_TYPE_CHOICES, default='avatar')
+    image = models.ImageField(upload_to='landing/section_images/')
+    subtitle = models.CharField(max_length=200, blank=True, help_text="One line subtitle/caption")
+    alt_text = models.CharField(max_length=200, blank=True, help_text="Alt text for accessibility")
+    link_url = models.URLField(blank=True, help_text="Optional link when image is clicked")
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+    
+    class Meta:
+        ordering = ['section', 'order']
+        verbose_name = "Section Image"
+        verbose_name_plural = "Section Images"
+    
+    def __str__(self):
+        return f"{self.get_section_display()} - {self.subtitle or 'Image'}"

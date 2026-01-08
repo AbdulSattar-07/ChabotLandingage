@@ -8,6 +8,24 @@
             <p class="text-lg text-gray-600">
                 {{ settings.faq_subtitle|default:"Got questions? We've got answers." }}
             </p>
+            
+            <!-- FAQ Section Images (from Admin) -->
+            {% if section_images.faq %}
+            <div class="mt-8">
+                <div class="section-images-grid">
+                    {% for img in section_images.faq %}
+                    <div class="section-image-item {% if img.image_type == 'avatar' %}avatar-style{% elif img.image_type == 'logo' %}logo-style{% else %}default-style{% endif %}">
+                        {% if img.link_url %}<a href="{{ img.link_url }}" target="_blank" rel="noopener" class="section-image-link">{% endif %}
+                            <div class="section-image-wrapper">
+                                <img src="{{ img.image.url }}" alt="{{ img.alt_text|default:img.subtitle }}" class="section-image" loading="lazy">
+                            </div>
+                            {% if img.subtitle %}<p class="section-image-subtitle">{{ img.subtitle }}</p>{% endif %}
+                        {% if img.link_url %}</a>{% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
         </div>
 
         <div class="space-y-4 reveal">

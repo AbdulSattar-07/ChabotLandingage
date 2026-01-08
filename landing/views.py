@@ -7,7 +7,7 @@ from django.db.models import Q
 from collections import defaultdict
 from .models import (
     LandingPageSettings, Feature, SectionBlock, UseCasePoint,
-    Integration, PricingPlan, Testimonial, StatCounter, FAQ, FooterLink
+    Integration, PricingPlan, Testimonial, StatCounter, FAQ, FooterLink, SectionImage
 )
 
 
@@ -41,6 +41,13 @@ def landing_page(request):
         footer_links[link.column_name].append(link)
     footer_links = dict(footer_links)  # Convert to regular dict for template
     
+    # Load section images organized by section
+    section_images_qs = SectionImage.objects.filter(is_active=True).order_by('section', 'order')
+    section_images = defaultdict(list)
+    for img in section_images_qs:
+        section_images[img.section].append(img)
+    section_images = dict(section_images)  # Convert to regular dict
+    
     context = {
         'settings': settings,
         'features': features,
@@ -55,6 +62,7 @@ def landing_page(request):
         'stats': stats,
         'faqs': faqs,
         'footer_links': footer_links,
+        'section_images': section_images,  # Images organized by section
     }
     
     return render(request, 'landing/index.html', context)

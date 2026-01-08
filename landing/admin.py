@@ -6,7 +6,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from .models import (
     LandingPageSettings, Feature, SectionBlock, UseCasePoint,
-    Integration, PricingPlan, Testimonial, StatCounter, FAQ, FooterLink
+    Integration, PricingPlan, Testimonial, StatCounter, FAQ, FooterLink, SectionImage
 )
 
 
@@ -241,3 +241,41 @@ class FooterLinkAdmin(admin.ModelAdmin):
     search_fields = ('label', 'column_name')
     ordering = ('column_name', 'order')
     list_editable = ('order', 'is_active')
+
+
+@admin.register(SectionImage)
+class SectionImageAdmin(admin.ModelAdmin):
+    """Admin for section images/avatars"""
+    
+    list_display = ('image_preview', 'section', 'image_type', 'subtitle', 'order', 'is_active')
+    list_filter = ('is_active', 'section', 'image_type')
+    search_fields = ('subtitle', 'alt_text')
+    ordering = ('section', 'order')
+    list_editable = ('order', 'is_active')
+    
+    fieldsets = (
+        ('Image', {
+            'fields': ('image', 'alt_text'),
+            'description': 'Upload avatar, logo, screenshot, or any image'
+        }),
+        ('Display Settings', {
+            'fields': ('section', 'image_type', 'subtitle'),
+            'description': 'Choose which section to display this image and add a caption'
+        }),
+        ('Link (Optional)', {
+            'fields': ('link_url',),
+            'classes': ('collapse',)
+        }),
+        ('Settings', {
+            'fields': ('order', 'is_active')
+        }),
+    )
+    
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html(
+                '<img src="{}" style="width:50px;height:50px;object-fit:cover;border-radius:50%;" />',
+                obj.image.url
+            )
+        return '-'
+    image_preview.short_description = 'Preview'

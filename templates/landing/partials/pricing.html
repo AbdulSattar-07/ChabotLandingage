@@ -10,6 +10,24 @@
                 {{ settings.pricing_subtitle }}
             </p>
             {% endif %}
+            
+            <!-- Pricing Section Images (from Admin) -->
+            {% if section_images.pricing %}
+            <div class="mt-8">
+                <div class="section-images-grid logos-row">
+                    {% for img in section_images.pricing %}
+                    <div class="section-image-item {% if img.image_type == 'avatar' %}avatar-style{% elif img.image_type == 'logo' %}logo-style{% else %}default-style{% endif %}">
+                        {% if img.link_url %}<a href="{{ img.link_url }}" target="_blank" rel="noopener" class="section-image-link">{% endif %}
+                            <div class="section-image-wrapper">
+                                <img src="{{ img.image.url }}" alt="{{ img.alt_text|default:img.subtitle }}" class="section-image" loading="lazy">
+                            </div>
+                            {% if img.subtitle %}<p class="section-image-subtitle">{{ img.subtitle }}</p>{% endif %}
+                        {% if img.link_url %}</a>{% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto stagger-children">
