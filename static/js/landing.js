@@ -303,6 +303,74 @@
         });
     }
 
+    // ==================== 3D TILT EFFECT ====================
+    function init3DTilt() {
+        const tiltElements = document.querySelectorAll('.card-hover, .testimonial-card, .pricing-card-3d, .feature-card-3d, .integration-card-3d, .faq-item-3d');
+
+        tiltElements.forEach(el => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+
+                el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(30px) scale(1.02)`;
+            });
+
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0) scale(1)';
+            });
+        });
+    }
+
+    // ==================== 3D PARALLAX SECTIONS ====================
+    function init3DParallax() {
+        const sections = document.querySelectorAll('section');
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                const sectionTop = rect.top + scrollY;
+                const sectionHeight = rect.height;
+
+                // Check if section is in viewport
+                if (scrollY > sectionTop - window.innerHeight && scrollY < sectionTop + sectionHeight) {
+                    const progress = (scrollY - (sectionTop - window.innerHeight)) / (window.innerHeight + sectionHeight);
+                    const translateZ = Math.sin(progress * Math.PI) * 20;
+
+                    // Apply subtle 3D effect to section content
+                    const content = section.querySelector('.reveal, .stagger-children');
+                    if (content) {
+                        content.style.transform = `perspective(1000px) translateZ(${translateZ}px)`;
+                    }
+                }
+            });
+        }, { passive: true });
+    }
+
+    // ==================== 3D FLOATING ELEMENTS ====================
+    function init3DFloatingElements() {
+        // Add floating animation to specific elements
+        const floatingElements = document.querySelectorAll('.dashboard-mockup, .section-video-wrapper');
+
+        floatingElements.forEach(el => {
+            el.classList.add('float-3d');
+        });
+
+        // Add glow effect to buttons
+        const buttons = document.querySelectorAll('.btn-primary, .btn-get-started');
+        buttons.forEach(btn => {
+            btn.classList.add('glow-3d');
+        });
+    }
+
     // ==================== SECTION VIDEO CONTROLS ====================
     function initSectionVideos() {
         const videoWrappers = document.querySelectorAll('.section-video-wrapper');
@@ -359,6 +427,9 @@
         initStatsCounter();
         initDashboardHover();
         initSectionVideos();
+        init3DTilt();
+        init3DParallax();
+        init3DFloatingElements();
     }
 
     // Run on DOM ready

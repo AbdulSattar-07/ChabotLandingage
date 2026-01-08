@@ -8,6 +8,133 @@
     --text-dark: #1a1a2e;
 }
 
+/* ==================== 3D GLOBAL STYLES ==================== */
+* {
+    transform-style: preserve-3d;
+}
+
+body {
+    perspective: 1500px;
+}
+
+/* 3D Card Base */
+.card-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    will-change: transform;
+}
+
+.card-3d:hover {
+    transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) translateZ(20px);
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.25),
+        0 0 40px rgba(99, 102, 241, 0.15);
+}
+
+/* 3D Tilt Effect */
+.tilt-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+}
+
+.tilt-3d:hover {
+    transform: perspective(1000px) rotateX(10deg) rotateY(-10deg) scale(1.02);
+}
+
+/* 3D Float Animation */
+@keyframes float3d {
+    0%, 100% {
+        transform: perspective(1000px) translateY(0) rotateX(0deg) rotateY(0deg);
+    }
+    25% {
+        transform: perspective(1000px) translateY(-15px) rotateX(2deg) rotateY(-2deg);
+    }
+    50% {
+        transform: perspective(1000px) translateY(-25px) rotateX(0deg) rotateY(2deg);
+    }
+    75% {
+        transform: perspective(1000px) translateY(-15px) rotateX(-2deg) rotateY(0deg);
+    }
+}
+
+.float-3d {
+    animation: float3d 8s ease-in-out infinite;
+}
+
+/* 3D Glow Effect */
+.glow-3d {
+    position: relative;
+}
+
+.glow-3d::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(45deg, #6366f1, #ec4899, #6366f1);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    filter: blur(15px);
+    transition: opacity 0.5s ease;
+}
+
+.glow-3d:hover::before {
+    opacity: 0.6;
+}
+
+/* 3D Text Shadow */
+.text-3d {
+    text-shadow: 
+        1px 1px 0 rgba(0,0,0,0.1),
+        2px 2px 0 rgba(0,0,0,0.08),
+        3px 3px 0 rgba(0,0,0,0.06),
+        4px 4px 0 rgba(0,0,0,0.04),
+        5px 5px 10px rgba(0,0,0,0.1);
+}
+
+/* 3D Button */
+.btn-3d {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 4px 0 rgba(0,0,0,0.2),
+        0 6px 20px rgba(0,0,0,0.15);
+}
+
+.btn-3d:hover {
+    transform: translateY(-4px);
+    box-shadow: 
+        0 8px 0 rgba(0,0,0,0.2),
+        0 12px 30px rgba(0,0,0,0.2);
+}
+
+.btn-3d:active {
+    transform: translateY(0);
+    box-shadow: 
+        0 2px 0 rgba(0,0,0,0.2),
+        0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* 3D Parallax Layers */
+.parallax-container {
+    perspective: 1000px;
+    overflow: hidden;
+}
+
+.parallax-layer {
+    transform-style: preserve-3d;
+    will-change: transform;
+}
+
+.parallax-layer-back {
+    transform: translateZ(-100px) scale(1.1);
+}
+
+.parallax-layer-front {
+    transform: translateZ(50px);
+}
+
 /* ==================== HERO SECTION ==================== */
 .hero-section {
     position: relative;
@@ -497,6 +624,7 @@
     flex-direction: column;
     gap: 1rem;
     transition: opacity 0.4s ease;
+    perspective: 1000px;
 }
 
 .social-icon {
@@ -508,24 +636,47 @@
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.1),
+        0 0 0 0 rgba(99, 102, 241, 0);
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.social-icon::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(135deg, #6366f1, #ec4899);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    filter: blur(10px);
+    transition: opacity 0.4s ease;
 }
 
 .social-icon svg {
     width: 20px;
     height: 20px;
     color: var(--primary-navy);
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
 }
 
 .social-icon:hover {
-    transform: scale(1.15);
-    box-shadow: 0 8px 30px rgba(27, 31, 138, 0.3);
+    transform: perspective(500px) translateZ(30px) rotateY(-15deg) scale(1.2);
+    box-shadow: 
+        -10px 15px 30px rgba(0, 0, 0, 0.2),
+        0 0 30px rgba(99, 102, 241, 0.3);
+}
+
+.social-icon:hover::before {
+    opacity: 0.6;
 }
 
 .social-icon:hover svg {
     color: var(--indigo-accent);
+    transform: scale(1.1);
 }
 
 /* ==================== HERO CONTENT ==================== */
@@ -595,13 +746,42 @@
     font-weight: 600;
     font-size: 1rem;
     text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow: 
+        0 4px 0 rgba(0, 0, 0, 0.1),
+        0 8px 30px rgba(0, 0, 0, 0.2);
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(135deg, #6366f1, #ec4899);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    filter: blur(15px);
+    transition: opacity 0.4s ease;
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    transform: perspective(500px) translateY(-8px) translateZ(30px) rotateX(10deg);
+    box-shadow: 
+        0 8px 0 rgba(0, 0, 0, 0.1),
+        0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary:hover::before {
+    opacity: 0.5;
+}
+
+.btn-primary:active {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 2px 0 rgba(0, 0, 0, 0.1),
+        0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .btn-secondary {
@@ -613,12 +793,30 @@
     font-size: 1rem;
     text-decoration: none;
     border: 2px solid rgba(255, 255, 255, 0.5);
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-secondary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
 }
 
 .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
     border-color: var(--white);
+    transform: perspective(500px) translateY(-5px) translateZ(20px);
+    box-shadow: 0 15px 40px rgba(255, 255, 255, 0.1);
+}
+
+.btn-secondary:hover::before {
+    transform: translateX(100%);
 }
 
 /* ==================== DASHBOARD MOCKUP ==================== */
@@ -632,29 +830,53 @@
     transform: translateY(60px);
     animation: heroFadeIn 1.2s ease forwards;
     animation-delay: 0.9s;
+    transform-style: preserve-3d;
+    perspective: 1500px;
 }
 
 .dashboard-image-wrapper {
     position: relative;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
-    animation: dashboardFloat 6s ease-in-out infinite;
-    transition: all 0.3s ease;
+    box-shadow: 
+        0 50px 100px -20px rgba(0, 0, 0, 0.4),
+        0 0 50px rgba(99, 102, 241, 0.2);
+    animation: dashboard3DFloat 8s ease-in-out infinite;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+}
+
+.dashboard-image-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(236, 72, 153, 0.3));
+    border-radius: inherit;
+    z-index: -1;
+    filter: blur(30px);
+    opacity: 0.5;
 }
 
 .dashboard-image-wrapper:hover {
     animation-play-state: paused;
-    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
-    transform: translateY(-5px);
+    transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) translateZ(50px) scale(1.02);
+    box-shadow: 
+        -30px 50px 100px rgba(0, 0, 0, 0.4),
+        0 0 80px rgba(99, 102, 241, 0.3);
 }
 
-@keyframes dashboardFloat {
+@keyframes dashboard3DFloat {
     0%, 100% {
-        transform: translateY(0) rotate(0deg);
+        transform: perspective(1000px) translateY(0) rotateX(0deg) rotateY(0deg) translateZ(0);
+    }
+    25% {
+        transform: perspective(1000px) translateY(-15px) rotateX(3deg) rotateY(-3deg) translateZ(20px);
     }
     50% {
-        transform: translateY(-20px) rotate(0.5deg);
+        transform: perspective(1000px) translateY(-25px) rotateX(0deg) rotateY(3deg) translateZ(30px);
+    }
+    75% {
+        transform: perspective(1000px) translateY(-15px) rotateX(-3deg) rotateY(0deg) translateZ(20px);
     }
 }
 
@@ -885,21 +1107,80 @@
 
 /* ==================== INTERACTIVE ELEMENTS ==================== */
 .card-hover {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.5s ease;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 
 .card-hover:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.15);
+    transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) translateY(-10px) translateZ(30px);
+    box-shadow: 
+        0 30px 60px -15px rgba(0, 0, 0, 0.2),
+        0 0 30px rgba(99, 102, 241, 0.1),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* 3D Feature Cards */
+.feature-card-3d {
+    position: relative;
+    transform-style: preserve-3d;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fc 100%);
+}
+
+.feature-card-3d::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.feature-card-3d:hover {
+    transform: perspective(1000px) rotateX(8deg) rotateY(-8deg) translateZ(40px) scale(1.02);
+    box-shadow: 
+        -20px 20px 40px rgba(0, 0, 0, 0.15),
+        0 0 50px rgba(99, 102, 241, 0.2);
+}
+
+.feature-card-3d:hover::before {
+    opacity: 1;
+}
+
+/* 3D Icon Container */
+.icon-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+    position: relative;
+}
+
+.icon-3d::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    border-radius: inherit;
+    transform: translateZ(-10px);
+    filter: blur(10px);
+    opacity: 0.5;
+}
+
+.card-hover:hover .icon-3d {
+    transform: translateZ(30px) rotateY(-10deg);
 }
 
 .btn-hover {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.3s ease;
+    transform-style: preserve-3d;
 }
 
 .btn-hover:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px -10px rgba(99, 102, 241, 0.5);
+    transform: perspective(500px) translateY(-5px) translateZ(20px) rotateX(5deg);
+    box-shadow: 
+        0 15px 30px -10px rgba(99, 102, 241, 0.4),
+        0 0 20px rgba(99, 102, 241, 0.2);
 }
 
 /* ==================== FAQ ACCORDION ==================== */
@@ -919,6 +1200,35 @@
 
 .faq-icon.open {
     transform: rotate(180deg);
+}
+
+/* 3D FAQ Items */
+.faq-item-3d {
+    transform-style: preserve-3d;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+}
+
+.faq-item-3d::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, #6366f1, #ec4899);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.faq-item-3d:hover {
+    transform: perspective(1000px) translateZ(20px) rotateX(2deg);
+    box-shadow: 
+        0 20px 40px -15px rgba(0, 0, 0, 0.15),
+        0 0 30px rgba(99, 102, 241, 0.1);
+}
+
+.faq-item-3d:hover::before {
+    opacity: 0.1;
 }
 
 /* ==================== NAVBAR SCROLLED (for other sections) ==================== */
@@ -964,17 +1274,63 @@
 
 /* ==================== STATS COUNTER ==================== */
 .stat-value {
-    transition: transform 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+}
+
+.stat-item {
+    transform-style: preserve-3d;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.stat-item:hover {
+    transform: perspective(500px) translateZ(30px) rotateX(5deg);
 }
 
 .stat-item:hover .stat-value {
-    transform: scale(1.1);
+    transform: scale(1.15) translateZ(20px);
+    text-shadow: 
+        0 5px 15px rgba(99, 102, 241, 0.3),
+        0 0 30px rgba(99, 102, 241, 0.2);
 }
 
 /* ==================== PRICING CARD ==================== */
 .pricing-featured {
-    transform: scale(1.05);
+    transform: perspective(1000px) scale(1.05) translateZ(30px);
     z-index: 10;
+    box-shadow: 
+        0 30px 60px -15px rgba(99, 102, 241, 0.3),
+        0 0 40px rgba(99, 102, 241, 0.15);
+}
+
+/* 3D Pricing Cards */
+.pricing-card-3d {
+    transform-style: preserve-3d;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+}
+
+.pricing-card-3d::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(135deg, #6366f1, #ec4899, #6366f1);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    filter: blur(20px);
+    transition: opacity 0.5s ease;
+}
+
+.pricing-card-3d:hover {
+    transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) translateY(-15px) translateZ(40px);
+    box-shadow: 
+        -15px 25px 50px rgba(0, 0, 0, 0.2),
+        0 0 40px rgba(99, 102, 241, 0.2);
+}
+
+.pricing-card-3d:hover::before {
+    opacity: 0.4;
 }
 
 @media (max-width: 1024px) {
@@ -985,25 +1341,84 @@
 
 /* ==================== TESTIMONIAL CARD ==================== */
 .testimonial-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+    position: relative;
+    background: linear-gradient(145deg, #ffffff 0%, #f8f9fc 100%);
+}
+
+.testimonial-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.5s ease;
 }
 
 .testimonial-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+    transform: perspective(1000px) rotateX(8deg) rotateY(-8deg) translateY(-15px) translateZ(50px);
+    box-shadow: 
+        -20px 30px 60px rgba(0, 0, 0, 0.15),
+        0 0 40px rgba(99, 102, 241, 0.15);
+}
+
+.testimonial-card:hover::before {
+    opacity: 1;
+}
+
+/* 3D Avatar */
+.testimonial-card .avatar-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
+}
+
+.testimonial-card:hover .avatar-3d {
+    transform: translateZ(20px) scale(1.1);
 }
 
 /* ==================== INTEGRATION ICONS ==================== */
 .integration-icon {
     filter: grayscale(100%);
     opacity: 0.6;
-    transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
 }
 
 .integration-icon:hover {
     filter: grayscale(0%);
     opacity: 1;
-    transform: scale(1.1);
+    transform: perspective(500px) translateZ(30px) rotateY(-10deg) scale(1.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* 3D Integration Cards */
+.integration-card-3d {
+    transform-style: preserve-3d;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+}
+
+.integration-card-3d::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 10%;
+    right: 10%;
+    height: 20px;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, transparent 70%);
+    filter: blur(10px);
+    transition: all 0.5s ease;
+}
+
+.integration-card-3d:hover {
+    transform: perspective(1000px) rotateX(10deg) rotateY(-10deg) translateY(-20px) translateZ(50px);
+}
+
+.integration-card-3d:hover::after {
+    bottom: -30px;
+    opacity: 0.8;
 }
 
 /* ==================== RESPONSIVE STYLES ==================== */
@@ -1154,29 +1569,56 @@ body.menu-open {
     margin: 0 auto;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    box-shadow: 
+        0 40px 80px -20px rgba(0, 0, 0, 0.35),
+        0 0 50px rgba(99, 102, 241, 0.15);
     background: #000;
-    animation: videoFloat 6s ease-in-out infinite;
-    transition: all 0.3s ease;
+    animation: video3DFloat 8s ease-in-out infinite;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
 }
 
-/* Floating animation for video - same as dashboard */
-@keyframes videoFloat {
+.section-video-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(236, 72, 153, 0.4));
+    border-radius: inherit;
+    z-index: -1;
+    filter: blur(30px);
+    opacity: 0.4;
+    transition: opacity 0.5s ease;
+}
+
+/* 3D Floating animation for video */
+@keyframes video3DFloat {
     0%, 100% {
-        transform: translateY(0) rotate(0deg);
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        transform: perspective(1000px) translateY(0) rotateX(0deg) rotateY(0deg) translateZ(0);
+        box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.35);
+    }
+    25% {
+        transform: perspective(1000px) translateY(-10px) rotateX(2deg) rotateY(-2deg) translateZ(15px);
     }
     50% {
-        transform: translateY(-15px) rotate(0.5deg);
-        box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+        transform: perspective(1000px) translateY(-20px) rotateX(0deg) rotateY(2deg) translateZ(25px);
+        box-shadow: 0 60px 100px -25px rgba(0, 0, 0, 0.4);
+    }
+    75% {
+        transform: perspective(1000px) translateY(-10px) rotateX(-2deg) rotateY(0deg) translateZ(15px);
     }
 }
 
 /* Pause animation and enhance on hover */
 .section-video-wrapper:hover {
     animation-play-state: paused;
-    transform: translateY(-5px);
-    box-shadow: 0 40px 70px -15px rgba(0, 0, 0, 0.35);
+    transform: perspective(1000px) rotateX(5deg) rotateY(-5deg) translateY(-10px) translateZ(40px);
+    box-shadow: 
+        -20px 50px 100px rgba(0, 0, 0, 0.4),
+        0 0 80px rgba(99, 102, 241, 0.25);
+}
+
+.section-video-wrapper:hover::before {
+    opacity: 0.6;
 }
 
 .section-video {

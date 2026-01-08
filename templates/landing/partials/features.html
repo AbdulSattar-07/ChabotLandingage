@@ -2,7 +2,7 @@
 <section id="features" class="py-20 lg:py-28 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16 reveal">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4 text-3d">
                 Powerful Features ✨
             </h2>
             <p class="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -12,9 +12,9 @@
 
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 stagger-children">
             {% for feature in features %}
-            <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-sm card-hover">
+            <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-sm card-hover feature-card-3d">
                 <div
-                    class="w-14 h-14 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-xl flex items-center justify-center mb-5 text-secondary">
+                    class="w-14 h-14 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-xl flex items-center justify-center mb-5 text-secondary icon-3d">
                     {{ feature.icon|safe }}
                 </div>
                 <h3 class="text-xl font-bold text-primary mb-3">{{ feature.title }}</h3>
@@ -22,9 +22,9 @@
             </div>
             {% empty %}
             <!-- Default features -->
-            <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-sm card-hover">
+            <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-sm card-hover feature-card-3d">
                 <div
-                    class="w-14 h-14 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-xl flex items-center justify-center mb-5 text-secondary">
+                    class="w-14 h-14 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-xl flex items-center justify-center mb-5 text-secondary icon-3d">
                     <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
@@ -34,9 +34,9 @@
                 <p class="text-gray-600 leading-relaxed">Get intelligent predictions and analytics to boost your sales
                     performance.</p>
             </div>
-            <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-sm card-hover">
+            <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-sm card-hover feature-card-3d">
                 <div
-                    class="w-14 h-14 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-xl flex items-center justify-center mb-5 text-secondary">
+                    class="w-14 h-14 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-xl flex items-center justify-center mb-5 text-secondary icon-3d">
                     <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
@@ -46,9 +46,9 @@
                 <p class="text-gray-600 leading-relaxed">Real-time inventory tracking with intelligent valuation
                     methods.</p>
             </div>
-            <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-sm card-hover">
+            <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-sm card-hover feature-card-3d">
                 <div
-                    class="w-14 h-14 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-xl flex items-center justify-center mb-5 text-secondary">
+                    class="w-14 h-14 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-xl flex items-center justify-center mb-5 text-secondary icon-3d">
                     <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -58,9 +58,9 @@
                 <p class="text-gray-600 leading-relaxed">AI-powered recommendations for optimal purchasing decisions.
                 </p>
             </div>
-            <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-sm card-hover">
+            <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-sm card-hover feature-card-3d">
                 <div
-                    class="w-14 h-14 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-xl flex items-center justify-center mb-5 text-secondary">
+                    class="w-14 h-14 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-xl flex items-center justify-center mb-5 text-secondary icon-3d">
                     <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
@@ -70,9 +70,9 @@
                 <p class="text-gray-600 leading-relaxed">Automated bookkeeping and ledger management with AI assistance.
                 </p>
             </div>
-            <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-sm card-hover">
+            <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-sm card-hover feature-card-3d">
                 <div
-                    class="w-14 h-14 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-xl flex items-center justify-center mb-5 text-secondary">
+                    class="w-14 h-14 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-xl flex items-center justify-center mb-5 text-secondary icon-3d">
                     <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -81,9 +81,9 @@
                 <h3 class="text-xl font-bold text-primary mb-3">Instant Reports</h3>
                 <p class="text-gray-600 leading-relaxed">Generate P&L, Balance Sheet, and custom reports instantly.</p>
             </div>
-            <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-sm card-hover">
+            <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-sm card-hover feature-card-3d">
                 <div
-                    class="w-14 h-14 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-xl flex items-center justify-center mb-5 text-secondary">
+                    class="w-14 h-14 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-xl flex items-center justify-center mb-5 text-secondary icon-3d">
                     <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
