@@ -2062,3 +2062,492 @@ body.menu-open {
         height: 20px;
     }
 }
+
+/* ==================== COMPREHENSIVE RESPONSIVE STYLES ==================== */
+
+/* Extra Large Screens (1400px+) */
+@media (min-width: 1400px) {
+    .max-w-7xl {
+        max-width: 1400px;
+    }
+    
+    .hero-title {
+        font-size: 4rem;
+    }
+    
+    .section-title-3d {
+        font-size: 3.5rem;
+    }
+}
+
+/* Large Screens (1200px - 1399px) */
+@media (max-width: 1399px) and (min-width: 1200px) {
+    .hero-title {
+        font-size: 3.5rem;
+    }
+    
+    .grid.lg\:grid-cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+/* Medium-Large Screens (1024px - 1199px) */
+@media (max-width: 1199px) and (min-width: 1024px) {
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .hero-content {
+        padding: 140px 2rem 60px;
+    }
+    
+    section {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+}
+
+/* Tablet Landscape (768px - 1023px) */
+@media (max-width: 1023px) and (min-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .grid.lg\:grid-cols-3 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+    
+    .grid.lg\:grid-cols-2 {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    section {
+        padding-top: 3.5rem;
+        padding-bottom: 3.5rem;
+    }
+    
+    .section-title-3d,
+    .text-3xl.sm\:text-4xl.lg\:text-5xl {
+        font-size: 2rem;
+    }
+    
+    /* Pricing cards tablet */
+    .pricing-card {
+        padding: 1.5rem;
+    }
+    
+    /* Features tablet */
+    .feature-card-3d {
+        padding: 1.25rem;
+    }
+}
+
+/* Tablet Portrait (600px - 767px) */
+@media (max-width: 767px) and (min-width: 600px) {
+    .hero-title {
+        font-size: 2.25rem;
+        line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .grid.sm\:grid-cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    section {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+    
+    .section-title-3d,
+    .text-3xl {
+        font-size: 1.75rem;
+    }
+    
+    .max-w-7xl {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* Mobile Large (480px - 599px) */
+@media (max-width: 599px) and (min-width: 480px) {
+    .hero-title {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.95rem;
+        padding: 0 0.5rem;
+    }
+    
+    .hero-content {
+        padding: 100px 1rem 30px;
+    }
+    
+    .grid.sm\:grid-cols-2 {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    section {
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
+    }
+    
+    .section-title-3d,
+    .text-3xl {
+        font-size: 1.5rem;
+    }
+    
+    .text-lg {
+        font-size: 0.95rem;
+    }
+    
+    /* Cards mobile */
+    .feature-card-3d,
+    .pricing-card,
+    .testimonial-card {
+        padding: 1rem;
+    }
+    
+    .max-w-7xl {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+}
+
+/* Mobile Small (320px - 479px) */
+@media (max-width: 479px) {
+    html {
+        font-size: 14px;
+    }
+    
+    .hero-section {
+        min-height: auto;
+        padding-bottom: 2rem;
+    }
+    
+    .hero-title {
+        font-size: 1.75rem;
+        line-height: 1.25;
+        margin-bottom: 0.75rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-content {
+        padding: 90px 0.75rem 20px;
+    }
+    
+    .hero-cta-group {
+        flex-direction: column;
+        gap: 0.75rem;
+        width: 100%;
+    }
+    
+    .btn-primary,
+    .btn-secondary,
+    .btn-get-started {
+        width: 100%;
+        padding: 0.875rem 1.5rem;
+        font-size: 0.9rem;
+        text-align: center;
+    }
+    
+    section {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+    
+    .section-title-3d,
+    .text-3xl,
+    h2 {
+        font-size: 1.35rem;
+        line-height: 1.3;
+    }
+    
+    .text-lg,
+    .text-xl {
+        font-size: 0.9rem;
+    }
+    
+    .text-gray-600 {
+        font-size: 0.85rem;
+        line-height: 1.6;
+    }
+    
+    /* Grid single column on mobile */
+    .grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem;
+    }
+    
+    /* Cards mobile small */
+    .feature-card-3d,
+    .pricing-card,
+    .testimonial-card,
+    .integration-card {
+        padding: 1rem;
+        border-radius: 12px;
+    }
+    
+    .feature-card-3d h3,
+    .pricing-card h3 {
+        font-size: 1.1rem;
+    }
+    
+    .feature-card-3d p {
+        font-size: 0.85rem;
+    }
+    
+    /* Icon sizes mobile */
+    .w-14.h-14 {
+        width: 48px !important;
+        height: 48px !important;
+    }
+    
+    .w-7.h-7 {
+        width: 24px !important;
+        height: 24px !important;
+    }
+    
+    /* Navbar mobile */
+    .navbar {
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .navbar-logo-text {
+        font-size: 1rem;
+    }
+    
+    .navbar-logo-icon {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .btn-get-started {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+    
+    /* Mobile menu */
+    .mobile-menu {
+        padding: 1rem;
+    }
+    
+    .mobile-menu-header {
+        padding: 0.5rem 0;
+    }
+    
+    /* FAQ mobile */
+    .faq-item {
+        padding: 0.75rem;
+    }
+    
+    .faq-question {
+        font-size: 0.95rem;
+        padding-right: 2rem;
+    }
+    
+    .faq-answer {
+        font-size: 0.85rem;
+    }
+    
+    /* Pricing mobile */
+    .pricing-featured {
+        transform: none;
+    }
+    
+    .pricing-price {
+        font-size: 2rem;
+    }
+    
+    /* Stats mobile */
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .stat-label {
+        font-size: 0.8rem;
+    }
+    
+    /* Testimonials mobile */
+    .testimonial-card {
+        padding: 1rem;
+    }
+    
+    .testimonial-text {
+        font-size: 0.9rem;
+    }
+    
+    /* Integrations mobile */
+    .integration-card {
+        padding: 1rem;
+    }
+    
+    /* Container padding */
+    .max-w-7xl,
+    .px-4 {
+        padding-left: 0.75rem !important;
+        padding-right: 0.75rem !important;
+    }
+    
+    /* Reduce 3D effects on mobile for performance */
+    .tilt-3d {
+        transform: none !important;
+    }
+    
+    .floating-3d,
+    .icon-float-3d {
+        animation: none;
+    }
+    
+    /* Video mobile */
+    .section-video-wrapper {
+        margin: 0 -0.75rem;
+        border-radius: 0;
+        width: calc(100% + 1.5rem);
+    }
+    
+    .section-video {
+        border-radius: 0;
+        max-height: 45vh;
+    }
+}
+
+/* Extra Small Mobile (below 320px) */
+@media (max-width: 319px) {
+    html {
+        font-size: 12px;
+    }
+    
+    .hero-title {
+        font-size: 1.5rem;
+    }
+    
+    .hero-content {
+        padding: 80px 0.5rem 15px;
+    }
+    
+    .navbar {
+        padding: 0.5rem;
+    }
+    
+    .navbar-logo-text {
+        font-size: 0.9rem;
+    }
+    
+    section {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+}
+
+/* Landscape Mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero-section {
+        min-height: auto;
+        padding: 60px 0 30px;
+    }
+    
+    .hero-content {
+        padding-top: 70px;
+    }
+    
+    .hero-title {
+        font-size: 1.75rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+    
+    .dashboard-mockup {
+        max-height: 40vh;
+    }
+    
+    .scroll-indicator,
+    .social-icons {
+        display: none;
+    }
+}
+
+/* High DPI / Retina Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .navbar,
+    .feature-card-3d,
+    .pricing-card {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .navbar,
+    .mobile-menu,
+    .scroll-indicator,
+    .social-icons,
+    .hamburger-btn {
+        display: none !important;
+    }
+    
+    section {
+        page-break-inside: avoid;
+    }
+    
+    .hero-section {
+        min-height: auto;
+        padding: 2rem 0;
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    /* Disable hover effects on touch devices */
+    .card-hover:hover {
+        transform: none;
+    }
+    
+    .tilt-3d:hover {
+        transform: none;
+    }
+    
+    .btn-hover:hover {
+        transform: none;
+    }
+    
+    /* Larger touch targets */
+    .btn-primary,
+    .btn-secondary,
+    .btn-get-started,
+    .faq-question {
+        min-height: 44px;
+    }
+    
+    /* Remove complex animations for better performance */
+    .floating-3d,
+    .icon-float-3d,
+    .morph-bg-3d::before {
+        animation: none;
+    }
+}
