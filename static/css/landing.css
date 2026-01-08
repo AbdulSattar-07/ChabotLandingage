@@ -1343,33 +1343,103 @@ body {
         inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
-/* 3D Feature Cards */
-.feature-card-3d {
-    position: relative;
+/* 3D Feature Text Animation */
+.feature-title-3d {
     transform-style: preserve-3d;
     transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    background: linear-gradient(145deg, #ffffff 0%, #f8f9fc 100%);
+    display: inline-block;
 }
 
-.feature-card-3d::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
-    border-radius: inherit;
-    opacity: 0;
-    transition: opacity 0.5s ease;
+.card-hover:hover .feature-title-3d {
+    transform: perspective(500px) translateZ(20px) rotateX(-5deg);
+    text-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
-.feature-card-3d:hover {
-    transform: perspective(1000px) rotateX(8deg) rotateY(-8deg) translateZ(40px) scale(1.02);
-    box-shadow: 
-        -20px 20px 40px rgba(0, 0, 0, 0.15),
-        0 0 50px rgba(99, 102, 241, 0.2);
+.feature-desc-3d {
+    transform-style: preserve-3d;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    transition-delay: 0.1s;
 }
 
-.feature-card-3d:hover::before {
-    opacity: 1;
+.card-hover:hover .feature-desc-3d {
+    transform: perspective(500px) translateZ(15px) rotateX(-3deg);
+}
+
+/* 3D Text Flip on Hover */
+.text-flip-3d {
+    display: inline-block;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.card-hover:hover .text-flip-3d {
+    transform: perspective(1000px) rotateY(10deg) rotateX(5deg) translateZ(30px);
+}
+
+/* 3D Letter Animation */
+.letter-3d {
+    display: inline-block;
+    transform-style: preserve-3d;
+    transition: all 0.3s ease;
+}
+
+.card-hover:hover .letter-3d {
+    animation: letterBounce 0.5s ease forwards;
+}
+
+@keyframes letterBounce {
+    0% { transform: translateZ(0) rotateY(0); }
+    50% { transform: translateZ(20px) rotateY(10deg); }
+    100% { transform: translateZ(10px) rotateY(0); }
+}
+
+/* 3D Content Slide Up */
+.content-slide-3d {
+    transform-style: preserve-3d;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.card-hover:hover .content-slide-3d {
+    transform: perspective(1000px) translateY(-10px) translateZ(25px);
+}
+
+/* 3D Gradient Text */
+.gradient-text-3d {
+    background: linear-gradient(135deg, var(--primary-navy), var(--indigo-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.1));
+    transition: all 0.4s ease;
+}
+
+.card-hover:hover .gradient-text-3d {
+    filter: drop-shadow(4px 4px 8px rgba(99, 102, 241, 0.3));
+    transform: scale(1.02);
+}
+
+/* 3D Icon Float Animation */
+.icon-float-3d {
+    animation: iconFloat3d 3s ease-in-out infinite;
+}
+
+@keyframes iconFloat3d {
+    0%, 100% {
+        transform: translateY(0) rotateY(0deg);
+    }
+    50% {
+        transform: translateY(-8px) rotateY(10deg);
+    }
+}
+
+.card-hover:hover .icon-float-3d {
+    animation: iconPulse3d 0.6s ease-in-out;
+}
+
+@keyframes iconPulse3d {
+    0% { transform: scale(1) rotateY(0deg); }
+    50% { transform: scale(1.2) rotateY(180deg); }
+    100% { transform: scale(1) rotateY(360deg); }
 }
 
 /* 3D Icon Container */
