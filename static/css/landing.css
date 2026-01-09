@@ -2562,7 +2562,7 @@ body.menu-open {
     flex-wrap: wrap;
     gap: 1.5rem;
     justify-content: center;
-    align-items: flex-start;
+    align-items: flex-end;
 }
 
 .section-image-item {
@@ -2586,21 +2586,23 @@ body.menu-open {
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    display: inline-block;
 }
 
 .section-image-item:hover .section-image-wrapper {
     box-shadow: 0 8px 30px rgba(99, 102, 241, 0.2);
 }
 
+/* Default - Original Size (auto width/height) */
 .section-image {
-    width: 100%;
-    height: auto;
     display: block;
+    max-width: 100%;
+    height: auto;
     transition: transform 0.3s ease;
 }
 
 .section-image-item:hover .section-image {
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 .section-image-subtitle {
@@ -2609,15 +2611,19 @@ body.menu-open {
     color: var(--gray-600, #4b5563);
     font-weight: 500;
     line-height: 1.4;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* Avatar Style */
+/* Avatar Style - Fixed circular size */
 .section-image-item.avatar-style .section-image-wrapper {
     width: 80px;
     height: 80px;
     border-radius: 50%;
     border: 3px solid var(--white, #fff);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    flex-shrink: 0;
 }
 
 .section-image-item.avatar-style .section-image {
@@ -2631,10 +2637,10 @@ body.menu-open {
     max-width: 100px;
 }
 
-/* Logo Style */
+/* Logo Style - Maintain aspect ratio */
 .section-image-item.logo-style .section-image-wrapper {
-    width: 120px;
-    height: 60px;
+    max-width: 150px;
+    max-height: 80px;
     border-radius: 8px;
     background: var(--white, #fff);
     padding: 0.5rem;
@@ -2645,45 +2651,71 @@ body.menu-open {
 
 .section-image-item.logo-style .section-image {
     max-width: 100%;
-    max-height: 100%;
+    max-height: 60px;
+    width: auto;
+    height: auto;
     object-fit: contain;
 }
 
-/* Screenshot Style */
+/* Screenshot Style - Original size with max limit */
 .section-image-item.screenshot-style .section-image-wrapper {
-    max-width: 300px;
+    max-width: 400px;
     border-radius: 16px;
     border: 4px solid rgba(99, 102, 241, 0.1);
 }
 
-/* Gallery/Default Style */
+.section-image-item.screenshot-style .section-image {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+}
+
+/* Gallery/Default Style - Original size */
 .section-image-item.default-style .section-image-wrapper,
 .section-image-item.gallery-style .section-image-wrapper {
-    max-width: 200px;
+    max-width: 300px;
     border-radius: 12px;
 }
 
-/* Icon Style */
+.section-image-item.default-style .section-image,
+.section-image-item.gallery-style .section-image {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 250px;
+}
+
+/* Icon Style - Fixed small size */
 .section-image-item.icon-style .section-image-wrapper {
     width: 60px;
     height: 60px;
     border-radius: 12px;
     background: linear-gradient(135deg, var(--secondary-color, #6366f1), var(--accent-color, #ec4899));
     padding: 0.75rem;
+    flex-shrink: 0;
 }
 
 .section-image-item.icon-style .section-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     filter: brightness(0) invert(1);
 }
 
-/* Banner Style */
+/* Banner Style - Full width responsive */
 .section-image-item.banner-style {
     width: 100%;
 }
 
 .section-image-item.banner-style .section-image-wrapper {
+    width: 100%;
     max-width: 100%;
     border-radius: 16px;
+}
+
+.section-image-item.banner-style .section-image {
+    width: 100%;
+    height: auto;
 }
 
 /* Avatars Row - Overlapping Style */
@@ -2722,7 +2754,23 @@ body.menu-open {
     opacity: 1;
 }
 
-/* Responsive */
+/* Responsive - Tablet */
+@media (max-width: 1024px) {
+    .section-images-grid {
+        gap: 1.25rem;
+    }
+    
+    .section-image-item.screenshot-style .section-image-wrapper {
+        max-width: 350px;
+    }
+    
+    .section-image-item.default-style .section-image,
+    .section-image-item.gallery-style .section-image {
+        max-height: 200px;
+    }
+}
+
+/* Responsive - Mobile */
 @media (max-width: 768px) {
     .section-images-grid {
         gap: 1rem;
@@ -2734,31 +2782,87 @@ body.menu-open {
     }
     
     .section-image-item.logo-style .section-image-wrapper {
-        width: 100px;
-        height: 50px;
+        max-width: 120px;
+        max-height: 60px;
+    }
+    
+    .section-image-item.logo-style .section-image {
+        max-height: 45px;
     }
     
     .section-image-item.screenshot-style .section-image-wrapper {
+        max-width: 280px;
+    }
+    
+    .section-image-item.default-style .section-image-wrapper,
+    .section-image-item.gallery-style .section-image-wrapper {
         max-width: 250px;
+    }
+    
+    .section-image-item.default-style .section-image,
+    .section-image-item.gallery-style .section-image {
+        max-height: 180px;
     }
     
     .section-image-subtitle {
         font-size: 0.8rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .section-image-item.avatar-style .section-image-wrapper {
-        width: 50px;
-        height: 50px;
+        max-width: 150px;
     }
     
     .avatars-row .section-image-item.avatar-style {
         margin-left: -10px;
     }
+}
+
+/* Responsive - Small Mobile */
+@media (max-width: 480px) {
+    .section-images-grid {
+        gap: 0.75rem;
+    }
+    
+    .section-image-item.avatar-style .section-image-wrapper {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .avatars-row .section-image-item.avatar-style {
+        margin-left: -8px;
+    }
     
     .section-image-item.logo-style .section-image-wrapper {
-        width: 80px;
-        height: 40px;
+        max-width: 100px;
+        max-height: 50px;
+    }
+    
+    .section-image-item.logo-style .section-image {
+        max-height: 35px;
+    }
+    
+    .section-image-item.screenshot-style .section-image-wrapper {
+        max-width: 100%;
+    }
+    
+    .section-image-item.default-style .section-image-wrapper,
+    .section-image-item.gallery-style .section-image-wrapper {
+        max-width: 100%;
+    }
+    
+    .section-image-item.default-style .section-image,
+    .section-image-item.gallery-style .section-image {
+        max-height: 150px;
+    }
+    
+    .section-image-item.icon-style .section-image-wrapper {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .section-image-subtitle {
+        font-size: 0.75rem;
+        max-width: 120px;
+    }
+    
+    .section-image-item.banner-style .section-image-wrapper {
+        border-radius: 12px;
     }
 }
