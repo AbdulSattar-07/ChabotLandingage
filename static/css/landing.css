@@ -3410,3 +3410,68 @@ section {
         margin-top: 1rem;
     }
 }
+
+
+/* ==================== FEATURE CARD IMAGE STYLES ==================== */
+/* Image inside feature card - responsive and clear */
+
+.feature-card-image-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 16px 16px 0 0;
+}
+
+.feature-card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+/* Hover zoom effect */
+.feature-card-3d:hover .feature-card-image {
+    transform: scale(1.05);
+}
+
+/* Gradient overlay on image */
+.feature-card-image-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+    pointer-events: none;
+}
+
+/* Card with image has no top padding */
+.feature-card-3d.overflow-hidden {
+    padding: 0;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1024px) {
+    .feature-card-image {
+        height: 180px;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    .feature-card-image {
+        height: 160px;
+    }
+}
+
+/* Responsive - Small Mobile */
+@media (max-width: 480px) {
+    .feature-card-image {
+        height: 140px;
+    }
+    
+    .feature-card-image-wrapper {
+        border-radius: 12px 12px 0 0;
+    }
+}

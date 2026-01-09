@@ -75,17 +75,39 @@ class LandingPageSettingsAdmin(admin.ModelAdmin):
 class FeatureAdmin(admin.ModelAdmin):
     """Admin for feature cards"""
     
-    list_display = ('title', 'order', 'is_active', 'icon_preview')
+    list_display = ('title', 'image_preview', 'order', 'is_active', 'icon_preview')
     list_filter = ('is_active',)
     search_fields = ('title', 'description')
     ordering = ('order',)
     list_editable = ('order', 'is_active')
+    
+    fieldsets = (
+        (None, {
+            'fields': ('title', 'description')
+        }),
+        ('Visuals', {
+            'fields': ('icon', 'image'),
+            'description': 'Icon is shown as small badge. Image is displayed at top of card (optional).'
+        }),
+        ('Settings', {
+            'fields': ('order', 'is_active')
+        }),
+    )
     
     def icon_preview(self, obj):
         if obj.icon:
             return format_html('<div style="width:24px;height:24px;color:#6366f1;">{}</div>', obj.icon)
         return '-'
     icon_preview.short_description = 'Icon'
+    
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html(
+                '<img src="{}" style="width:60px;height:40px;object-fit:cover;border-radius:6px;" />',
+                obj.image.url
+            )
+        return '-'
+    image_preview.short_description = 'Image'
 
 
 @admin.register(SectionBlock)
