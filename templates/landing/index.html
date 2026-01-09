@@ -48,8 +48,12 @@ nav.navbar {
 }
 {% endblock %}
 
-{% block content %}
+{% block navbar %}
 {% include "landing/partials/navbar.html" %}
+{% endblock %}
+
+{% block content %}
+<!-- Page content inside wrapper -->
 {% include "landing/partials/hero.html" %}
 {% include "landing/partials/features.html" %}
 {% include "landing/partials/section_split.html" %}

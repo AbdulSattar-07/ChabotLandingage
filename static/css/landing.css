@@ -394,7 +394,8 @@ p, span, a, li {
     position: relative;
     min-height: 100vh;
     width: 100%;
-    overflow: hidden;
+    overflow-x: clip; /* Use clip instead of hidden */
+    overflow-y: visible; /* Allow navbar to be visible */
     background: #ffd6e8;
 }
 
@@ -2488,21 +2489,26 @@ body.menu-open {
 
 /* ==================== GLOBAL OVERFLOW FIX ==================== */
 /* Prevent horizontal scroll and content overflow */
-html, body {
-    overflow-x: hidden;
+/* NOTE: Don't use overflow:hidden on html/body as it can affect fixed elements */
+html {
     max-width: 100vw;
+}
+
+body {
+    max-width: 100vw;
+    overflow-x: clip; /* Use clip instead of hidden - doesn't affect fixed elements */
 }
 
 /* All sections must contain their content */
 section {
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100%;
+    position: relative;
 }
 
 /* Container overflow fix */
 .max-w-7xl {
     max-width: 100%;
-    overflow: hidden;
     box-sizing: border-box;
 }
 
@@ -3211,6 +3217,12 @@ section {
     z-index: 1 !important;
 }
 
+/* Page wrapper should not clip fixed elements */
+.page-wrapper {
+    position: relative;
+    z-index: 1;
+}
+
 /* Hero section special handling */
 .hero-section {
     z-index: 1 !important;
@@ -3226,6 +3238,7 @@ section {
 }
 
 /* Navbar must always be on top - CRITICAL - Maximum z-index */
+/* Navbar is OUTSIDE the page-wrapper so it won't be clipped */
 #navbar,
 .navbar,
 nav.navbar,
@@ -3235,6 +3248,9 @@ nav#navbar {
     visibility: visible !important;
     opacity: 1 !important;
     display: block !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
 }
 
 /* Mobile menu below navbar but above content */

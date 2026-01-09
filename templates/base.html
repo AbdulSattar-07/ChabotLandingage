@@ -55,8 +55,11 @@
     </style>
 </head>
 
-<body class="font-sans antialiased text-gray-800 bg-white overflow-x-hidden">
+<body class="font-sans antialiased text-gray-800 bg-white">
+    {% block navbar %}{% endblock %}
+    <div class="page-wrapper" style="overflow-x: clip; max-width: 100vw;">
     {% block content %}{% endblock %}
+    </div>
     {% block extra_js %}{% endblock %}
     
     <!-- Inline JS for immediate interactions -->
