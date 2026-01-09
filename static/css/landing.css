@@ -2481,6 +2481,90 @@ body.menu-open {
     }
 }
 
+/* ==================== GLOBAL OVERFLOW FIX ==================== */
+/* Prevent horizontal scroll and content overflow */
+html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+/* All sections must contain their content */
+section {
+    overflow-x: hidden;
+    max-width: 100%;
+}
+
+/* Container overflow fix */
+.max-w-7xl {
+    max-width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* Grid container fix */
+.grid {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Card overflow fix - prevent cards from overflowing */
+.card-hover,
+.feature-card-3d,
+.pricing-card-3d,
+.testimonial-card,
+.glass-3d {
+    overflow: hidden;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Disable 3D transforms that cause overflow */
+.card-hover:hover,
+.feature-card-3d:hover,
+.pricing-card-3d:hover,
+.testimonial-card:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Fix shine effect overflow */
+.shine-3d::after {
+    display: none;
+}
+
+/* Fix neon glow overflow */
+.neon-3d::before {
+    display: none;
+}
+
+/* Fix glass effect */
+.glass-3d::before {
+    display: none;
+}
+
+/* Disable tilt completely to prevent overflow */
+[data-tilt] {
+    transform: none !important;
+}
+
+/* Fix feature card content */
+.feature-card-3d .icon-3d,
+.feature-card-3d .icon-float-3d {
+    animation: none !important;
+    transform: none !important;
+}
+
+/* Fix testimonial card content */
+.testimonial-card .flip-card-inner {
+    transform: none !important;
+}
+
+/* Fix pricing featured scale */
+.pricing-featured {
+    transform: none !important;
+}
+
 /* Extra Small Mobile (below 320px) */
 @media (max-width: 319px) {
     html {
