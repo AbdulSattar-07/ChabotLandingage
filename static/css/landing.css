@@ -1049,26 +1049,28 @@ body {
     position: relative;
     z-index: 15;
     width: 100%;
-    max-width: 1100px;
-    margin-top: 3rem;
+    max-width: 900px;
+    margin: 2.5rem auto 0;
     opacity: 0;
     transform: translateY(60px);
     animation: heroFadeIn 1.2s ease forwards;
     animation-delay: 0.9s;
     transform-style: preserve-3d;
     perspective: 1500px;
+    padding: 0 1rem;
 }
 
 .dashboard-image-wrapper {
     position: relative;
-    border-radius: 20px;
+    border-radius: 16px;
     overflow: hidden;
     box-shadow: 
-        0 50px 100px -20px rgba(0, 0, 0, 0.4),
-        0 0 50px rgba(99, 102, 241, 0.2);
+        0 30px 60px -15px rgba(0, 0, 0, 0.3),
+        0 0 40px rgba(99, 102, 241, 0.15);
     animation: dashboard3DFloat 8s ease-in-out infinite;
     transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
     transform-style: preserve-3d;
+    max-height: 500px;
 }
 
 .dashboard-image-wrapper::before {
@@ -1095,28 +1097,30 @@ body {
         transform: perspective(1000px) translateY(0) rotateX(0deg) rotateY(0deg) translateZ(0);
     }
     25% {
-        transform: perspective(1000px) translateY(-15px) rotateX(3deg) rotateY(-3deg) translateZ(20px);
+        transform: perspective(1000px) translateY(-10px) rotateX(2deg) rotateY(-2deg) translateZ(15px);
     }
     50% {
-        transform: perspective(1000px) translateY(-25px) rotateX(0deg) rotateY(3deg) translateZ(30px);
+        transform: perspective(1000px) translateY(-15px) rotateX(0deg) rotateY(2deg) translateZ(20px);
     }
     75% {
-        transform: perspective(1000px) translateY(-15px) rotateX(-3deg) rotateY(0deg) translateZ(20px);
+        transform: perspective(1000px) translateY(-10px) rotateX(-2deg) rotateY(0deg) translateZ(15px);
     }
 }
 
 .dashboard-image-wrapper img {
     width: 100%;
     height: auto;
+    max-height: 500px;
+    object-fit: contain;
     display: block;
 }
 
 /* Dashboard Placeholder */
 .dashboard-placeholder {
     background: var(--white);
-    border-radius: 20px;
-    padding: 1.5rem;
-    min-height: 500px;
+    border-radius: 16px;
+    padding: 1.25rem;
+    min-height: 400px;
 }
 
 .dashboard-header {
@@ -1799,11 +1803,22 @@ body {
     }
     
     .dashboard-mockup {
-        margin-top: 2rem;
+        margin-top: 1.5rem;
+        max-width: 100%;
+        padding: 0 0.5rem;
+    }
+    
+    .dashboard-image-wrapper {
+        max-height: 350px;
+        border-radius: 12px;
+    }
+    
+    .dashboard-image-wrapper img {
+        max-height: 350px;
     }
     
     .dashboard-placeholder {
-        min-height: 300px;
+        min-height: 280px;
         padding: 1rem;
     }
     
@@ -2477,7 +2492,22 @@ body.menu-open {
     }
     
     .dashboard-mockup {
-        max-height: 40vh;
+        margin-top: 1rem;
+        padding: 0;
+    }
+    
+    .dashboard-image-wrapper {
+        max-height: 250px;
+        border-radius: 10px;
+    }
+    
+    .dashboard-image-wrapper img {
+        max-height: 250px;
+    }
+    
+    .dashboard-placeholder {
+        min-height: 200px;
+        padding: 0.75rem;
     }
     
     .scroll-indicator,
