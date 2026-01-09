@@ -247,6 +247,7 @@ body {
 .morph-bg-3d {
     position: relative;
     overflow: hidden;
+    z-index: 1;
 }
 
 .morph-bg-3d::before {
@@ -258,6 +259,7 @@ body {
     height: 200%;
     background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
     animation: morphBg 10s ease-in-out infinite;
+    z-index: -1;
 }
 
 @keyframes morphBg {
@@ -270,6 +272,7 @@ body {
 /* 3D Floating Particles */
 .particles-3d {
     position: relative;
+    z-index: 1;
 }
 
 .particles-3d::before,
@@ -282,6 +285,7 @@ body {
     border-radius: 50%;
     opacity: 0.5;
     animation: particleFloat 6s ease-in-out infinite;
+    z-index: -1;
 }
 
 .particles-3d::before {
@@ -399,13 +403,12 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
+    z-index: 9999 !important;
     padding: 1.25rem 2rem;
-    transition: all 0.4s ease;
+    transition: background 0.4s ease, box-shadow 0.4s ease;
     background: transparent;
     visibility: visible !important;
     opacity: 1 !important;
-    display: flex !important;
 }
 
 /* Navbar stays transparent on hero - no background, no blur */
@@ -416,10 +419,10 @@ body {
 }
 
 .navbar.scrolled {
-    background: linear-gradient(135deg, var(--primary-navy) 0%, var(--indigo-accent) 100%);
+    background: linear-gradient(135deg, var(--primary-navy) 0%, var(--indigo-accent) 100%) !important;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3) !important;
     visibility: visible !important;
     opacity: 1 !important;
 }
@@ -3043,4 +3046,27 @@ body.menu-open {
     .section-image-item.banner-style .section-image-wrapper {
         border-radius: 12px;
     }
+}
+
+
+/* ==================== ENSURE NAVBAR ALWAYS ON TOP ==================== */
+/* All sections should have lower z-index than navbar */
+section {
+    position: relative;
+    z-index: 1;
+}
+
+/* Navbar must always be on top */
+#navbar,
+.navbar {
+    z-index: 9999 !important;
+}
+
+/* Mobile menu below navbar but above content */
+.mobile-menu {
+    z-index: 9998 !important;
+}
+
+.mobile-menu-overlay {
+    z-index: 9997 !important;
 }
