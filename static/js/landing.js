@@ -25,14 +25,17 @@
         const heroSection = document.getElementById('hero');
         const heroHeight = heroSection ? heroSection.offsetHeight : window.innerHeight;
 
-        // Ensure navbar is always visible and on top
-        navbar.style.position = 'fixed';
-        navbar.style.top = '0';
-        navbar.style.left = '0';
-        navbar.style.right = '0';
-        navbar.style.zIndex = '99999';
-        navbar.style.visibility = 'visible';
-        navbar.style.opacity = '1';
+        // Ensure navbar is always visible and on top with maximum z-index
+        navbar.style.cssText = `
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            z-index: 2147483647 !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            display: block !important;
+        `;
 
         // Initial check on page load
         if (window.scrollY > scrollThreshold) {
@@ -44,10 +47,11 @@
         window.addEventListener('scroll', () => {
             const currentScroll = window.scrollY;
 
-            // Ensure navbar stays visible
+            // Ensure navbar stays visible with maximum z-index
+            navbar.style.zIndex = '2147483647';
             navbar.style.visibility = 'visible';
             navbar.style.opacity = '1';
-            navbar.style.zIndex = '99999';
+            navbar.style.position = 'fixed';
 
             // Add/remove scrolled class and inline styles for reliability
             if (currentScroll > scrollThreshold) {
