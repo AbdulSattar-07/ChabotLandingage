@@ -26,7 +26,7 @@
         <div class="hero-section-images">
             <div class="section-images-grid avatars-row">
                 {% for img in section_images.hero %}
-                <div class="section-image-item {% if img.image_type == 'avatar' %}avatar-style{% elif img.image_type == 'logo' %}logo-style{% else %}default-style{% endif %}">
+                <div class="section-image-item full-3d {% if img.image_type == 'avatar' %}avatar-style{% elif img.image_type == 'logo' %}logo-style{% else %}default-style{% endif %}">
                     {% if img.link_url %}
                     <a href="{{ img.link_url }}" target="_blank" rel="noopener" class="section-image-link">
                     {% endif %}
