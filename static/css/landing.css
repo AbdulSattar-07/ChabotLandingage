@@ -3220,3 +3220,193 @@ section {
 .mobile-menu-overlay {
     z-index: 9997 !important;
 }
+
+
+/* ==================== FEATURES HERO IMAGES - 3D ROBOT STYLE ==================== */
+/* Like the automation section robot image */
+
+.features-hero-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    perspective: 1500px;
+}
+
+.feature-hero-image-item {
+    position: relative;
+    text-align: center;
+}
+
+.feature-hero-image-item a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.feature-hero-image-wrapper {
+    position: relative;
+    display: inline-block;
+    animation: featureImageFloat 6s ease-in-out infinite;
+    transform-style: preserve-3d;
+}
+
+/* Main floating animation - like robot */
+@keyframes featureImageFloat {
+    0%, 100% {
+        transform: translateY(0) rotateY(0deg) rotateX(0deg);
+    }
+    25% {
+        transform: translateY(-15px) rotateY(3deg) rotateX(2deg);
+    }
+    50% {
+        transform: translateY(-25px) rotateY(0deg) rotateX(-2deg);
+    }
+    75% {
+        transform: translateY(-15px) rotateY(-3deg) rotateX(2deg);
+    }
+}
+
+.feature-hero-image {
+    max-width: 350px;
+    max-height: 300px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 20px;
+    filter: drop-shadow(0 30px 60px rgba(99, 102, 241, 0.3));
+    transition: all 0.4s ease;
+}
+
+/* Glow effect under image */
+.feature-image-glow {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 30px;
+    background: radial-gradient(ellipse at center, rgba(99, 102, 241, 0.4) 0%, rgba(236, 72, 153, 0.2) 40%, transparent 70%);
+    filter: blur(15px);
+    animation: glowPulse 3s ease-in-out infinite;
+    border-radius: 50%;
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        opacity: 0.6;
+        transform: translateX(-50%) scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.2);
+    }
+}
+
+/* Hover effect */
+.feature-hero-image-item:hover .feature-hero-image-wrapper {
+    animation-play-state: paused;
+}
+
+.feature-hero-image-item:hover .feature-hero-image {
+    transform: scale(1.05) rotateY(5deg);
+    filter: drop-shadow(0 40px 80px rgba(99, 102, 241, 0.4));
+}
+
+.feature-hero-image-item:hover .feature-image-glow {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.3);
+}
+
+/* Subtitle styling */
+.feature-hero-subtitle {
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e3a5f;
+    text-shadow: none;
+    animation: subtitleFade 6s ease-in-out infinite;
+}
+
+@keyframes subtitleFade {
+    0%, 100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateY(-5px);
+    }
+}
+
+/* Multiple images - stagger animation */
+.feature-hero-image-item:nth-child(2) .feature-hero-image-wrapper {
+    animation-delay: 0.5s;
+}
+
+.feature-hero-image-item:nth-child(3) .feature-hero-image-wrapper {
+    animation-delay: 1s;
+}
+
+.feature-hero-image-item:nth-child(4) .feature-hero-image-wrapper {
+    animation-delay: 1.5s;
+}
+
+.feature-hero-image-item:nth-child(5) .feature-hero-image-wrapper {
+    animation-delay: 2s;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 1024px) {
+    .feature-hero-image {
+        max-width: 280px;
+        max-height: 250px;
+    }
+    
+    .features-hero-images {
+        gap: 1.5rem;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    .feature-hero-image {
+        max-width: 220px;
+        max-height: 200px;
+    }
+    
+    .features-hero-images {
+        gap: 1rem;
+    }
+    
+    .feature-hero-subtitle {
+        font-size: 0.95rem;
+    }
+    
+    @keyframes featureImageFloat {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-15px);
+        }
+    }
+}
+
+/* Responsive - Small Mobile */
+@media (max-width: 480px) {
+    .feature-hero-image {
+        max-width: 180px;
+        max-height: 160px;
+    }
+    
+    .feature-image-glow {
+        display: none;
+    }
+    
+    .feature-hero-subtitle {
+        font-size: 0.85rem;
+        margin-top: 1rem;
+    }
+}
