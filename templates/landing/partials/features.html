@@ -9,20 +9,40 @@
                 AI-driven tools to transform your ERP operations
             </p>
             
-            <!-- Features Section Images (from Admin) -->
+            <!-- Features 3D Carousel (from Admin) -->
             {% if section_images.features %}
-            <div class="mt-8">
-                <div class="section-images-grid">
+            <div class="features-3d-carousel-container mt-12">
+                <div class="features-3d-carousel" id="features-carousel">
                     {% for img in section_images.features %}
-                    <div class="section-image-item rotating-3d {% if img.image_type == 'avatar' %}avatar-style{% elif img.image_type == 'logo' %}logo-style{% else %}default-style{% endif %}">
-                        {% if img.link_url %}<a href="{{ img.link_url }}" target="_blank" rel="noopener" class="section-image-link">{% endif %}
-                            <div class="section-image-wrapper">
-                                <img src="{{ img.image.url }}" alt="{{ img.alt_text|default:img.subtitle }}" class="section-image" loading="lazy">
+                    <div class="carousel-3d-item" data-index="{{ forloop.counter0 }}" style="--item-index: {{ forloop.counter0 }};">
+                        <div class="carousel-3d-card">
+                            <div class="carousel-3d-image-wrapper">
+                                {% if img.link_url %}<a href="{{ img.link_url }}" target="_blank" rel="noopener">{% endif %}
+                                    <img src="{{ img.image.url }}" alt="{{ img.alt_text|default:img.subtitle }}" class="carousel-3d-image" loading="lazy">
+                                {% if img.link_url %}</a>{% endif %}
                             </div>
-                            {% if img.subtitle %}<p class="section-image-subtitle">{{ img.subtitle }}</p>{% endif %}
-                        {% if img.link_url %}</a>{% endif %}
+                            {% if img.subtitle %}
+                            <div class="carousel-3d-caption">
+                                <p>{{ img.subtitle }}</p>
+                            </div>
+                            {% endif %}
+                        </div>
                     </div>
                     {% endfor %}
+                </div>
+                <!-- Carousel Navigation -->
+                <div class="carousel-3d-nav">
+                    <button class="carousel-3d-btn carousel-3d-prev" aria-label="Previous">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+                    <div class="carousel-3d-dots" id="carousel-dots"></div>
+                    <button class="carousel-3d-btn carousel-3d-next" aria-label="Next">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
             {% endif %}
