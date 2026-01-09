@@ -405,26 +405,20 @@ body {
     right: 0;
     z-index: 9999 !important;
     padding: 1.25rem 2rem;
-    transition: background 0.4s ease, box-shadow 0.4s ease;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
     background: transparent;
-    visibility: visible !important;
-    opacity: 1 !important;
 }
 
-/* Navbar stays transparent on hero - no background, no blur */
+/* Navbar stays transparent on hero - no background */
 .navbar:not(.scrolled) {
     background: transparent;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
 }
 
-.navbar.scrolled {
-    background: linear-gradient(135deg, var(--primary-navy) 0%, var(--indigo-accent) 100%) !important;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+/* Navbar with solid background after scroll */
+.navbar.scrolled,
+.navbar.navbar-scrolled {
+    background: linear-gradient(135deg, #1e3a5f 0%, #6366f1 100%) !important;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3) !important;
-    visibility: visible !important;
-    opacity: 1 !important;
 }
 
 .navbar-container {
@@ -1535,42 +1529,40 @@ body {
 /* ==================== NAVBAR SCROLLED (for other sections) ==================== */
 .navbar-scrolled,
 .navbar.scrolled {
-    background: linear-gradient(135deg, var(--primary-navy) 0%, var(--indigo-accent) 100%) !important;
-    box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.2);
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    background: linear-gradient(135deg, #1e3a5f 0%, #6366f1 100%) !important;
+    box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.3) !important;
 }
 
 /* Keep text white on scrolled navbar (purple background) */
 .navbar-scrolled .navbar-logo-text,
 .navbar.scrolled .navbar-logo-text {
-    color: var(--white);
+    color: #ffffff !important;
 }
 
 .navbar-scrolled .navbar-menu a,
 .navbar.scrolled .navbar-menu a {
-    color: var(--white);
+    color: #ffffff !important;
 }
 
 .navbar-scrolled .navbar-menu a::after,
 .navbar.scrolled .navbar-menu a::after {
-    background: var(--white);
+    background: #ffffff;
 }
 
 .navbar-scrolled .btn-get-started,
 .navbar.scrolled .btn-get-started {
-    background: var(--white);
-    color: var(--primary-navy);
+    background: #ffffff !important;
+    color: #1e3a5f !important;
 }
 
 .navbar-scrolled .hamburger-btn,
 .navbar.scrolled .hamburger-btn {
-    background: var(--white);
+    background: #ffffff !important;
 }
 
 .navbar-scrolled .hamburger-btn span,
 .navbar.scrolled .hamburger-btn span {
-    background: var(--primary-navy);
+    background: #1e3a5f !important;
 }
 
 /* ==================== STATS COUNTER ==================== */

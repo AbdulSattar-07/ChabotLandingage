@@ -18,18 +18,29 @@
     function initNavbarScroll() {
         if (!navbar) return;
 
-        const scrollThreshold = 100;
+        const scrollThreshold = 50;
         const heroSection = document.getElementById('hero');
         const heroHeight = heroSection ? heroSection.offsetHeight : window.innerHeight;
+
+        // Initial check on page load
+        if (window.scrollY > scrollThreshold) {
+            navbar.classList.add('scrolled', 'navbar-scrolled');
+            navbar.style.background = 'linear-gradient(135deg, #1e3a5f 0%, #6366f1 100%)';
+            navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.3)';
+        }
 
         window.addEventListener('scroll', () => {
             const currentScroll = window.scrollY;
 
-            // Add/remove scrolled class
+            // Add/remove scrolled class and inline styles for reliability
             if (currentScroll > scrollThreshold) {
                 navbar.classList.add('scrolled', 'navbar-scrolled');
+                navbar.style.background = 'linear-gradient(135deg, #1e3a5f 0%, #6366f1 100%)';
+                navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.3)';
             } else {
                 navbar.classList.remove('scrolled', 'navbar-scrolled');
+                navbar.style.background = 'transparent';
+                navbar.style.boxShadow = 'none';
             }
 
             // Hide scroll indicator after scrolling
