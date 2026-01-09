@@ -16,11 +16,23 @@
 
     // ==================== NAVBAR SCROLL EFFECT ====================
     function initNavbarScroll() {
-        if (!navbar) return;
+        if (!navbar) {
+            console.warn('Navbar element not found!');
+            return;
+        }
 
         const scrollThreshold = 50;
         const heroSection = document.getElementById('hero');
         const heroHeight = heroSection ? heroSection.offsetHeight : window.innerHeight;
+
+        // Ensure navbar is always visible and on top
+        navbar.style.position = 'fixed';
+        navbar.style.top = '0';
+        navbar.style.left = '0';
+        navbar.style.right = '0';
+        navbar.style.zIndex = '99999';
+        navbar.style.visibility = 'visible';
+        navbar.style.opacity = '1';
 
         // Initial check on page load
         if (window.scrollY > scrollThreshold) {
@@ -31,6 +43,11 @@
 
         window.addEventListener('scroll', () => {
             const currentScroll = window.scrollY;
+
+            // Ensure navbar stays visible
+            navbar.style.visibility = 'visible';
+            navbar.style.opacity = '1';
+            navbar.style.zIndex = '99999';
 
             // Add/remove scrolled class and inline styles for reliability
             if (currentScroll > scrollThreshold) {

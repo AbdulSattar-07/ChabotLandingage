@@ -426,19 +426,22 @@ p, span, a, li {
 
 /* ==================== NAVBAR ==================== */
 .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 9999 !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 99999 !important;
     padding: 1.25rem 2rem;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease !important;
     background: transparent;
+    pointer-events: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 /* Navbar stays transparent on hero - no background */
 .navbar:not(.scrolled) {
-    background: transparent;
+    background: transparent !important;
 }
 
 /* Navbar with solid background after scroll */
@@ -446,6 +449,8 @@ p, span, a, li {
 .navbar.navbar-scrolled {
     background: linear-gradient(135deg, #1e3a5f 0%, #6366f1 100%) !important;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
 }
 
 .navbar-container {
@@ -3203,22 +3208,38 @@ section {
 /* All sections should have lower z-index than navbar */
 section {
     position: relative;
-    z-index: 1;
+    z-index: 1 !important;
 }
 
-/* Navbar must always be on top */
+/* Hero section special handling */
+.hero-section {
+    z-index: 1 !important;
+}
+
+.hero-section::before,
+.hero-section::after {
+    z-index: 2 !important;
+}
+
+.hero-content {
+    z-index: 10 !important;
+}
+
+/* Navbar must always be on top - CRITICAL */
 #navbar,
-.navbar {
-    z-index: 9999 !important;
+.navbar,
+nav.navbar {
+    z-index: 99999 !important;
+    position: fixed !important;
 }
 
 /* Mobile menu below navbar but above content */
 .mobile-menu {
-    z-index: 9998 !important;
+    z-index: 99998 !important;
 }
 
 .mobile-menu-overlay {
-    z-index: 9997 !important;
+    z-index: 99997 !important;
 }
 
 
