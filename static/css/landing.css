@@ -4433,3 +4433,21 @@ img {
         animation: none !important;
     }
 }
+
+
+/* ==================== HIDE NAVBAR WHEN MOBILE MENU IS OPEN ==================== */
+body.menu-open .navbar,
+body.menu-open #navbar {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* Mobile menu should be on top */
+.mobile-menu.open {
+    z-index: 2147483647 !important;
+}
+
+.mobile-menu-overlay.open {
+    z-index: 2147483646 !important;
+}

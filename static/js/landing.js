@@ -94,7 +94,6 @@
         if (!hamburgerBtn || !mobileMenu) return;
 
         const mobileMenuClose = document.getElementById('mobile-menu-close');
-        const navbarCta = document.querySelector('.navbar-cta');
 
         function openMenu() {
             mobileMenu.classList.add('open');
@@ -105,23 +104,11 @@
                 mobileMenuOverlay.classList.add('open');
             }
 
-            // Hide entire navbar-cta except hamburger button
-            if (navbarCta) {
-                // Hide all children except hamburger
-                const children = navbarCta.children;
-                for (let i = 0; i < children.length; i++) {
-                    if (children[i].id !== 'hamburger-btn') {
-                        children[i].style.opacity = '0';
-                        children[i].style.visibility = 'hidden';
-                    }
-                }
-            }
-
-            // Hide desktop menu
-            const navbarMenu = document.querySelector('.navbar-menu');
-            if (navbarMenu) {
-                navbarMenu.style.opacity = '0';
-                navbarMenu.style.visibility = 'hidden';
+            // Hide entire navbar when mobile menu is open
+            if (navbar) {
+                navbar.style.opacity = '0';
+                navbar.style.visibility = 'hidden';
+                navbar.style.pointerEvents = 'none';
             }
 
             document.body.classList.add('menu-open');
@@ -136,20 +123,11 @@
                 mobileMenuOverlay.classList.remove('open');
             }
 
-            // Show navbar-cta children again
-            if (navbarCta) {
-                const children = navbarCta.children;
-                for (let i = 0; i < children.length; i++) {
-                    children[i].style.opacity = '1';
-                    children[i].style.visibility = 'visible';
-                }
-            }
-
-            // Show desktop menu
-            const navbarMenu = document.querySelector('.navbar-menu');
-            if (navbarMenu) {
-                navbarMenu.style.opacity = '1';
-                navbarMenu.style.visibility = 'visible';
+            // Show navbar again when mobile menu closes
+            if (navbar) {
+                navbar.style.opacity = '1';
+                navbar.style.visibility = 'visible';
+                navbar.style.pointerEvents = 'auto';
             }
 
             document.body.classList.remove('menu-open');
