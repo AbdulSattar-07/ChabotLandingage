@@ -4646,10 +4646,17 @@ body.menu-open .navbar {
 
 /* ==================== MOBILE NAVIGATION LINKS ==================== */
 .mobile-nav-links {
-    display: flex;
+    display: none; /* Hidden by default on desktop */
     flex-direction: column;
     gap: 0.5rem;
     margin-bottom: 1rem;
+}
+
+/* Show nav links in mobile menu only when desktop menu is hidden */
+@media (max-width: 1024px) {
+    .mobile-nav-links {
+        display: flex !important;
+    }
 }
 
 .mobile-nav-link {
@@ -4723,5 +4730,28 @@ body.menu-open .navbar {
     .mobile-nav-icon {
         width: 32px;
         height: 32px;
+    }
+}
+
+
+/* ==================== DESKTOP VS MOBILE MENU LOGIC ==================== */
+/* On desktop (>1024px), navbar menu is visible, so hide nav links in mobile menu */
+@media (min-width: 1025px) {
+    .mobile-nav-links {
+        display: none !important;
+    }
+    
+    /* On desktop, mobile menu shows only contact info */
+    .mobile-menu-tagline:first-of-type {
+        display: none;
+    }
+}
+
+/* On tablet/mobile (<=1024px), navbar menu is hidden, so show nav links in mobile menu */
+@media (max-width: 1024px) {
+    .mobile-nav-links {
+        display: flex !important;
+        flex-direction: column;
+        gap: 0.5rem;
     }
 }
