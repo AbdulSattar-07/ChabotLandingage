@@ -820,7 +820,8 @@ p, span, a, li {
     gap: 1rem;
     visibility: visible !important;
     opacity: 1;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.5s ease;
+    pointer-events: auto;
 }
 
 .scroll-text {
@@ -895,10 +896,11 @@ p, span, a, li {
     display: flex !important;
     flex-direction: column;
     gap: 1rem;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.5s ease;
     perspective: 1000px;
     visibility: visible !important;
     opacity: 1;
+    pointer-events: auto;
 }
 
 .social-icon {

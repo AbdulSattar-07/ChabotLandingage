@@ -76,9 +76,12 @@
                 navbar.style.boxShadow = 'none';
             }
 
-            // Hide scroll indicator after scrolling
+            // Hide scroll indicator and social icons after hero section
+            // They should only show in hero/home section
+            const hideThreshold = heroHeight - 100;
+
             if (scrollIndicator) {
-                if (currentScroll > 200) {
+                if (currentScroll > hideThreshold) {
                     scrollIndicator.style.opacity = '0';
                     scrollIndicator.style.pointerEvents = 'none';
                 } else {
@@ -87,9 +90,8 @@
                 }
             }
 
-            // Hide social icons after hero section
             if (socialIcons) {
-                if (currentScroll > heroHeight - 200) {
+                if (currentScroll > hideThreshold) {
                     socialIcons.style.opacity = '0';
                     socialIcons.style.pointerEvents = 'none';
                 } else {

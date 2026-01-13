@@ -77,17 +77,19 @@
                 navbar.style.cssText = 'position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; z-index: 2147483647 !important; visibility: visible !important; opacity: 1 !important; display: block !important;';
             }
             
-            // Force scroll indicator visible
+            // Force scroll indicator visible initially
             if (scrollIndicator) {
-                scrollIndicator.style.cssText = 'display: flex !important; visibility: visible !important; opacity: 1 !important;';
+                scrollIndicator.style.cssText = 'display: flex !important; visibility: visible !important; opacity: 1 !important; transition: opacity 0.5s ease !important;';
             }
             
-            // Force social icons visible
+            // Force social icons visible initially
             if (socialIcons) {
-                socialIcons.style.cssText = 'display: flex !important; visibility: visible !important; opacity: 1 !important;';
+                socialIcons.style.cssText = 'display: flex !important; visibility: visible !important; opacity: 1 !important; transition: opacity 0.5s ease !important;';
             }
             
             function updateOnScroll() {
+                const currentScroll = window.scrollY;
+                
                 // ALWAYS keep navbar visible
                 if (navbar) {
                     navbar.style.visibility = 'visible';
@@ -97,7 +99,7 @@
                     navbar.style.zIndex = '2147483647';
                     
                     // Change background on scroll
-                    if (window.scrollY > 50) {
+                    if (currentScroll > 50) {
                         navbar.classList.add('scrolled', 'navbar-scrolled');
                         navbar.style.background = 'linear-gradient(135deg, #1e3a5f 0%, #6366f1 100%)';
                         navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.3)';
@@ -108,9 +110,12 @@
                     }
                 }
                 
-                // Fade scroll indicator after scrolling
+                // Hide scroll indicator and social icons after hero section ends
+                // They should only be visible in hero section (home)
+                const hideThreshold = heroHeight - 100; // Hide before hero ends
+                
                 if (scrollIndicator) {
-                    if (window.scrollY > 200) {
+                    if (currentScroll > hideThreshold) {
                         scrollIndicator.style.opacity = '0';
                         scrollIndicator.style.pointerEvents = 'none';
                     } else {
@@ -119,9 +124,8 @@
                     }
                 }
                 
-                // Fade social icons after hero
                 if (socialIcons) {
-                    if (window.scrollY > heroHeight - 200) {
+                    if (currentScroll > hideThreshold) {
                         socialIcons.style.opacity = '0';
                         socialIcons.style.pointerEvents = 'none';
                     } else {
