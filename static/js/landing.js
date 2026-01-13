@@ -354,6 +354,76 @@
         });
     }
 
+    // ==================== FEATURES 3D REVEAL ====================
+    function initFeatures3D() {
+        // Check for reduced motion preference
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.querySelectorAll('.feature-card, .feature-reveal').forEach(el => {
+                el.classList.add('revealed');
+            });
+            return;
+        }
+
+        // Feature cards reveal with IntersectionObserver
+        const featureCards = document.querySelectorAll('.feature-card');
+        const featureReveals = document.querySelectorAll('.feature-reveal');
+
+        if (featureCards.length === 0 && featureReveals.length === 0) return;
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px 0px -80px 0px',
+            threshold: 0.15
+        };
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe feature cards
+        featureCards.forEach(card => {
+            revealObserver.observe(card);
+        });
+
+        // Observe other reveal elements
+        featureReveals.forEach(el => {
+            if (!el.classList.contains('feature-card')) {
+                revealObserver.observe(el);
+            }
+        });
+
+        // Optional: Add mouse-based 3D tilt for desktop only
+        if (window.innerWidth > 768 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            featureCards.forEach(card => {
+                const inner = card.querySelector('.feature-card-inner');
+                if (!inner) return;
+
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    // Calculate rotation (max 5 degrees)
+                    const rotateX = ((y - centerY) / centerY) * -5;
+                    const rotateY = ((x - centerX) / centerX) * 5;
+
+                    inner.style.transform = `translateY(-8px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    inner.style.transform = '';
+                });
+            });
+        }
+    }
+
     // ==================== INITIALIZE ====================
     function init() {
         initNavbar();
@@ -365,6 +435,7 @@
         initDashboardHover();
         initSectionVideos();
         init3DEffects();
+        initFeatures3D();
     }
 
     // Run on DOM ready

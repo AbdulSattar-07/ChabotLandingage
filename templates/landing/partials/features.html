@@ -1,24 +1,24 @@
-<!-- Features Section -->
-<section id="features" class="py-20 lg:py-28 bg-white morph-bg-3d particles-3d">
+<!-- Features Section - Enterprise 3D Design -->
+<section id="features" class="features-section py-20 lg:py-28 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16 reveal">
-            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4 section-title-3d text-3d">
+        <!-- Section Header -->
+        <div class="text-center mb-16 feature-reveal">
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary mb-4">
                 Powerful Features ✨
             </h2>
             <p class="text-lg text-gray-600 max-w-2xl mx-auto">
                 AI-driven tools to transform your ERP operations
             </p>
             
-            <!-- Features Section Images (from Admin) - 3D Robot Style -->
+            <!-- Features Section Images (from Admin) -->
             {% if section_images.features %}
             <div class="mt-12 mb-8">
                 <div class="features-hero-images">
                     {% for img in section_images.features %}
-                    <div class="feature-hero-image-item">
+                    <div class="feature-hero-image-item feature-reveal">
                         {% if img.link_url %}<a href="{{ img.link_url }}" target="_blank" rel="noopener">{% endif %}
                             <div class="feature-hero-image-wrapper">
                                 <img src="{{ img.image.url }}" alt="{{ img.alt_text|default:img.subtitle }}" class="feature-hero-image" loading="lazy">
-                                <div class="feature-image-glow"></div>
                             </div>
                             {% if img.subtitle %}<p class="feature-hero-subtitle">{{ img.subtitle }}</p>{% endif %}
                         {% if img.link_url %}</a>{% endif %}
@@ -29,88 +29,159 @@
             {% endif %}
         </div>
 
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 stagger-children">
-            {% for feature in features %}
-            <div class="bg-white rounded-2xl border border-gray-100 shadow-xl card-hover feature-card-3d overflow-hidden">
-                <!-- Feature Image (if uploaded) -->
-                {% if feature.image %}
-                <div class="feature-card-image-wrapper">
-                    <img src="{{ feature.image.url }}" alt="{{ feature.title }}" class="feature-card-image" loading="lazy">
-                    <div class="feature-card-image-overlay"></div>
-                </div>
-                {% endif %}
-                
-                <div class="p-6 lg:p-8">
-                    <div class="w-14 h-14 bg-gradient-to-br from-secondary to-accent rounded-xl flex items-center justify-center mb-5 text-white">
-                        {{ feature.icon|safe }}
+        <!-- Features Grid with 3D Perspective Container -->
+        <div class="features-3d-container">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                {% for feature in features %}
+                <article class="feature-card feature-reveal" data-feature-index="{{ forloop.counter }}">
+                    <div class="feature-card-inner">
+                        <!-- Image Layer (Mid-depth) - Only if image exists -->
+                        {% if feature.image %}
+                        <div class="feature-layer feature-layer-image">
+                            <div class="feature-image-container">
+                                <img src="{{ feature.image.url }}" alt="{{ feature.title }}" class="feature-image" loading="lazy">
+                                <div class="feature-image-reflection"></div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Content Container -->
+                        <div class="feature-content {% if feature.image %}has-image{% endif %}">
+                            <!-- Icon Layer (Front-most) -->
+                            <div class="feature-layer feature-layer-icon">
+                                <div class="feature-icon">
+                                    {{ feature.icon|safe }}
+                                </div>
+                            </div>
+                            
+                            <!-- Text Layer (Base) -->
+                            <div class="feature-layer feature-layer-text">
+                                <h3 class="feature-title">{{ feature.title }}</h3>
+                                <p class="feature-description">{{ feature.description }}</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Hover Glow Effect -->
+                        <div class="feature-glow"></div>
                     </div>
-                    <h3 class="text-xl font-bold text-primary mb-3">{{ feature.title }}</h3>
-                    <p class="text-gray-600 leading-relaxed">{{ feature.description }}</p>
-                </div>
+                </article>
+                {% empty %}
+                <!-- Default Features -->
+                {% with default_features="AI Sales Insights:Get intelligent predictions and analytics to boost your sales performance.:M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z|Smart Inventory:Real-time inventory tracking with intelligent valuation methods.:M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4|Auto Purchase:AI-powered recommendations for optimal purchasing decisions.:M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z|Accounts & Ledger:Automated bookkeeping and ledger management with AI assistance.:M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z|Instant Reports:Generate P&L, Balance Sheet, and custom reports instantly.:M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z|WhatsApp Alerts:Get real-time alerts and schedule reports via WhatsApp.:M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" %}
+                {% for item in default_features|make_list %}
+                {% endfor %}
+                <!-- Fallback static cards -->
+                <article class="feature-card feature-reveal">
+                    <div class="feature-card-inner">
+                        <div class="feature-content">
+                            <div class="feature-layer feature-layer-icon">
+                                <div class="feature-icon">
+                                    <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="feature-layer feature-layer-text">
+                                <h3 class="feature-title">AI Sales Insights</h3>
+                                <p class="feature-description">Get intelligent predictions and analytics to boost your sales performance.</p>
+                            </div>
+                        </div>
+                        <div class="feature-glow"></div>
+                    </div>
+                </article>
+                <article class="feature-card feature-reveal">
+                    <div class="feature-card-inner">
+                        <div class="feature-content">
+                            <div class="feature-layer feature-layer-icon">
+                                <div class="feature-icon">
+                                    <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="feature-layer feature-layer-text">
+                                <h3 class="feature-title">Smart Inventory</h3>
+                                <p class="feature-description">Real-time inventory tracking with intelligent valuation methods.</p>
+                            </div>
+                        </div>
+                        <div class="feature-glow"></div>
+                    </div>
+                </article>
+                <article class="feature-card feature-reveal">
+                    <div class="feature-card-inner">
+                        <div class="feature-content">
+                            <div class="feature-layer feature-layer-icon">
+                                <div class="feature-icon">
+                                    <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="feature-layer feature-layer-text">
+                                <h3 class="feature-title">Auto Purchase</h3>
+                                <p class="feature-description">AI-powered recommendations for optimal purchasing decisions.</p>
+                            </div>
+                        </div>
+                        <div class="feature-glow"></div>
+                    </div>
+                </article>
+                <article class="feature-card feature-reveal">
+                    <div class="feature-card-inner">
+                        <div class="feature-content">
+                            <div class="feature-layer feature-layer-icon">
+                                <div class="feature-icon">
+                                    <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="feature-layer feature-layer-text">
+                                <h3 class="feature-title">Accounts & Ledger</h3>
+                                <p class="feature-description">Automated bookkeeping and ledger management with AI assistance.</p>
+                            </div>
+                        </div>
+                        <div class="feature-glow"></div>
+                    </div>
+                </article>
+                <article class="feature-card feature-reveal">
+                    <div class="feature-card-inner">
+                        <div class="feature-content">
+                            <div class="feature-layer feature-layer-icon">
+                                <div class="feature-icon">
+                                    <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="feature-layer feature-layer-text">
+                                <h3 class="feature-title">Instant Reports</h3>
+                                <p class="feature-description">Generate P&L, Balance Sheet, and custom reports instantly.</p>
+                            </div>
+                        </div>
+                        <div class="feature-glow"></div>
+                    </div>
+                </article>
+                <article class="feature-card feature-reveal">
+                    <div class="feature-card-inner">
+                        <div class="feature-content">
+                            <div class="feature-layer feature-layer-icon">
+                                <div class="feature-icon">
+                                    <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="feature-layer feature-layer-text">
+                                <h3 class="feature-title">WhatsApp Alerts</h3>
+                                <p class="feature-description">Get real-time alerts and schedule reports via WhatsApp.</p>
+                            </div>
+                        </div>
+                        <div class="feature-glow"></div>
+                    </div>
+                </article>
+                {% endwith %}
+                {% endfor %}
             </div>
-            {% empty %}
-            <!-- Default features -->
-            <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-xl card-hover feature-card-3d">
-                <div class="w-14 h-14 bg-gradient-to-br from-secondary to-accent rounded-xl flex items-center justify-center mb-5 text-white">
-                    <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold text-primary mb-3">AI Sales Insights</h3>
-                <p class="text-gray-600 leading-relaxed">Get intelligent predictions and analytics to boost your sales performance.</p>
-            </div>
-            <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-xl card-hover feature-card-3d">
-                <div class="w-14 h-14 bg-gradient-to-br from-secondary to-accent rounded-xl flex items-center justify-center mb-5 text-white">
-                    <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold text-primary mb-3">Smart Inventory</h3>
-                <p class="text-gray-600 leading-relaxed">Real-time inventory tracking with intelligent valuation methods.</p>
-            </div>
-            <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-xl card-hover feature-card-3d">
-                <div class="w-14 h-14 bg-gradient-to-br from-secondary to-accent rounded-xl flex items-center justify-center mb-5 text-white">
-                    <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold text-primary mb-3">Auto Purchase</h3>
-                <p class="text-gray-600 leading-relaxed">AI-powered recommendations for optimal purchasing decisions.</p>
-            </div>
-            <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-xl card-hover feature-card-3d">
-                <div class="w-14 h-14 bg-gradient-to-br from-secondary to-accent rounded-xl flex items-center justify-center mb-5 text-white">
-                    <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold text-primary mb-3">Accounts & Ledger</h3>
-                <p class="text-gray-600 leading-relaxed">Automated bookkeeping and ledger management with AI assistance.</p>
-            </div>
-            <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-xl card-hover feature-card-3d">
-                <div class="w-14 h-14 bg-gradient-to-br from-secondary to-accent rounded-xl flex items-center justify-center mb-5 text-white">
-                    <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold text-primary mb-3">Instant Reports</h3>
-                <p class="text-gray-600 leading-relaxed">Generate P&L, Balance Sheet, and custom reports instantly.</p>
-            </div>
-            <div class="bg-white rounded-2xl p-6 lg:p-8 border border-gray-100 shadow-xl card-hover feature-card-3d">
-                <div class="w-14 h-14 bg-gradient-to-br from-secondary to-accent rounded-xl flex items-center justify-center mb-5 text-white">
-                    <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                    </svg>
-                </div>
-                <h3 class="text-xl font-bold text-primary mb-3">WhatsApp Alerts</h3>
-                <p class="text-gray-600 leading-relaxed">Get real-time alerts and schedule reports via WhatsApp.</p>
-            </div>
-            {% endfor %}
         </div>
     </div>
 </section>

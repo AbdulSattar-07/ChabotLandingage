@@ -4938,3 +4938,456 @@ body.menu-open .navbar {
         opacity: 1 !important;
     }
 }
+
+
+/* ============================================================================
+   FEATURES SECTION - ENTERPRISE 3D DESIGN
+   Stripe/Linear/Vercel-level professional 3D depth
+   ============================================================================ */
+
+/* Section Container - Perspective Origin */
+.features-section {
+    position: relative;
+    z-index: 1;
+    isolation: isolate;
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
+/* 3D Container - Provides perspective for all cards */
+.features-3d-container {
+    perspective: 1200px;
+    perspective-origin: 50% 50%;
+}
+
+/* ==================== FEATURE CARD - BASE ==================== */
+.feature-card {
+    position: relative;
+    height: 100%;
+    min-height: 320px;
+    border-radius: 20px;
+    /* Initial state for reveal animation */
+    opacity: 0;
+    transform: translateY(40px) rotateX(10deg);
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Revealed state */
+.feature-card.revealed {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+}
+
+/* Staggered reveal delay */
+.feature-card[data-feature-index="1"] { transition-delay: 0ms; }
+.feature-card[data-feature-index="2"] { transition-delay: 80ms; }
+.feature-card[data-feature-index="3"] { transition-delay: 160ms; }
+.feature-card[data-feature-index="4"] { transition-delay: 240ms; }
+.feature-card[data-feature-index="5"] { transition-delay: 320ms; }
+.feature-card[data-feature-index="6"] { transition-delay: 400ms; }
+
+/* ==================== CARD INNER - 3D Transform Container ==================== */
+.feature-card-inner {
+    position: relative;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 
+        0 1px 3px rgba(0, 0, 0, 0.04),
+        0 4px 12px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, box-shadow;
+}
+
+/* Hover - Subtle 3D tilt + lift */
+.feature-card:hover .feature-card-inner {
+    transform: translateY(-8px) rotateX(4deg) rotateY(-2deg);
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.04),
+        0 12px 24px rgba(0, 0, 0, 0.08),
+        0 24px 48px rgba(99, 102, 241, 0.12);
+}
+
+/* ==================== DEPTH LAYERS ==================== */
+.feature-layer {
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+/* Icon Layer - Front-most (highest Z) */
+.feature-layer-icon {
+    transform: translateZ(30px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.feature-card:hover .feature-layer-icon {
+    transform: translateZ(45px);
+}
+
+/* Image Layer - Mid-depth */
+.feature-layer-image {
+    transform: translateZ(15px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.feature-card:hover .feature-layer-image {
+    transform: translateZ(25px);
+}
+
+/* Text Layer - Base (lowest Z) */
+.feature-layer-text {
+    transform: translateZ(0);
+}
+
+/* ==================== FEATURE ICON ==================== */
+.feature-icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--indigo-accent, #6366f1) 0%, #8b5cf6 100%);
+    border-radius: 14px;
+    color: white;
+    margin-bottom: 20px;
+    box-shadow: 
+        0 4px 12px rgba(99, 102, 241, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-icon svg {
+    width: 28px;
+    height: 28px;
+}
+
+.feature-card:hover .feature-icon {
+    box-shadow: 
+        0 8px 20px rgba(99, 102, 241, 0.4),
+        0 0 0 1px rgba(255, 255, 255, 0.2) inset,
+        0 0 30px rgba(99, 102, 241, 0.2);
+}
+
+/* ==================== FEATURE IMAGE ==================== */
+.feature-image-container {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    border-radius: 16px 16px 0 0;
+}
+
+.feature-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.feature-card:hover .feature-image {
+    transform: scale(1.05);
+}
+
+/* Image reflection/glow */
+.feature-image-reflection {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.95), transparent);
+    pointer-events: none;
+}
+
+/* ==================== FEATURE CONTENT ==================== */
+.feature-content {
+    padding: 28px;
+}
+
+.feature-content.has-image {
+    padding-top: 20px;
+}
+
+.feature-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-navy, #1e3a5f);
+    margin-bottom: 12px;
+    line-height: 1.3;
+    /* Ensure text stays crisp */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.feature-description {
+    font-size: 0.95rem;
+    color: #64748b;
+    line-height: 1.65;
+    /* Ensure text stays crisp */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==================== HOVER GLOW EFFECT ==================== */
+.feature-glow {
+    position: absolute;
+    inset: -2px;
+    border-radius: 22px;
+    background: linear-gradient(135deg, 
+        rgba(99, 102, 241, 0.15), 
+        rgba(139, 92, 246, 0.15),
+        rgba(236, 72, 153, 0.1));
+    opacity: 0;
+    z-index: -1;
+    filter: blur(20px);
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.feature-card:hover .feature-glow {
+    opacity: 1;
+}
+
+/* ==================== FEATURES HERO IMAGES ==================== */
+.features-hero-images {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.feature-hero-image-item {
+    text-align: center;
+}
+
+.feature-hero-image-wrapper {
+    position: relative;
+    display: inline-block;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.feature-hero-image-wrapper:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 16px 50px rgba(99, 102, 241, 0.2);
+}
+
+.feature-hero-image {
+    max-width: 300px;
+    height: auto;
+    display: block;
+}
+
+.feature-hero-subtitle {
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* ==================== SCROLL REVEAL ANIMATION ==================== */
+.feature-reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.feature-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==================== RESPONSIVE - TABLET ==================== */
+@media (max-width: 1024px) {
+    .features-3d-container {
+        perspective: 1000px;
+    }
+    
+    .feature-card {
+        min-height: 300px;
+    }
+    
+    .feature-card:hover .feature-card-inner {
+        transform: translateY(-6px) rotateX(3deg) rotateY(-1deg);
+    }
+    
+    .feature-icon {
+        width: 52px;
+        height: 52px;
+    }
+    
+    .feature-icon svg {
+        width: 26px;
+        height: 26px;
+    }
+    
+    .feature-content {
+        padding: 24px;
+    }
+    
+    .feature-image-container {
+        height: 160px;
+    }
+}
+
+/* ==================== RESPONSIVE - MOBILE ==================== */
+@media (max-width: 768px) {
+    .features-3d-container {
+        perspective: none; /* Disable perspective on mobile */
+    }
+    
+    .feature-card {
+        min-height: auto;
+        opacity: 1;
+        transform: none;
+    }
+    
+    .feature-card-inner {
+        transform-style: flat; /* Disable 3D on mobile */
+    }
+    
+    /* Disable 3D tilt on mobile - keep only shadow/lift */
+    .feature-card:hover .feature-card-inner {
+        transform: translateY(-4px);
+        box-shadow: 
+            0 4px 12px rgba(0, 0, 0, 0.08),
+            0 12px 24px rgba(99, 102, 241, 0.1);
+    }
+    
+    /* Disable depth layers on mobile */
+    .feature-layer-icon,
+    .feature-layer-image,
+    .feature-layer-text {
+        transform: none !important;
+    }
+    
+    .feature-card:hover .feature-layer-icon {
+        transform: none !important;
+    }
+    
+    .feature-icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 16px;
+    }
+    
+    .feature-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .feature-content {
+        padding: 20px;
+    }
+    
+    .feature-title {
+        font-size: 1.125rem;
+    }
+    
+    .feature-description {
+        font-size: 0.9rem;
+    }
+    
+    .feature-image-container {
+        height: 140px;
+    }
+    
+    .feature-glow {
+        display: none; /* Disable glow on mobile for performance */
+    }
+    
+    .features-hero-images {
+        gap: 1rem;
+    }
+    
+    .feature-hero-image {
+        max-width: 200px;
+    }
+}
+
+/* ==================== RESPONSIVE - SMALL MOBILE ==================== */
+@media (max-width: 480px) {
+    .feature-content {
+        padding: 16px;
+    }
+    
+    .feature-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+    }
+    
+    .feature-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+    
+    .feature-title {
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
+    
+    .feature-description {
+        font-size: 0.85rem;
+        line-height: 1.6;
+    }
+    
+    .feature-image-container {
+        height: 120px;
+    }
+    
+    .feature-hero-image {
+        max-width: 150px;
+    }
+}
+
+/* ==================== REDUCED MOTION ==================== */
+@media (prefers-reduced-motion: reduce) {
+    .feature-card,
+    .feature-card-inner,
+    .feature-layer-icon,
+    .feature-layer-image,
+    .feature-icon,
+    .feature-image,
+    .feature-glow,
+    .feature-reveal,
+    .feature-hero-image-wrapper {
+        transition: none !important;
+        animation: none !important;
+    }
+    
+    .feature-card {
+        opacity: 1;
+        transform: none;
+    }
+    
+    .feature-card:hover .feature-card-inner {
+        transform: none;
+    }
+    
+    .feature-reveal {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* ==================== HIGH CONTRAST MODE ==================== */
+@media (prefers-contrast: high) {
+    .feature-card-inner {
+        border: 2px solid #000;
+    }
+    
+    .feature-title {
+        color: #000;
+    }
+    
+    .feature-description {
+        color: #333;
+    }
+}
