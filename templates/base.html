@@ -69,18 +69,34 @@
             const navbar = document.getElementById('navbar');
             const scrollIndicator = document.getElementById('scroll-indicator');
             const socialIcons = document.getElementById('social-icons');
+            const heroSection = document.getElementById('hero');
+            const heroHeight = heroSection ? heroSection.offsetHeight : window.innerHeight;
             
+            // Force navbar to be visible immediately
             if (navbar) {
-                // Set initial styles with maximum z-index
-                navbar.style.cssText = 'position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; z-index: 2147483647 !important; visibility: visible !important; opacity: 1 !important;';
-                
-                function updateNavbar() {
-                    // Always ensure navbar is visible
-                    navbar.style.zIndex = '2147483647';
+                navbar.style.cssText = 'position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; z-index: 2147483647 !important; visibility: visible !important; opacity: 1 !important; display: block !important;';
+            }
+            
+            // Force scroll indicator visible
+            if (scrollIndicator) {
+                scrollIndicator.style.cssText = 'display: flex !important; visibility: visible !important; opacity: 1 !important;';
+            }
+            
+            // Force social icons visible
+            if (socialIcons) {
+                socialIcons.style.cssText = 'display: flex !important; visibility: visible !important; opacity: 1 !important;';
+            }
+            
+            function updateOnScroll() {
+                // ALWAYS keep navbar visible
+                if (navbar) {
                     navbar.style.visibility = 'visible';
                     navbar.style.opacity = '1';
+                    navbar.style.display = 'block';
                     navbar.style.position = 'fixed';
+                    navbar.style.zIndex = '2147483647';
                     
+                    // Change background on scroll
                     if (window.scrollY > 50) {
                         navbar.classList.add('scrolled', 'navbar-scrolled');
                         navbar.style.background = 'linear-gradient(135deg, #1e3a5f 0%, #6366f1 100%)';
@@ -92,22 +108,34 @@
                     }
                 }
                 
-                // Run on load
-                updateNavbar();
+                // Fade scroll indicator after scrolling
+                if (scrollIndicator) {
+                    if (window.scrollY > 200) {
+                        scrollIndicator.style.opacity = '0';
+                        scrollIndicator.style.pointerEvents = 'none';
+                    } else {
+                        scrollIndicator.style.opacity = '1';
+                        scrollIndicator.style.pointerEvents = 'auto';
+                    }
+                }
                 
-                // Run on scroll
-                window.addEventListener('scroll', updateNavbar, { passive: true });
+                // Fade social icons after hero
+                if (socialIcons) {
+                    if (window.scrollY > heroHeight - 200) {
+                        socialIcons.style.opacity = '0';
+                        socialIcons.style.pointerEvents = 'none';
+                    } else {
+                        socialIcons.style.opacity = '1';
+                        socialIcons.style.pointerEvents = 'auto';
+                    }
+                }
             }
             
-            // Ensure scroll indicator and social icons are visible initially
-            if (scrollIndicator) {
-                scrollIndicator.style.display = 'flex';
-                scrollIndicator.style.visibility = 'visible';
-            }
-            if (socialIcons) {
-                socialIcons.style.display = 'flex';
-                socialIcons.style.visibility = 'visible';
-            }
+            // Run on load
+            updateOnScroll();
+            
+            // Run on scroll
+            window.addEventListener('scroll', updateOnScroll, { passive: true });
         })();
     </script>
 </body>
