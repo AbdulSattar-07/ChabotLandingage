@@ -11,9 +11,10 @@
     --primary-navy: {{ settings.primary_color|default:"#1b1f8a" }};
     --indigo-accent: {{ settings.secondary_color|default:"#2a2fa3" }};
     --accent-pink: {{ settings.accent_color|default:"#ec4899" }};
+    --navbar-height: 70px;
 }
 
-/* CRITICAL: Force navbar to always be visible and on top */
+/* CRITICAL: Enterprise-grade navbar fix */
 #navbar,
 .navbar,
 nav.navbar {
@@ -21,9 +22,13 @@ nav.navbar {
     top: 0 !important;
     left: 0 !important;
     right: 0 !important;
-    z-index: 999999 !important;
+    width: 100% !important;
+    z-index: 2147483647 !important;
+    display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
+    pointer-events: auto !important;
+    transform: none !important;
 }
 
 #navbar.scrolled,
@@ -31,6 +36,22 @@ nav.navbar {
 .navbar.navbar-scrolled {
     background: linear-gradient(135deg, #1e3a5f 0%, #6366f1 100%) !important;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3) !important;
+}
+
+#navbar:not(.scrolled),
+.navbar:not(.scrolled) {
+    background: transparent !important;
+}
+
+/* All sections below navbar */
+section {
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* Scroll margin for anchor links */
+section[id] {
+    scroll-margin-top: var(--navbar-height);
 }
 
 /* ==================== GRADIENT BLOBS ==================== */
