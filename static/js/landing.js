@@ -1,6 +1,6 @@
 /**
  * RoyalERP Landing Page JavaScript
- * WASender-style animations and interactions
+ * Clean, working version
  */
 
 (function () {
@@ -11,75 +11,51 @@
     const hamburgerBtn = document.getElementById('hamburger-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
     const scrollIndicator = document.getElementById('scroll-indicator');
     const socialIcons = document.getElementById('social-icons');
+    const heroSection = document.getElementById('hero');
 
-    // ==================== NAVBAR SCROLL EFFECT ====================
-    function initNavbarScroll() {
-        if (!navbar) {
-            console.warn('Navbar element not found!');
-            return;
-        }
-
-        const scrollThreshold = 50;
-        const heroSection = document.getElementById('hero');
+    // ==================== NAVBAR & SCROLL EFFECTS ====================
+    function initScrollEffects() {
         const heroHeight = heroSection ? heroSection.offsetHeight : window.innerHeight;
+        const scrollThreshold = 50;
 
-        // Ensure navbar is always visible and on top with maximum z-index
-        navbar.style.cssText = `
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            z-index: 2147483647 !important;
-            visibility: visible !important;
-            opacity: 1 !important;
-            display: block !important;
-        `;
+        // Force initial visibility
+        if (navbar) {
+            navbar.style.cssText = 'position:fixed!important;top:0!important;left:0!important;right:0!important;z-index:2147483647!important;visibility:visible!important;opacity:1!important;display:block!important;';
+        }
 
-        // Ensure scroll indicator and social icons are visible initially
         if (scrollIndicator) {
-            scrollIndicator.style.display = 'flex';
-            scrollIndicator.style.visibility = 'visible';
-            scrollIndicator.style.opacity = '1';
+            scrollIndicator.style.cssText = 'display:flex!important;visibility:visible!important;opacity:1!important;';
         }
+
         if (socialIcons) {
-            socialIcons.style.display = 'flex';
-            socialIcons.style.visibility = 'visible';
-            socialIcons.style.opacity = '1';
+            socialIcons.style.cssText = 'display:flex!important;visibility:visible!important;opacity:1!important;';
         }
 
-        // Initial check on page load
-        if (window.scrollY > scrollThreshold) {
-            navbar.classList.add('scrolled', 'navbar-scrolled');
-            navbar.style.background = 'linear-gradient(135deg, #1e3a5f 0%, #6366f1 100%)';
-            navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.3)';
-        }
-
-        window.addEventListener('scroll', () => {
+        function handleScroll() {
             const currentScroll = window.scrollY;
-
-            // Ensure navbar stays visible with maximum z-index
-            navbar.style.zIndex = '2147483647';
-            navbar.style.visibility = 'visible';
-            navbar.style.opacity = '1';
-            navbar.style.position = 'fixed';
-
-            // Add/remove scrolled class and inline styles for reliability
-            if (currentScroll > scrollThreshold) {
-                navbar.classList.add('scrolled', 'navbar-scrolled');
-                navbar.style.background = 'linear-gradient(135deg, #1e3a5f 0%, #6366f1 100%)';
-                navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.3)';
-            } else {
-                navbar.classList.remove('scrolled', 'navbar-scrolled');
-                navbar.style.background = 'transparent';
-                navbar.style.boxShadow = 'none';
-            }
-
-            // Hide scroll indicator and social icons after hero section
-            // They should only show in hero/home section
             const hideThreshold = heroHeight - 100;
 
+            // Navbar - always visible, change background on scroll
+            if (navbar && !document.body.classList.contains('menu-open')) {
+                navbar.style.visibility = 'visible';
+                navbar.style.opacity = '1';
+                navbar.style.display = 'block';
+
+                if (currentScroll > scrollThreshold) {
+                    navbar.classList.add('scrolled', 'navbar-scrolled');
+                    navbar.style.background = 'linear-gradient(135deg, #1e3a5f 0%, #6366f1 100%)';
+                    navbar.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.3)';
+                } else {
+                    navbar.classList.remove('scrolled', 'navbar-scrolled');
+                    navbar.style.background = 'transparent';
+                    navbar.style.boxShadow = 'none';
+                }
+            }
+
+            // Scroll indicator - hide after hero section
             if (scrollIndicator) {
                 if (currentScroll > hideThreshold) {
                     scrollIndicator.style.opacity = '0';
@@ -90,6 +66,7 @@
                 }
             }
 
+            // Social icons - hide after hero section
             if (socialIcons) {
                 if (currentScroll > hideThreshold) {
                     socialIcons.style.opacity = '0';
@@ -99,15 +76,18 @@
                     socialIcons.style.pointerEvents = 'auto';
                 }
             }
+        }
 
-        }, { passive: true });
+        // Initial call
+        handleScroll();
+
+        // Listen to scroll
+        window.addEventListener('scroll', handleScroll, { passive: true });
     }
 
     // ==================== MOBILE MENU ====================
     function initMobileMenu() {
         if (!hamburgerBtn || !mobileMenu) return;
-
-        const mobileMenuClose = document.getElementById('mobile-menu-close');
 
         function openMenu() {
             mobileMenu.classList.add('open');
@@ -118,7 +98,7 @@
                 mobileMenuOverlay.classList.add('open');
             }
 
-            // Hide entire navbar when mobile menu is open
+            // Hide navbar when menu is open
             if (navbar) {
                 navbar.style.opacity = '0';
                 navbar.style.visibility = 'hidden';
@@ -137,7 +117,7 @@
                 mobileMenuOverlay.classList.remove('open');
             }
 
-            // Show navbar again when mobile menu closes
+            // Show navbar when menu closes
             if (navbar) {
                 navbar.style.opacity = '1';
                 navbar.style.visibility = 'visible';
@@ -147,17 +127,16 @@
             document.body.classList.remove('menu-open');
         }
 
-        function toggleMenu() {
+        // Toggle on hamburger click
+        hamburgerBtn.addEventListener('click', () => {
             if (mobileMenu.classList.contains('open')) {
                 closeMenu();
             } else {
                 openMenu();
             }
-        }
+        });
 
-        hamburgerBtn.addEventListener('click', toggleMenu);
-
-        // Close button inside menu
+        // Close button
         if (mobileMenuClose) {
             mobileMenuClose.addEventListener('click', closeMenu);
         }
@@ -180,12 +159,6 @@
         });
     }
 
-    // ==================== SOCIAL ICONS - No parallax, just fade out ====================
-    function initSocialParallax() {
-        // Social icons now fade out after hero section
-        // No parallax movement needed
-    }
-
     // ==================== FAQ ACCORDION ====================
     function initFaqAccordion() {
         document.querySelectorAll('.faq-toggle').forEach(button => {
@@ -193,10 +166,11 @@
                 const answer = button.nextElementSibling;
                 const icon = button.querySelector('.faq-icon');
                 const isOpen = answer.classList.toggle('open');
-                icon?.classList.toggle('open', isOpen);
+
+                if (icon) icon.classList.toggle('open', isOpen);
                 button.setAttribute('aria-expanded', isOpen);
 
-                // Close other FAQs (single open mode)
+                // Close other FAQs
                 document.querySelectorAll('.faq-toggle').forEach(otherBtn => {
                     if (otherBtn !== button) {
                         otherBtn.nextElementSibling?.classList.remove('open');
@@ -210,20 +184,12 @@
 
     // ==================== SCROLL REVEAL ====================
     function initScrollReveal() {
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-        if (prefersReducedMotion) {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             document.querySelectorAll('.reveal, .stagger-children').forEach(el => {
                 el.classList.add('active');
             });
             return;
         }
-
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px 0px -100px 0px',
-            threshold: 0.1
-        };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -232,7 +198,7 @@
                     observer.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
 
         document.querySelectorAll('.reveal, .stagger-children').forEach(el => {
             observer.observe(el);
@@ -244,6 +210,7 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const href = this.getAttribute('href');
+
                 if (href === '#') {
                     e.preventDefault();
                     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -255,24 +222,16 @@
                     e.preventDefault();
                     const navbarHeight = navbar?.offsetHeight || 80;
                     const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
-
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
+                    window.scrollTo({ top: targetPosition, behavior: 'smooth' });
                 }
             });
         });
     }
 
-    // ==================== STATS COUNTER ANIMATION ====================
+    // ==================== STATS COUNTER ====================
     function initStatsCounter() {
         const statValues = document.querySelectorAll('.stat-value[data-value]');
         if (!statValues.length) return;
-
-        const observerOptions = {
-            threshold: 0.5
-        };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -283,7 +242,7 @@
                     observer.unobserve(el);
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.5 });
 
         statValues.forEach(el => observer.observe(el));
     }
@@ -313,7 +272,7 @@
         }, 16);
     }
 
-    // ==================== DASHBOARD HOVER EFFECT ====================
+    // ==================== DASHBOARD HOVER ====================
     function initDashboardHover() {
         const dashboardWrapper = document.querySelector('.dashboard-image-wrapper');
         if (!dashboardWrapper) return;
@@ -327,66 +286,15 @@
         });
     }
 
-    // ==================== 3D TILT EFFECT ====================
-    function init3DTilt() {
-        // Disabled to prevent overflow issues
-        // Cards will use simple hover effects instead
-        return;
-    }
-
-    // ==================== 3D PARALLAX SECTIONS ====================
-    function init3DParallax() {
-        // Disabled to prevent overflow issues
-        return;
-    }
-
-    // ==================== 3D FLOATING ELEMENTS ====================
-    function init3DFloatingElements() {
-        // Add floating animation to specific elements
-        const floatingElements = document.querySelectorAll('.dashboard-mockup, .section-video-wrapper');
-
-        floatingElements.forEach(el => {
-            el.classList.add('float-3d');
-        });
-
-        // Add glow effect to buttons
-        const buttons = document.querySelectorAll('.btn-primary, .btn-get-started');
-        buttons.forEach(btn => {
-            btn.classList.add('glow-3d');
-        });
-    }
-
-    // ==================== SECTION VIDEO CONTROLS ====================
+    // ==================== SECTION VIDEOS ====================
     function initSectionVideos() {
-        const videoWrappers = document.querySelectorAll('.section-video-wrapper');
-
-        videoWrappers.forEach(wrapper => {
+        document.querySelectorAll('.section-video-wrapper').forEach(wrapper => {
             const video = wrapper.querySelector('.section-video');
-
             if (!video) return;
 
-            // Ensure video loads and plays
             video.load();
+            video.play().catch(() => { });
 
-            // Try to play video (will work if muted and autoplay is set)
-            const playPromise = video.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    // Auto-play was prevented, user needs to interact
-                    console.log('Autoplay prevented, waiting for user interaction');
-                });
-            }
-
-            // Pause floating animation when video is being interacted with
-            video.addEventListener('play', () => {
-                wrapper.style.animationPlayState = 'paused';
-            });
-
-            video.addEventListener('pause', () => {
-                wrapper.style.animationPlayState = 'running';
-            });
-
-            // Pause animation on hover for better viewing
             wrapper.addEventListener('mouseenter', () => {
                 wrapper.style.animationPlayState = 'paused';
             });
@@ -401,18 +309,14 @@
 
     // ==================== INITIALIZE ====================
     function init() {
-        initNavbarScroll();
+        initScrollEffects();
         initMobileMenu();
-        initSocialParallax();
         initFaqAccordion();
         initScrollReveal();
         initSmoothScroll();
         initStatsCounter();
         initDashboardHover();
         initSectionVideos();
-        init3DTilt();
-        init3DParallax();
-        init3DFloatingElements();
     }
 
     // Run on DOM ready
