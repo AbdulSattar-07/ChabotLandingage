@@ -5391,3 +5391,925 @@ body.menu-open .navbar {
         color: #333;
     }
 }
+
+
+/* ============================================================================
+   STORY-DRIVEN 3D EXPERIENCE - SCENE-BASED SYSTEM
+   Apple / Stripe / Linear Quality
+   ============================================================================ */
+
+/* ==================== GLOBAL SCENE SYSTEM ==================== */
+/* Consistent depth values across all scenes */
+:root {
+    /* Depth layers - consistent across scenes */
+    --depth-far: -50px;
+    --depth-mid: 0px;
+    --depth-near: 25px;
+    --depth-front: 40px;
+    
+    /* Scene perspective */
+    --scene-perspective: 1200px;
+    
+    /* Motion timing */
+    --motion-smooth: cubic-bezier(0.23, 1, 0.32, 1);
+    --motion-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+    
+    /* Scene transitions */
+    --scene-transition: 0.6s var(--motion-smooth);
+}
+
+/* Reduced motion - disable all 3D transforms */
+@media (prefers-reduced-motion: reduce) {
+    .scene-hero,
+    .scene-features,
+    .scene-automation,
+    .scene-integrations,
+    .scene-pricing {
+        perspective: none !important;
+    }
+    
+    .scene-hero *,
+    .scene-features *,
+    .scene-automation *,
+    .scene-integrations *,
+    .scene-pricing * {
+        transform: none !important;
+        animation: none !important;
+        transition: opacity 0.3s ease, background 0.3s ease !important;
+    }
+}
+
+/* ============================================================================
+   SCENE 1 — HERO (PRODUCT WORLD INTRO)
+   Purpose: Build trust and establish the product's 3D language
+   ============================================================================ */
+
+.hero-section {
+    /* Scene container */
+    perspective: var(--scene-perspective);
+    perspective-origin: 50% 50%;
+    transform-style: preserve-3d;
+}
+
+/* Hero Background - FAR depth layer (very slow movement) */
+.hero-section::before {
+    transform: translateZ(var(--depth-far));
+    transition: transform 0.8s ease-out;
+}
+
+/* Hero Content Layers */
+.hero-content {
+    transform-style: preserve-3d;
+}
+
+/* Headline - FOREGROUND (minimal movement) */
+.hero-title {
+    transform: translateZ(var(--depth-front));
+    will-change: transform;
+}
+
+/* Subtitle - FOREGROUND */
+.hero-subtitle {
+    transform: translateZ(calc(var(--depth-front) - 5px));
+}
+
+/* CTA Buttons - FOREGROUND */
+.hero-cta-group {
+    transform: translateZ(var(--depth-front));
+}
+
+/* Dashboard - MID depth layer (subtle parallax) */
+.dashboard-mockup {
+    transform-style: preserve-3d;
+    transform: translateZ(var(--depth-mid));
+    transition: transform var(--scene-transition);
+}
+
+.dashboard-image-wrapper {
+    transform-style: preserve-3d;
+}
+
+/* Hero scroll parallax effect */
+.hero-section.scrolling .dashboard-mockup {
+    transform: translateZ(var(--depth-mid)) translateY(-20px);
+}
+
+/* Hero Section Images - depth layering */
+.hero-section-images {
+    transform-style: preserve-3d;
+    transform: translateZ(var(--depth-near));
+}
+
+.hero-section-images .section-image-item {
+    transform-style: preserve-3d;
+    transition: transform var(--scene-transition);
+}
+
+.hero-section-images .section-image-item:hover {
+    transform: translateZ(calc(var(--depth-near) + 15px)) scale(1.05);
+}
+
+/* ============================================================================
+   SCENE 2 — FEATURES (EXPLODING PRODUCT VIEW)
+   Purpose: Explain WHAT the product can do using physical depth
+   ============================================================================ */
+
+.features-section {
+    /* Scene container with perspective */
+    perspective: var(--scene-perspective);
+    perspective-origin: 50% 30%;
+    overflow: visible;
+}
+
+/* 3D Container for feature grid */
+.features-3d-container {
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+/* Feature Card - Base plane */
+.feature-card {
+    transform-style: preserve-3d;
+    position: relative;
+    background: white;
+    border-radius: 20px;
+    overflow: visible;
+    transition: transform var(--scene-transition), box-shadow var(--scene-transition);
+    
+    /* Initial state - hidden for reveal */
+    opacity: 0;
+    transform: perspective(1000px) translateY(60px) rotateX(15deg);
+}
+
+/* Feature card revealed state */
+.feature-card.revealed {
+    opacity: 1;
+    transform: perspective(1000px) translateY(0) rotateX(0deg);
+}
+
+/* Stagger reveal animation */
+.feature-card[data-feature-index="1"] { transition-delay: 0s; }
+.feature-card[data-feature-index="2"] { transition-delay: 0.1s; }
+.feature-card[data-feature-index="3"] { transition-delay: 0.2s; }
+.feature-card[data-feature-index="4"] { transition-delay: 0.3s; }
+.feature-card[data-feature-index="5"] { transition-delay: 0.4s; }
+.feature-card[data-feature-index="6"] { transition-delay: 0.5s; }
+
+/* Feature Card Inner - 3D container */
+.feature-card-inner {
+    transform-style: preserve-3d;
+    position: relative;
+    padding: 2rem;
+    height: 100%;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    transition: transform var(--scene-transition), box-shadow var(--scene-transition);
+}
+
+/* Feature Card Hover - 3D tilt (≤6 degrees) */
+.feature-card:hover .feature-card-inner {
+    transform: translateY(-8px) rotateX(-4deg) rotateY(4deg);
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(99, 102, 241, 0.1);
+}
+
+/* Feature Layers */
+.feature-layer {
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+/* Icon Layer - FRONT-MOST depth */
+.feature-layer-icon {
+    transform: translateZ(var(--depth-front));
+    transition: transform var(--scene-transition);
+    margin-bottom: 1.25rem;
+}
+
+.feature-icon {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 8px 20px -4px rgba(99, 102, 241, 0.4);
+    transition: transform var(--scene-transition), box-shadow var(--scene-transition);
+}
+
+.feature-icon svg {
+    width: 28px;
+    height: 28px;
+}
+
+/* Icon hover - pop with glow */
+.feature-card:hover .feature-icon {
+    transform: translateZ(15px) scale(1.1);
+    box-shadow: 
+        0 12px 30px -4px rgba(99, 102, 241, 0.5),
+        0 0 40px rgba(99, 102, 241, 0.2);
+}
+
+/* Image Layer - MID depth (floating) */
+.feature-layer-image {
+    transform: translateZ(var(--depth-near));
+    margin-bottom: 1rem;
+    transition: transform var(--scene-transition);
+}
+
+.feature-image-container {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.feature-image {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform var(--scene-transition);
+}
+
+/* Image hover - move forward */
+.feature-card:hover .feature-layer-image {
+    transform: translateZ(calc(var(--depth-near) + 20px));
+}
+
+.feature-card:hover .feature-image {
+    transform: scale(1.05);
+}
+
+/* Image reflection effect */
+.feature-image-reflection {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(255,255,255,0.8), transparent);
+    pointer-events: none;
+}
+
+/* Text Layer - BASE (stable anchor, no rotation) */
+.feature-layer-text {
+    transform: translateZ(var(--depth-mid));
+    flex: 1;
+}
+
+.feature-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+    /* Text must remain sharp */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.feature-description {
+    font-size: 0.95rem;
+    color: #64748b;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Feature content with image */
+.feature-content.has-image {
+    padding-top: 0;
+}
+
+.feature-content.has-image .feature-layer-icon {
+    position: absolute;
+    top: -28px;
+    left: 1.5rem;
+    z-index: 10;
+}
+
+.feature-content.has-image .feature-icon {
+    width: 48px;
+    height: 48px;
+    box-shadow: 0 8px 25px -4px rgba(99, 102, 241, 0.5);
+}
+
+/* Feature Glow Effect */
+.feature-glow {
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(236, 72, 153, 0.3));
+    border-radius: 22px;
+    opacity: 0;
+    filter: blur(20px);
+    z-index: -1;
+    transition: opacity var(--scene-transition);
+    pointer-events: none;
+}
+
+.feature-card:hover .feature-glow {
+    opacity: 0.6;
+}
+
+/* ============================================================================
+   SCENE 3 — SECTION BLOCKS / AUTOMATION (INSIDE THE SYSTEM)
+   Purpose: Show HOW the system works internally
+   ============================================================================ */
+
+#automation {
+    /* Scene container */
+    perspective: var(--scene-perspective);
+    perspective-origin: 50% 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Morphing background - subtle and alive */
+#automation::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 50%, rgba(99, 102, 241, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 50%, rgba(236, 72, 153, 0.03) 0%, transparent 50%);
+    animation: automationMorph 20s ease-in-out infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+
+@keyframes automationMorph {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(5%, 5%) rotate(2deg); }
+    66% { transform: translate(-5%, 2%) rotate(-2deg); }
+}
+
+/* Device Frame for Media */
+.section-video-wrapper,
+#automation .relative > div:first-child {
+    transform-style: preserve-3d;
+    position: relative;
+    z-index: 1;
+}
+
+/* Media embedded in device feel */
+.section-video-wrapper {
+    background: linear-gradient(145deg, #1a1a2e 0%, #2d2d44 100%);
+    border-radius: 20px;
+    padding: 12px;
+    box-shadow: 
+        0 30px 60px -15px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transform: translateZ(var(--depth-mid));
+    transition: transform var(--scene-transition);
+}
+
+.section-video-wrapper:hover {
+    transform: translateZ(calc(var(--depth-mid) + 15px)) scale(1.02);
+}
+
+.section-video {
+    border-radius: 12px;
+    width: 100%;
+    display: block;
+}
+
+/* Bullet points - sequential reveal */
+#automation ul li {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#automation ul li.bullet-revealed {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Stagger bullet animations */
+#automation ul li:nth-child(1) { transition-delay: 0.1s; }
+#automation ul li:nth-child(2) { transition-delay: 0.2s; }
+#automation ul li:nth-child(3) { transition-delay: 0.3s; }
+#automation ul li:nth-child(4) { transition-delay: 0.4s; }
+#automation ul li:nth-child(5) { transition-delay: 0.5s; }
+
+/* Content side depth */
+#automation .grid > div:last-child {
+    transform-style: preserve-3d;
+}
+
+#automation h2 {
+    transform: translateZ(var(--depth-near));
+}
+
+#automation p {
+    transform: translateZ(var(--depth-mid));
+}
+
+/* ============================================================================
+   SCENE 4 — INTEGRATIONS (SYSTEM CONNECTIVITY)
+   Purpose: Communicate ecosystem strength and reliability
+   ============================================================================ */
+
+#integrations {
+    /* Scene container */
+    perspective: var(--scene-perspective);
+    perspective-origin: 50% 40%;
+    position: relative;
+}
+
+/* Integration cards container */
+#integrations .grid {
+    transform-style: preserve-3d;
+}
+
+/* Integration Card - Connected feel */
+.integration-card-3d,
+#integrations .bg-white.rounded-2xl {
+    transform-style: preserve-3d;
+    position: relative;
+    transition: transform var(--scene-transition), box-shadow var(--scene-transition);
+    transform: translateZ(var(--depth-mid));
+}
+
+/* Featured integrations - increased depth */
+#integrations .bg-white.rounded-2xl:first-child {
+    transform: translateZ(var(--depth-near));
+}
+
+/* Integration card hover - gentle emphasis */
+.integration-card-3d:hover,
+#integrations .bg-white.rounded-2xl:hover {
+    transform: translateZ(calc(var(--depth-near) + 10px)) translateY(-8px);
+    box-shadow: 
+        0 30px 60px -15px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(99, 102, 241, 0.1);
+}
+
+/* Integration icon depth */
+#integrations .w-16.h-16 {
+    transform: translateZ(var(--depth-front));
+    transition: transform var(--scene-transition);
+}
+
+#integrations .bg-white.rounded-2xl:hover .w-16.h-16 {
+    transform: translateZ(calc(var(--depth-front) + 10px)) scale(1.1);
+}
+
+/* Connection glow on hover */
+#integrations .bg-white.rounded-2xl::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(34, 197, 94, 0.2));
+    border-radius: inherit;
+    opacity: 0;
+    filter: blur(15px);
+    z-index: -1;
+    transition: opacity var(--scene-transition);
+}
+
+#integrations .bg-white.rounded-2xl:hover::before {
+    opacity: 0.7;
+}
+
+/* How It Works flow - depth progression */
+#integrations .flex.flex-col.md\\:flex-row > div {
+    transform-style: preserve-3d;
+    transition: transform var(--scene-transition);
+}
+
+#integrations .flex.flex-col.md\\:flex-row > div:nth-child(1) { transform: translateZ(10px); }
+#integrations .flex.flex-col.md\\:flex-row > div:nth-child(3) { transform: translateZ(15px); }
+#integrations .flex.flex-col.md\\:flex-row > div:nth-child(5) { transform: translateZ(20px); }
+#integrations .flex.flex-col.md\\:flex-row > div:nth-child(7) { transform: translateZ(25px); }
+
+/* Non-featured integrations - subtle depth */
+#integrations .flex.flex-wrap.justify-center a {
+    transform-style: preserve-3d;
+    transition: transform var(--scene-transition);
+}
+
+#integrations .flex.flex-wrap.justify-center a:hover {
+    transform: translateZ(15px) scale(1.15);
+}
+
+/* ============================================================================
+   SCENE 5 — PRICING (DECISION ZONE)
+   Purpose: Convert users with confidence, not distraction
+   ============================================================================ */
+
+#pricing {
+    /* Scene container - minimal perspective for stability */
+    perspective: 1500px;
+    perspective-origin: 50% 50%;
+}
+
+/* Pricing cards container */
+#pricing .grid {
+    transform-style: preserve-3d;
+}
+
+/* Pricing Card - Stable base */
+.pricing-card-3d,
+#pricing .bg-white.rounded-2xl {
+    transform-style: preserve-3d;
+    position: relative;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transform: translateZ(var(--depth-mid));
+}
+
+/* Featured plan - slightly lifted */
+#pricing .pricing-featured,
+#pricing .border-secondary {
+    transform: translateZ(var(--depth-near)) scale(1.02);
+    box-shadow: 
+        0 25px 50px -12px rgba(99, 102, 241, 0.25),
+        0 0 0 2px rgba(99, 102, 241, 0.1);
+}
+
+/* Pricing card hover - minimal, tactile */
+#pricing .bg-white.rounded-2xl:hover {
+    transform: translateZ(calc(var(--depth-mid) + 10px)) translateY(-5px);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+}
+
+/* Featured hover - maintain prominence */
+#pricing .pricing-featured:hover,
+#pricing .border-secondary:hover {
+    transform: translateZ(calc(var(--depth-near) + 10px)) scale(1.03) translateY(-5px);
+    box-shadow: 
+        0 30px 60px -15px rgba(99, 102, 241, 0.3),
+        0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* CTA buttons - tactile feel */
+#pricing a.block {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#pricing a.block:hover {
+    transform: translateY(-2px);
+}
+
+#pricing a.block:active {
+    transform: translateY(1px);
+}
+
+/* Price value - subtle depth */
+#pricing .text-4xl {
+    transform: translateZ(10px);
+    display: inline-block;
+}
+
+/* NO continuous animations in pricing */
+#pricing * {
+    animation-play-state: paused !important;
+}
+
+/* Re-enable only essential transitions */
+#pricing .bg-white.rounded-2xl,
+#pricing a.block {
+    animation: none !important;
+}
+
+/* ============================================================================
+   MOBILE RESPONSIVE - SIMPLIFIED 3D
+   Disable rotations, keep shadow/depth/fade-in
+   ============================================================================ */
+
+@media (max-width: 768px) {
+    /* Disable perspective on mobile */
+    .hero-section,
+    .features-section,
+    #automation,
+    #integrations,
+    #pricing {
+        perspective: none;
+    }
+    
+    /* Feature cards - no rotation, only lift */
+    .feature-card {
+        transform: translateY(40px);
+    }
+    
+    .feature-card.revealed {
+        transform: translateY(0);
+    }
+    
+    .feature-card:hover .feature-card-inner {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.15);
+    }
+    
+    /* Disable all rotateX/rotateY */
+    .feature-card:hover .feature-icon,
+    .feature-card:hover .feature-layer-image,
+    #integrations .bg-white.rounded-2xl:hover,
+    #pricing .bg-white.rounded-2xl:hover {
+        transform: translateY(-5px) !important;
+    }
+    
+    /* Keep shadow and fade effects */
+    .feature-glow {
+        display: none;
+    }
+    
+    /* Simplify integration cards */
+    #integrations .bg-white.rounded-2xl:hover::before {
+        display: none;
+    }
+    
+    /* Automation bullets - simpler animation */
+    #automation ul li {
+        transform: translateY(10px);
+    }
+    
+    #automation ul li.bullet-revealed {
+        transform: translateY(0);
+    }
+    
+    /* Dashboard - no 3D float */
+    .dashboard-image-wrapper {
+        animation: none !important;
+        transform: none !important;
+    }
+    
+    .dashboard-image-wrapper:hover {
+        transform: scale(1.02) !important;
+    }
+}
+
+/* Tablet adjustments */
+@media (max-width: 1024px) and (min-width: 769px) {
+    :root {
+        --scene-perspective: 1000px;
+        --depth-front: 30px;
+        --depth-near: 20px;
+    }
+    
+    /* Reduce tilt intensity */
+    .feature-card:hover .feature-card-inner {
+        transform: translateY(-6px) rotateX(-2deg) rotateY(2deg);
+    }
+}
+
+/* ============================================================================
+   SCROLL-BASED SCENE TRANSITIONS
+   Classes added by JavaScript IntersectionObserver
+   ============================================================================ */
+
+/* Scene active states */
+.scene-active {
+    /* Scene is in viewport - used for JS targeting */
+    opacity: 1;
+}
+
+/* Scene entering from bottom */
+.scene-entering {
+    opacity: 0.8;
+}
+
+/* Scene fully visible */
+.scene-visible {
+    opacity: 1;
+}
+
+/* Prevent CLS - consistent heights */
+.feature-card {
+    min-height: 280px;
+}
+
+.feature-card.has-image {
+    min-height: 380px;
+}
+
+#integrations .bg-white.rounded-2xl {
+    min-height: 320px;
+}
+
+#pricing .bg-white.rounded-2xl {
+    min-height: 400px;
+}
+
+
+/* ============================================================================
+   SCENE 1 HERO - ADDITIONAL DEPTH LAYERS
+   ============================================================================ */
+
+/* Hero Background Layer - FAR depth */
+.hero-bg-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    transform: translateZ(var(--depth-far));
+    transition: transform 1s ease-out;
+}
+
+/* Hero Foreground Layer - Text content */
+.hero-foreground-layer {
+    position: relative;
+    z-index: 10;
+    transform: translateZ(var(--depth-front));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Hero Mid Layer - Dashboard */
+.hero-mid-layer {
+    transform-style: preserve-3d;
+    transform: translateZ(var(--depth-mid));
+    will-change: transform;
+}
+
+/* Scene classes for JavaScript targeting */
+.scene-hero,
+.scene-features,
+.scene-automation,
+.scene-integrations,
+.scene-pricing {
+    position: relative;
+    isolation: isolate;
+}
+
+/* ============================================================================
+   SCENE TRANSITIONS - SMOOTH CAMERA MOVEMENT FEEL
+   ============================================================================ */
+
+/* Scene entering viewport - used for JS targeting */
+.scene-hero.scene-active,
+.scene-features.scene-active,
+.scene-automation.scene-active,
+.scene-integrations.scene-active,
+.scene-pricing.scene-active {
+    /* Scene is currently in focus */
+    z-index: 1;
+}
+
+/* Visible state for cards */
+.scene-visible {
+    opacity: 1 !important;
+    transform: translateZ(var(--depth-mid)) !important;
+}
+
+/* ============================================================================
+   INTEGRATION CARDS - CONNECTED FEEL
+   ============================================================================ */
+
+/* Integration card base styling */
+#integrations .grid.md\\:grid-cols-2 > div {
+    position: relative;
+    overflow: visible;
+}
+
+/* Connection indicator between cards */
+#integrations .grid.md\\:grid-cols-2::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(99, 102, 241, 0.3), rgba(34, 197, 94, 0.3));
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 1;
+    pointer-events: none;
+}
+
+@media (min-width: 768px) {
+    #integrations .grid.md\\:grid-cols-2:hover::before {
+        opacity: 1;
+    }
+}
+
+/* ============================================================================
+   PRICING CARDS - TRUST & STABILITY
+   ============================================================================ */
+
+/* Featured pricing card glow */
+#pricing .pricing-featured::before,
+#pricing .border-secondary::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15));
+    border-radius: inherit;
+    z-index: -1;
+    filter: blur(20px);
+    opacity: 0.8;
+}
+
+/* Pricing card content depth */
+#pricing .p-6,
+#pricing .p-8 {
+    transform-style: preserve-3d;
+}
+
+/* Price number emphasis */
+#pricing .text-4xl.font-extrabold {
+    display: inline-block;
+    transform: translateZ(15px);
+    transition: transform 0.3s ease;
+}
+
+#pricing .bg-white.rounded-2xl:hover .text-4xl.font-extrabold {
+    transform: translateZ(20px) scale(1.02);
+}
+
+/* ============================================================================
+   AUTOMATION SECTION - DEVICE FRAME ENHANCEMENT
+   ============================================================================ */
+
+/* Device frame for media */
+#automation .section-video-wrapper,
+#automation .relative > .w-full.max-w-sm {
+    position: relative;
+}
+
+/* Device screen bezel effect */
+#automation .section-video-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 32px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+    border-radius: 20px 20px 0 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* Chat mockup depth */
+#automation .bg-secondary.rounded-t-2xl {
+    transform: translateZ(10px);
+    position: relative;
+}
+
+#automation .p-4.space-y-3 {
+    transform-style: preserve-3d;
+}
+
+/* Chat bubbles depth */
+#automation .bg-white.rounded-xl {
+    transform: translateZ(5px);
+    transition: transform 0.3s ease;
+}
+
+#automation .bg-white.rounded-xl:hover {
+    transform: translateZ(15px);
+}
+
+/* ============================================================================
+   PERFORMANCE OPTIMIZATIONS
+   ============================================================================ */
+
+/* GPU acceleration for animated elements */
+.feature-card,
+.feature-card-inner,
+.dashboard-mockup,
+#integrations .bg-white.rounded-2xl,
+#pricing .bg-white.rounded-2xl {
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Reduce paint on scroll */
+.scene-hero,
+.scene-features,
+.scene-automation,
+.scene-integrations,
+.scene-pricing {
+    contain: layout style;
+}
+
+/* ============================================================================
+   ACCESSIBILITY - FOCUS STATES
+   ============================================================================ */
+
+/* Focus visible for keyboard navigation */
+.feature-card:focus-visible,
+#integrations .bg-white.rounded-2xl:focus-visible,
+#pricing .bg-white.rounded-2xl:focus-visible {
+    outline: 2px solid #6366f1;
+    outline-offset: 4px;
+}
+
+/* Skip 3D effects on focus for clarity */
+.feature-card:focus-visible .feature-card-inner {
+    transform: none !important;
+}

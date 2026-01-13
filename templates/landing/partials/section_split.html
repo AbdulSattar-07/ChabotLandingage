@@ -1,9 +1,9 @@
-<!-- Split Section Template - Automation Section -->
+<!-- Split Section Template - SCENE 3: INSIDE THE SYSTEM -->
 <!-- NOTE: In Django Admin, Section Block key must be exactly "automation" (lowercase) -->
 {% with section=sections.automation %}
 {% if section %}
 <section id="automation"
-    class="py-20 lg:py-28 {% if section.background_style == 'GRADIENT' %}bg-gradient-to-br from-slate-50 to-blue-50/50{% elif section.background_style == 'LIGHT' %}bg-gray-50{% else %}bg-white{% endif %}">
+    class="scene-automation py-20 lg:py-28 {% if section.background_style == 'GRADIENT' %}bg-gradient-to-br from-slate-50 to-blue-50/50{% elif section.background_style == 'LIGHT' %}bg-gray-50{% else %}bg-white{% endif %}">>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <!-- Media (Image or Video) -->
@@ -125,7 +125,7 @@
 </section>
 {% else %}
 <!-- Default Automation Section (when no data in admin) -->
-<section id="automation" class="py-20 lg:py-28 bg-white">
+<section id="automation" class="scene-automation py-20 lg:py-28 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <!-- Media -->

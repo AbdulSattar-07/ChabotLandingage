@@ -354,74 +354,204 @@
         });
     }
 
-    // ==================== FEATURES 3D REVEAL ====================
-    function initFeatures3D() {
+    // ==================== STORY-DRIVEN 3D SCENE SYSTEM ====================
+    function initSceneSystem() {
         // Check for reduced motion preference
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            document.querySelectorAll('.feature-card, .feature-reveal').forEach(el => {
-                el.classList.add('revealed');
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (prefersReducedMotion) {
+            // Reveal all elements immediately
+            document.querySelectorAll('.feature-card, .feature-reveal, #automation ul li').forEach(el => {
+                el.classList.add('revealed', 'bullet-revealed');
             });
             return;
         }
 
-        // Feature cards reveal with IntersectionObserver
+        // ==================== SCENE 1: HERO PARALLAX ====================
+        const heroSection = document.getElementById('hero');
+        const dashboardMockup = document.querySelector('.dashboard-mockup');
+
+        if (heroSection && dashboardMockup) {
+            let ticking = false;
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        const scrollY = window.scrollY;
+                        const heroHeight = heroSection.offsetHeight;
+
+                        if (scrollY < heroHeight) {
+                            // Subtle parallax on dashboard (camera moving forward feel)
+                            const parallaxY = scrollY * 0.15;
+                            const parallaxZ = scrollY * 0.05;
+                            dashboardMockup.style.transform = `translateY(${-parallaxY}px) translateZ(${parallaxZ}px)`;
+                            heroSection.classList.toggle('scrolling', scrollY > 50);
+                        }
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+        }
+
+        // ==================== SCENE 2: FEATURES 3D REVEAL ====================
         const featureCards = document.querySelectorAll('.feature-card');
         const featureReveals = document.querySelectorAll('.feature-reveal');
 
-        if (featureCards.length === 0 && featureReveals.length === 0) return;
+        if (featureCards.length > 0 || featureReveals.length > 0) {
+            const featureObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        featureObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '0px 0px -80px 0px',
+                threshold: 0.15
+            });
 
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px 0px -80px 0px',
-            threshold: 0.15
-        };
-
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('revealed');
-                    revealObserver.unobserve(entry.target);
+            featureCards.forEach(card => featureObserver.observe(card));
+            featureReveals.forEach(el => {
+                if (!el.classList.contains('feature-card')) {
+                    featureObserver.observe(el);
                 }
             });
-        }, observerOptions);
 
-        // Observe feature cards
-        featureCards.forEach(card => {
-            revealObserver.observe(card);
-        });
+            // Mouse-based 3D tilt for desktop (≤6 degrees)
+            if (window.innerWidth > 768) {
+                featureCards.forEach(card => {
+                    const inner = card.querySelector('.feature-card-inner');
+                    if (!inner) return;
 
-        // Observe other reveal elements
-        featureReveals.forEach(el => {
-            if (!el.classList.contains('feature-card')) {
-                revealObserver.observe(el);
+                    card.addEventListener('mousemove', (e) => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+
+                        // Max 5 degrees rotation (within 6deg limit)
+                        const rotateX = ((y - centerY) / centerY) * -5;
+                        const rotateY = ((x - centerX) / centerX) * 5;
+
+                        inner.style.transform = `translateY(-8px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                    });
+
+                    card.addEventListener('mouseleave', () => {
+                        inner.style.transform = '';
+                    });
+                });
             }
+        }
+
+        // ==================== SCENE 3: AUTOMATION BULLET REVEAL ====================
+        const automationSection = document.getElementById('automation');
+
+        if (automationSection) {
+            const bullets = automationSection.querySelectorAll('ul li');
+
+            if (bullets.length > 0) {
+                const bulletObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Reveal bullets sequentially
+                            bullets.forEach((bullet, index) => {
+                                setTimeout(() => {
+                                    bullet.classList.add('bullet-revealed');
+                                }, index * 150);
+                            });
+                            bulletObserver.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    root: null,
+                    rootMargin: '0px 0px -100px 0px',
+                    threshold: 0.2
+                });
+
+                // Observe the ul container
+                const ulElement = automationSection.querySelector('ul');
+                if (ulElement) {
+                    bulletObserver.observe(ulElement);
+                }
+            }
+        }
+
+        // ==================== SCENE 4: INTEGRATIONS DEPTH ====================
+        const integrationsSection = document.getElementById('integrations');
+
+        if (integrationsSection) {
+            const integrationCards = integrationsSection.querySelectorAll('.bg-white.rounded-2xl');
+
+            const integrationObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('scene-visible');
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            });
+
+            integrationCards.forEach(card => integrationObserver.observe(card));
+        }
+
+        // ==================== SCENE 5: PRICING (MINIMAL) ====================
+        const pricingSection = document.getElementById('pricing');
+
+        if (pricingSection) {
+            const pricingCards = pricingSection.querySelectorAll('.bg-white.rounded-2xl');
+
+            const pricingObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('scene-visible');
+                        pricingObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                root: null,
+                rootMargin: '0px 0px -50px 0px',
+                threshold: 0.2
+            });
+
+            pricingCards.forEach(card => pricingObserver.observe(card));
+        }
+
+        // ==================== GLOBAL SCENE OBSERVER ====================
+        // Track which scene is currently active
+        const scenes = [
+            document.getElementById('hero'),
+            document.querySelector('.features-section'),
+            document.getElementById('automation'),
+            document.getElementById('integrations'),
+            document.getElementById('pricing')
+        ].filter(Boolean);
+
+        const sceneObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('scene-active');
+                } else {
+                    entry.target.classList.remove('scene-active');
+                }
+            });
+        }, {
+            root: null,
+            rootMargin: '-20% 0px -20% 0px',
+            threshold: 0
         });
 
-        // Optional: Add mouse-based 3D tilt for desktop only
-        if (window.innerWidth > 768 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            featureCards.forEach(card => {
-                const inner = card.querySelector('.feature-card-inner');
-                if (!inner) return;
+        scenes.forEach(scene => sceneObserver.observe(scene));
+    }
 
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-
-                    // Calculate rotation (max 5 degrees)
-                    const rotateX = ((y - centerY) / centerY) * -5;
-                    const rotateY = ((x - centerX) / centerX) * 5;
-
-                    inner.style.transform = `translateY(-8px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-                });
-
-                card.addEventListener('mouseleave', () => {
-                    inner.style.transform = '';
-                });
-            });
-        }
+    // Legacy function name for compatibility
+    function initFeatures3D() {
+        // Now handled by initSceneSystem
     }
 
     // ==================== INITIALIZE ====================
@@ -435,7 +565,7 @@
         initDashboardHover();
         initSectionVideos();
         init3DEffects();
-        initFeatures3D();
+        initSceneSystem(); // Story-driven 3D scene system
     }
 
     // Run on DOM ready

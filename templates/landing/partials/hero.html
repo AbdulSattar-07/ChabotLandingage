@@ -1,24 +1,30 @@
-<!-- WASender Style Hero Section -->
-<section id="hero" class="hero-section">
+<!-- WASender Style Hero Section - SCENE 1: PRODUCT WORLD INTRO -->
+<section id="hero" class="hero-section scene-hero">
+    <!-- Background Layer (FAR depth) -->
+    <div class="hero-bg-layer"></div>
+    
     <div class="hero-content">
-        <!-- Hero Title -->
-        <h1 class="hero-title text-3d">
-            {{ settings.hero_title|default:"Run your ERP with an Royal Soft ERP Chatbot" }}
-        </h1>
-        
-        <!-- Hero Subtitle -->
-        <p class="hero-subtitle">
-            {{ settings.hero_subtitle|default:"Automate inventory, accounts, sales insights, and reporting with intelligent AI assistance." }}
-        </p>
-        
-        <!-- CTA Buttons -->
-        <div class="hero-cta-group">
-            <a href="{{ settings.primary_cta_url|default:'#pricing' }}" class="btn-primary btn-3d glow-3d shine-3d">
-                {{ settings.primary_cta_label|default:"Get Started" }}
-            </a>
-            <a href="{{ settings.secondary_cta_url|default:'#demo' }}" class="btn-secondary shine-3d">
-                {{ settings.secondary_cta_label|default:"Book Demo" }}
-            </a>
+        <!-- Foreground Layer - Text (minimal movement) -->
+        <div class="hero-foreground-layer">
+            <!-- Hero Title -->
+            <h1 class="hero-title text-3d">
+                {{ settings.hero_title|default:"Run your ERP with an Royal Soft ERP Chatbot" }}
+            </h1>
+            
+            <!-- Hero Subtitle -->
+            <p class="hero-subtitle">
+                {{ settings.hero_subtitle|default:"Automate inventory, accounts, sales insights, and reporting with intelligent AI assistance." }}
+            </p>
+            
+            <!-- CTA Buttons -->
+            <div class="hero-cta-group">
+                <a href="{{ settings.primary_cta_url|default:'#pricing' }}" class="btn-primary btn-3d glow-3d shine-3d">
+                    {{ settings.primary_cta_label|default:"Get Started" }}
+                </a>
+                <a href="{{ settings.secondary_cta_url|default:'#demo' }}" class="btn-secondary shine-3d">
+                    {{ settings.secondary_cta_label|default:"Book Demo" }}
+                </a>
+            </div>
         </div>
         
         <!-- Hero Section Images/Avatars (from Admin) -->
@@ -45,8 +51,8 @@
         </div>
         {% endif %}
         
-        <!-- Dashboard Mockup -->
-        <div class="dashboard-mockup float-3d">
+        <!-- Dashboard Mockup - MID depth layer (parallax on scroll) -->
+        <div class="dashboard-mockup hero-mid-layer float-3d">
             <div class="dashboard-image-wrapper neon-3d">
                 {% if settings.hero_image %}
                 <img src="{{ settings.hero_image.url }}" alt="Dashboard Preview">
