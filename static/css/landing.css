@@ -814,10 +814,13 @@ p, span, a, li {
     top: 50%;
     transform: translateY(-50%);
     z-index: 100;
-    display: flex;
+    display: flex !important;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    visibility: visible !important;
+    opacity: 1;
+    transition: opacity 0.4s ease;
 }
 
 .scroll-text {
@@ -889,11 +892,13 @@ p, span, a, li {
     top: 50%;
     transform: translateY(-50%);
     z-index: 100;
-    display: flex;
+    display: flex !important;
     flex-direction: column;
     gap: 1rem;
     transition: opacity 0.4s ease;
     perspective: 1000px;
+    visibility: visible !important;
+    opacity: 1;
 }
 
 .social-icon {
@@ -1840,7 +1845,9 @@ p, span, a, li {
     }
     
     .scroll-indicator {
-        display: none;
+        display: flex;
+        left: 1rem;
+        transform: translateY(-50%) scale(0.85);
     }
     
     .social-icons {
@@ -1851,6 +1858,7 @@ p, span, a, li {
         top: auto;
         flex-direction: row;
         gap: 0.75rem;
+        display: flex !important;
     }
     
     .social-icon {
@@ -2657,7 +2665,8 @@ section {
     
     .scroll-indicator,
     .social-icons {
-        display: none;
+        display: flex;
+        transform: scale(0.75);
     }
 }
 
@@ -3465,13 +3474,15 @@ nav#navbar {
 
 
 /* ==================== FEATURE CARD IMAGE STYLES ==================== */
-/* Image inside feature card - responsive and clear */
+/* Image inside feature card - responsive and clear with 3D effect */
 
 .feature-card-image-wrapper {
     position: relative;
     width: 100%;
     overflow: hidden;
     border-radius: 16px 16px 0 0;
+    transform-style: preserve-3d;
+    perspective: 1000px;
 }
 
 .feature-card-image {
@@ -3479,12 +3490,30 @@ nav#navbar {
     height: 200px;
     object-fit: cover;
     display: block;
-    transition: transform 0.5s ease;
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
 }
 
-/* Hover zoom effect */
+/* 3D Hover effect on feature card image */
 .feature-card-3d:hover .feature-card-image {
-    transform: scale(1.05);
+    transform: scale(1.08) translateZ(20px);
+}
+
+/* 3D Glow effect on hover */
+.feature-card-image-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(236, 72, 153, 0.3));
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    filter: blur(15px);
+    transition: opacity 0.5s ease;
+}
+
+.feature-card-3d:hover .feature-card-image-wrapper::before {
+    opacity: 0.6;
 }
 
 /* Gradient overlay on image */

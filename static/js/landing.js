@@ -37,6 +37,18 @@
             display: block !important;
         `;
 
+        // Ensure scroll indicator and social icons are visible initially
+        if (scrollIndicator) {
+            scrollIndicator.style.display = 'flex';
+            scrollIndicator.style.visibility = 'visible';
+            scrollIndicator.style.opacity = '1';
+        }
+        if (socialIcons) {
+            socialIcons.style.display = 'flex';
+            socialIcons.style.visibility = 'visible';
+            socialIcons.style.opacity = '1';
+        }
+
         // Initial check on page load
         if (window.scrollY > scrollThreshold) {
             navbar.classList.add('scrolled', 'navbar-scrolled');

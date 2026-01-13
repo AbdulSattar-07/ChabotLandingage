@@ -67,6 +67,9 @@
         // Navbar scroll effect (immediate) - with inline styles for reliability
         (function() {
             const navbar = document.getElementById('navbar');
+            const scrollIndicator = document.getElementById('scroll-indicator');
+            const socialIcons = document.getElementById('social-icons');
+            
             if (navbar) {
                 // Set initial styles with maximum z-index
                 navbar.style.cssText = 'position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; z-index: 2147483647 !important; visibility: visible !important; opacity: 1 !important;';
@@ -94,6 +97,16 @@
                 
                 // Run on scroll
                 window.addEventListener('scroll', updateNavbar, { passive: true });
+            }
+            
+            // Ensure scroll indicator and social icons are visible initially
+            if (scrollIndicator) {
+                scrollIndicator.style.display = 'flex';
+                scrollIndicator.style.visibility = 'visible';
+            }
+            if (socialIcons) {
+                socialIcons.style.display = 'flex';
+                socialIcons.style.visibility = 'visible';
             }
         })();
     </script>
