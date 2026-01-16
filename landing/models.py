@@ -352,7 +352,7 @@ class FooterLink(models.Model):
     
     column_name = models.CharField(max_length=50, help_text="Column header (e.g., 'Product', 'Company')")
     label = models.CharField(max_length=100)
-    url = models.URLField()
+    url = models.CharField(max_length=500, help_text="URL or anchor link (e.g., '#features' or 'https://example.com')")
     order = models.PositiveIntegerField(default=0)
     is_active = models.BooleanField(default=True)
     
